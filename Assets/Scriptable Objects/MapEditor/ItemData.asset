@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab31bb70b44fcda4687524b15d59389f, type: 3}
+  m_Name: ItemData
+  m_EditorClassIdentifier: 
+  data:
+  - name: Track01
+    icon: {fileID: 21300000, guid: 4867897e30154f540a66113379458b0e, type: 3}
+    prefab: {fileID: 3238403723215647696, guid: 0618b947576b11b4f9e055ffbd79c45a,
+      type: 3}
+  - name: Track02
+    icon: {fileID: 21300000, guid: c8a9b74eaab3d904aa062d65013b69bf, type: 3}
+    prefab: {fileID: 7651496514373850765, guid: 9e5471836b72c3f47b0c29968e2712a9,
+      type: 3}
+  - name: Tree01
+    icon: {fileID: 21300000, guid: d958347cb78c6d343b9a8b5169c875f5, type: 3}
+    prefab: {fileID: 5770321471724996636, guid: 8ca79d00a8ca2a04f985390d23f0549e,
+      type: 3}
+  - name: Tree02
+    icon: {fileID: 21300000, guid: 4e01ee7e2eb85bb45afc8290d7629bb2, type: 3}
+    prefab: {fileID: 5178446957226932055, guid: 4ac4ea8a76b480947bdd15dab9e4eb57,
+      type: 3}
