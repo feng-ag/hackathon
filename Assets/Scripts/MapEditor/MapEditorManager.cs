@@ -30,11 +30,15 @@ public class MapEditorManager : MonoBehaviour
     [SerializeField]
     public Transform targetCursor;
 
+    [SerializeField]
+    Transform camRoot;
+
     public enum ControlState
     {
         None = 0,
         Place = 1,
         Peek = 2,
+        Move = 3,
     }
 
     public ControlState CurrentControlState = ControlState.Place;
@@ -80,59 +84,103 @@ public class MapEditorManager : MonoBehaviour
 
 
     public int CurrentPlaceItemIndex { get; set; } = 0;
+
+
+    Vector2 moveBeginMousePos;
+    Vector3 camBeginPos;
+
     void Update()
     {
 
 
-        if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+        if (CurrentControlState == ControlState.Peek || CurrentControlState == ControlState.Place)
         {
-            ItemBase itemBase = null;
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value) &&
-                hitInfo.collider.TryGetComponent(out itemBase))
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                CurrentControlState = ControlState.Place;
-                targetCursor.position = itemBase.transform.position;
-                targetCursor.gameObject.SetActive(true);
-                MapEditorUIManager.Instance.SetTarget(itemBase);
-            }
-            else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
-            {
-                CurrentControlState = ControlState.Peek;
-                float x = Mathf.Round(hitInfo2.point.x);
-                float z = Mathf.Round(hitInfo2.point.z);
-                Vector3 pos3 = new Vector3(x, 0, z);
-
-                ItemData.Item item = itemData.GetItemAt(CurrentPlaceItemIndex);
-
-
-                itemBase = Instantiate(item.prefab, pos3, Quaternion.identity, spawnRoot).GetComponent<ItemBase>();
-
-                Vector2 pos2 = new Vector2(x, z);
-                itemBase.item = item;
-                itemBase.pos = pos2;
-
-                MapEditorItemData mapEditorItemData = new MapEditorItemData
+                ItemBase itemBase = null;
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value) &&
+                    hitInfo.collider.TryGetComponent(out itemBase))
                 {
-                    pos = pos2,
-                    rotate = 0,
-                    type = CurrentPlaceItemIndex,
-                    item = itemBase,
-                };
+                    CurrentControlState = ControlState.Place;
+                    targetCursor.position = itemBase.transform.position;
+                    targetCursor.gameObject.SetActive(true);
+                    MapEditorUIManager.Instance.SetTarget(itemBase);
+                }
+                else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
+                {
+                    CurrentControlState = ControlState.Peek;
+                    float x = Mathf.Round(hitInfo2.point.x);
+                    float z = Mathf.Round(hitInfo2.point.z);
+                    Vector3 pos3 = new Vector3(x, 0, z);
 
-                mapEditorItemDataQuery[pos2] = mapEditorItemData;
+                    ItemData.Item item = itemData.GetItemAt(CurrentPlaceItemIndex);
 
-                targetCursor.gameObject.SetActive(true);
-                targetCursor.transform.position = itemBase.transform.position;
-                MapEditorUIManager.Instance.SetTarget(itemBase);
+
+                    itemBase = Instantiate(item.prefab, pos3, Quaternion.identity, spawnRoot).GetComponent<ItemBase>();
+
+                    Vector2 pos2 = new Vector2(x, z);
+                    itemBase.item = item;
+                    itemBase.pos = pos2;
+
+                    MapEditorItemData mapEditorItemData = new MapEditorItemData
+                    {
+                        pos = pos2,
+                        rotate = 0,
+                        type = CurrentPlaceItemIndex,
+                        item = itemBase,
+                    };
+
+                    mapEditorItemDataQuery[pos2] = mapEditorItemData;
+
+                    targetCursor.gameObject.SetActive(true);
+                    targetCursor.transform.position = itemBase.transform.position;
+                    MapEditorUIManager.Instance.SetTarget(itemBase);
+                }
+                else
+                {
+                    targetCursor.gameObject.SetActive(false);
+                    MapEditorUIManager.Instance.SetTarget(null);
+                }
             }
-            else
+        }
+        else if (CurrentControlState == ControlState.Move)
+        {
+            //
+
+            if (Input.GetMouseButtonDown(0))
             {
-                targetCursor.gameObject.SetActive(false);
-                MapEditorUIManager.Instance.SetTarget(null);
+                moveBeginMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                camBeginPos = camRoot.localPosition;
+            }
+            if (Input.GetMouseButton(0))
+            {
+                Vector2 v = new Vector2(Input.mousePosition.x, Input.mousePosition.y) - moveBeginMousePos;
+
+                //Debug.Log($"Move {v}");
+
+                const float moveSpeed = 0.015F;
+                Vector2 moveValue = (v * moveSpeed * -1);
+
+                camRoot.localPosition = camBeginPos + new Vector3(moveValue.x, 0, moveValue.y);
             }
 
         }
+
+
+        //
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CurrentControlState = ControlState.Move;
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            CurrentControlState = ControlState.Place;
+        }
+
+
 
 
     }
@@ -141,7 +189,7 @@ public class MapEditorManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())
+        if (CurrentControlState != ControlState.Move && !EventSystem.current.IsPointerOverGameObject())
         {
             ItemBase itemBase = null;
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);

@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 719919906}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999815
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1551,6 +1551,7 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: 3b50f0c643f65594490f9ead4846acaf, type: 2}
   cursor: {fileID: 1669510853}
   targetCursor: {fileID: 163975914}
+  camRoot: {fileID: 1737795421}
   CurrentControlState: 1
 --- !u!1 &884625074
 GameObject:
