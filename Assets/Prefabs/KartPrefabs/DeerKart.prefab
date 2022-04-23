@@ -3689,7 +3689,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 59827823487360272, guid: 0d8dad4dba1c658459d8a1ca4d928705, type: 3}
       propertyPath: Flags
-      value: 133377
+      value: 2305
       objectReference: {fileID: 0}
     - target: {fileID: 59827823487360272, guid: 0d8dad4dba1c658459d8a1ca4d928705, type: 3}
       propertyPath: NetworkGuid.RawGuidValue.Array.data[0]
@@ -3865,7 +3865,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2730947640262441645, guid: 0d8dad4dba1c658459d8a1ca4d928705, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6738035554590705944, guid: 0d8dad4dba1c658459d8a1ca4d928705, type: 3}
       propertyPath: m_RootOrder
