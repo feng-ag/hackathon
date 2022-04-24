@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5699435766072854203}
   m_Layer: 5
-  m_Name: TextDropDownRow
+  m_Name: TextDropDownColumn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
