@@ -22,11 +22,10 @@ namespace ArcadeGalaxyKit
             }
         
         /// <summary>
-        /// Load cubtemplate setting and generate cub in scene position (0,0,0)
+        /// Return gameobj of loaded cubtemplate setting and generate cub in scene position (0,0,0)
         /// </summary>
         public GameObject LoadCub(CarTemplate carTemplate)
         {
-            //Load Assets
             if (carTemplate)
             {
                 GameObject cubLoaded = new GameObject();
