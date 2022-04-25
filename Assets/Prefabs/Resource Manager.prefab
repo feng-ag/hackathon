@@ -46,9 +46,7 @@ MonoBehaviour:
   hudPrefab: {fileID: 5013491437410716719, guid: 2562ff4bafb44b549b9bdc0de26ba288, type: 3}
   nicknameCanvasPrefab: {fileID: -7074372984941857023, guid: d1a6feee4f08fbb438b499a5f25259d3, type: 3}
   kartDefinitions:
-  - {fileID: 11400000, guid: 23c8ed64a38d5124cb0388f6b7deca96, type: 2}
-  - {fileID: 11400000, guid: b93ea24a71abe01408a5b98e40380be6, type: 2}
-  - {fileID: 11400000, guid: 2b04fceee3af9b141a04106cfc3ed4c4, type: 2}
+  - {fileID: 11400000, guid: fe1c04c0043c24eff98d52d3e3113769, type: 2}
   gameTypes:
   - {fileID: 11400000, guid: 6ea96cec0cb2fbd46806fd453614e2cd, type: 2}
   - {fileID: 11400000, guid: d8dc9c5c2af431a4886c85e36215bc6e, type: 2}
