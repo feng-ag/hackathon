@@ -14,7 +14,6 @@ namespace ArcadeGalaxyKit
         public Texture2D[] skins;
         public Texture2D[] eyes;
         public Texture2D eyeMask;
-        string artCarRootPath = "Assets/Art/CarComponent";
         string artCarBodyPath = "Assets/Art/CarComponent/CarBody";
         string artCarTirePath = "Assets/Art/CarComponent/Tire";
         string artCarGlassesPath = "Assets/Art/CarComponent/Glasses";

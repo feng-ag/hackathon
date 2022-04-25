@@ -35,7 +35,7 @@ namespace ArcadeGalaxyKit
         }
         private void Start()
         {
-            currentEditingCarTemplate = DataManager.instance.CurrentEditingCarTemplate;
+            currentEditingCarTemplate = DataManager.instance.currentEditingCarTemplate;
             lastEditingCarTemplate = ScriptableObject.CreateInstance("CarTemplate") as CarTemplate;
 
             if (currentEditingCarTemplate)

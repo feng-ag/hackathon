@@ -50,6 +50,8 @@ namespace ArcadeGalaxyKit
                         var newBtnObj = Instantiate(buttonGroupUnitButtonPrefab);
                         newBtnObj.transform.SetParent(btnGroupRoot);
                         var newBtn = newBtnObj.GetComponent<Button>();
+                        //Insert button icon
+                        //newBtn.image=
                         object setValue = c as object;
                         newBtn.onClick.AddListener(() => { field.SetValue(carTemplate, setValue); });
                         newBtn.onClick.AddListener(() => { OutFitChangingSysten.instance.OnChange(); });
@@ -116,7 +118,7 @@ namespace ArcadeGalaxyKit
         }
         void Start()
         {
-            currentEditingCarTemplate = DataManager.instance.CurrentEditingCarTemplate;
+            currentEditingCarTemplate = DataManager.instance.currentEditingCarTemplate;
             if (currentEditingCarTemplate)
             {
                 SetupSelectedCardTemplateUI(currentEditingCarTemplate);
