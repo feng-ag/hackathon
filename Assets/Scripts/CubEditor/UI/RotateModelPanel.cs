@@ -13,20 +13,21 @@ namespace ArcadeGalaxyKit
         bool isPointerExit = false;
         bool isPointerDragging = false;
         Vector2 clickPosition;
-
+        Quaternion lastRotation;
+        public float smoothRotate = 0.2f;
         [Header("UI需選轉的場景物件")]
         public GameObject objToRotate;
 
         /// <summary>
         /// Rotate cub model by x degree
         /// </summary>
-        public void SetRotateModelY(float xOffset)
+        public void PreviewRotateModelY(float xOffset)
         {
             if (objToRotate)
             {
                 Vector3 temp = objToRotate.transform.localRotation.eulerAngles;
                 Quaternion quaternion = objToRotate.transform.localRotation;
-                temp.y = xOffset;
+                temp.y = lastRotation.eulerAngles.y+xOffset;
                 quaternion.eulerAngles = temp;
                 objToRotate.transform.localRotation = quaternion;
             }
@@ -35,7 +36,8 @@ namespace ArcadeGalaxyKit
         {
             if (isPointerEnter && isPointerDragging && !isPointerExit)
             {
-                SetRotateModelY(clickPosition.x-eventData.position.x);
+                var offsetRotate = (clickPosition.x - eventData.position.x) * smoothRotate;
+                PreviewRotateModelY(offsetRotate);
                 isPointerDragging = true;
             }
         }
@@ -47,7 +49,10 @@ namespace ArcadeGalaxyKit
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (isPointerDragging) SetRotateModelY(clickPosition.x - eventData.position.x);
+            if (isPointerDragging) {
+                var offsetRotate = (clickPosition.x - eventData.position.x) * smoothRotate;
+                PreviewRotateModelY(offsetRotate);
+            }
             isPointerEnter = false;
             isPointerExit = true;
             
@@ -56,7 +61,10 @@ namespace ArcadeGalaxyKit
         public void OnPointerUp(PointerEventData eventData)
         {
             if (isPointerDragging) {
-                if (isPointerDragging) SetRotateModelY(clickPosition.x - eventData.position.x);
+                if (isPointerDragging) {
+                    var offsetRotate = (clickPosition.x - eventData.position.x) * smoothRotate;
+                    PreviewRotateModelY(offsetRotate);
+                }
                 isPointerDragging = false;
             }
         }
@@ -65,6 +73,7 @@ namespace ArcadeGalaxyKit
         {
             isPointerDragging = true;
             clickPosition = eventData.position;
+            lastRotation = objToRotate.transform.localRotation;
         }
     }
 }

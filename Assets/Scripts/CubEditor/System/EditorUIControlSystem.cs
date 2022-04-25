@@ -127,6 +127,7 @@ namespace ArcadeGalaxyKit
                 var rectTrans = attributeContentEdit.transform as RectTransform;
                 if (lastRecordScreenWidth != Screen.width) {
                     Vector2 tmp = attributeContentEdit.cellSize;
+                    tmp.y=rectTrans.rect.height / 2 / 4;
                     tmp.x = rectTrans.rect.width-10f;
                     attributeContentEdit.cellSize = tmp;
                     lastRecordScreenWidth = Screen.width;

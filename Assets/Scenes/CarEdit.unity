@@ -1268,7 +1268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: -1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &857743138
@@ -1278,7 +1278,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857743136}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
@@ -1403,7 +1403,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 33.65
+  m_fontSize: 35.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2084,6 +2084,7 @@ MonoBehaviour:
   AttributeEditUIContent: {fileID: 857743136}
   textDropdownRowPrefab: {fileID: 5699435766072854196, guid: 052adb0c875578244b391384f860b5c1, type: 3}
   attributeContentEdit: {fileID: 857743139}
+  isShowEditorUISystemMessagePanel: 0
   captureSize: 0
 --- !u!1 &1240082026
 GameObject:
@@ -2321,8 +2322,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1154806163}
   m_HandleRect: {fileID: 1154806162}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.000000097096965
+  m_Value: 1
+  m_Size: 0.5
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2399,7 +2400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca9c6a118ffd96a42a07799e482a5e25, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.66
+      value: 10.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca9c6a118ffd96a42a07799e482a5e25, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3160,6 +3161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43d1c1080ae91b4ba052148c485a459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoothRotate: 0.2
   objToRotate: {fileID: 277029532}
 --- !u!1 &1532934198
 GameObject:
