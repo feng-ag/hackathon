@@ -33,6 +33,10 @@ public class MapEditorManager : MonoBehaviour
     [SerializeField]
     Transform camRoot;
 
+    [SerializeField]
+    GameObject defaultMap;
+
+
     public enum ControlState
     {
         None = 0,
@@ -62,25 +66,62 @@ public class MapEditorManager : MonoBehaviour
 
     public static MapEditorManager Instance;
 
+
     void Awake()
     {
         Instance = this;
 
         ConstructUIEvents();
-    }
 
 
-    void ConstructUIEvents()
-    {
-        onClickPlaceItem += (int index) =>
+        void ConstructUIEvents()
         {
-            CurrentPlaceItemIndex = index;
-            MapEditorUIManager.Instance.SetSelectedItem(index);
-            Debug.Log($"Set Index = {index}");
-        };
+            onClickPlaceItem += (int index) =>
+            {
+                CurrentPlaceItemIndex = index;
+                MapEditorUIManager.Instance.SetSelectedItem(index);
+                Debug.Log($"Set Index = {index}");
+            };
+        }
+    }
 
+
+    private void Start()
+    {
+        LoadMap(defaultMap);
+    }
+
+    void LoadMap(GameObject map)
+    {
+        if (map == null)
+        {
+            return;
+        }
+        
+        GameObject mapIns = Instantiate(map, spawnRoot);
+
+
+        ItemBase[] itemBaseList = mapIns.GetComponentsInChildren<ItemBase>();
+
+
+        foreach (var itemBase in itemBaseList)
+        {
+
+
+            MapEditorItemData mapEditorItemData = new MapEditorItemData
+            {
+                item = itemBase,
+                pos = itemBase.pos,
+                rotate = itemBase.Rotate,
+                type = itemBase.itemType,
+            };
+
+            mapEditorItemDataQuery[itemBase.pos] = mapEditorItemData;
+
+        }
 
     }
+
 
 
     public int CurrentPlaceItemIndex { get; set; } = 0;
@@ -120,7 +161,7 @@ public class MapEditorManager : MonoBehaviour
                     itemBase = Instantiate(item.prefab, pos3, Quaternion.identity, spawnRoot).GetComponent<ItemBase>();
 
                     Vector2 pos2 = new Vector2(x, z);
-                    itemBase.item = item;
+                    itemBase.itemType = CurrentPlaceItemIndex;
                     itemBase.pos = pos2;
 
                     MapEditorItemData mapEditorItemData = new MapEditorItemData
@@ -184,7 +225,6 @@ public class MapEditorManager : MonoBehaviour
 
 
     }
-
 
 
     void FixedUpdate()
