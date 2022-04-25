@@ -13,5 +13,6 @@ namespace ArcadeGalaxyKit
     public class EyesSetting : ComponentSetting
     {
         public Texture2D eyesTex;
+        public Texture2D eyesMask;
     }
 }

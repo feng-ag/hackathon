@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c76ff767b6f2bd4fba21c111dc72e91, type: 3}
-  m_Name: TireSetting
+  m_Script: {fileID: 11500000, guid: 836647d0d5931354c9ac33344baf5372, type: 3}
+  m_Name: GlassesC
   m_EditorClassIdentifier: 
-  styleName: TireA
-  UIIcon: {fileID: 21300000, guid: 6e87568631b4d934aa43d3e7ad71ae53, type: 3}
-  meshPrefab: {fileID: 4414675910601084806, guid: fd3f4e61ee667874a847e9b0277df045, type: 3}
+  styleName: GlassesA
+  UIIcon: {fileID: 21300000, guid: 7fcd1a3e4393f7f40b846cda3eec546a, type: 3}
+  meshPrefab: {fileID: 9025780635776485259, guid: 038650ab6d92b6d4b99ee5047067c10c, type: 3}

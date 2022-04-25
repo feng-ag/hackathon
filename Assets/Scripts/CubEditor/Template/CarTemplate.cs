@@ -15,11 +15,11 @@ namespace ArcadeGalaxyKit
         public Color CarTireColor1;
         public CarGlassesType carGlassesType;
 
-        public AnimalTypeSetting animalTypeSettings;
-        public SkinSetting skinSettings;
-        public EyesSetting eyesSettings;
-        public GlassesSetting glassesSettings;
-        public TireSetting tireSettings;
+        public AnimalTypeSetting animalTypeSetting;
+        public SkinSetting skinSetting;
+        public EyesSetting eyesSetting;
+        public GlassesSetting glassesSetting;
+        public TireSetting tireSetting;
 
     }
 }
