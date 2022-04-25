@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ItemBase : MonoBehaviour
 {
-    public ItemData.Item item;
-    public Vector2 pos;
 
+    public int itemType;
+    public Vector2 pos;
+    public float Rotate => inner.rotation.y;
+
+    public ItemData.Item Item => MapEditorManager.Instance.itemData.GetItemAt(itemType);
     public Transform inner;
 
 

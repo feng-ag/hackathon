@@ -48,7 +48,6 @@ public class MapEditorUIManager : MonoBehaviour
     [SerializeField]
     Button selectMode;
 
-
     List<UI_PlaceItemElement> uiItemList = new List<UI_PlaceItemElement>();
 
 
@@ -151,7 +150,7 @@ public class MapEditorUIManager : MonoBehaviour
     public void SetTarget(ItemBase itemBase)
     {
         currentEditItem = itemBase;
-        editItemName.text = itemBase == null ? "None" : itemBase.item.name;
+        editItemName.text = itemBase == null ? "None" : itemBase.Item.name;
 
         editItemContainer.gameObject.SetActive(itemBase != null);
     }
