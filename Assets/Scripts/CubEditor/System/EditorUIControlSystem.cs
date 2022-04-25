@@ -117,6 +117,15 @@ namespace ArcadeGalaxyKit
                             newBtnObj.transform.SetParent(btnGroupRoot);
                             var newBtn = newBtnObj.GetComponent<Button>();
                             object setValue = obj;
+                            if (setValue is ComponentSetting)
+                            {
+                                var img = newBtnObj.GetComponent<Image>();
+                                var componentSetting = setValue as ComponentSetting;
+                                if (componentSetting.UIIcon)
+                                {
+                                    img.sprite = componentSetting.UIIcon;
+                                }
+                            }
                             newBtn.onClick.AddListener(() =>
                             {
                                 try
