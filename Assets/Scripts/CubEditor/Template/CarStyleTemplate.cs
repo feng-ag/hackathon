@@ -8,6 +8,7 @@ namespace ArcadeGalaxyKit
     {
         Deer,
         Rabbit,
+        Tiger,
     }
     public enum CarSkinType
     {
