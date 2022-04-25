@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 132215839233758795}
   - component: {fileID: 3980808405898856902}
   - component: {fileID: 2042375415473960203}
-  m_Layer: 15
+  m_Layer: 11
   m_Name: '@ItemWrapper'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,10 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c337967e19d09c4d972f6c421c6b358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    name: 
-    icon: {fileID: 0}
-    prefab: {fileID: 0}
+  itemType: 0
   pos: {x: 0, y: 0}
   inner: {fileID: 0}
 --- !u!65 &3980808405898856902
