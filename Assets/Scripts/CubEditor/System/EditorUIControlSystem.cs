@@ -13,10 +13,11 @@ namespace ArcadeGalaxyKit
         [Header("需求 UI 組件")]
         public GameObject AttributeEditUIContent;
         public GameObject textDropdownRowPrefab;
+        public GameObject buttonGroupRowPrefab;
+        public GameObject buttonGroupUnitButtonPrefab;
         private CarTemplate currentEditingCarTemplate;
-        [Header("需自動調整大小的UI")]
-        public GridLayoutGroup attributeContentEdit;
-        float lastRecordScreenWidth = 0;
+        [Header("每頁 UI 最大欄數")]
+        public int maxRow = 1;
         /// <summary>
         /// Reload UI infomation with selected car template
         /// </summary>
@@ -29,23 +30,30 @@ namespace ArcadeGalaxyKit
                 var field = fields[i];
                 if (field.FieldType.IsEnum)
                 {
-                    var newRow = Instantiate(textDropdownRowPrefab);
+                    //Instantiate Prefab
+                    var newRow = Instantiate(buttonGroupRowPrefab);
                     newRow.transform.SetParent(AttributeEditUIContent.transform);
+                    var viewPortRectTrans = AttributeEditUIContent.transform.parent.transform as RectTransform;
+                    var rectTrans = newRow.transform as RectTransform;
+                    rectTrans.sizeDelta = new Vector2(viewPortRectTrans.rect.width, viewPortRectTrans.rect.height / maxRow);
                     newRow.transform.SetAsFirstSibling();
                     newRow.SetActive(true);
                     newRow.GetComponentInChildren<Text>().text = ParseFieldString(field.Name);
+
+                    //Setting Value
                     int c = 0;
                     var optionStrings = System.Enum.GetValues(field.FieldType);
-                    var options = newRow.GetComponentInChildren<Dropdown>();
+                    var btnGroupRoot = newRow.transform.GetChild(1).transform;
+                    //var options = newRow.GetComponentInChildren<Dropdown>();
                     for (; c < optionStrings.Length; c++)
                     {
-                        Dropdown.OptionData option = new Dropdown.OptionData();
-                        option.text = optionStrings.GetValue(c).ToString(); ;
-                        options.options.Add(option);
-                        options.value = (int)field.GetValue(carTemplate);
+                        var newBtnObj = Instantiate(buttonGroupUnitButtonPrefab);
+                        newBtnObj.transform.SetParent(btnGroupRoot);
+                        var newBtn = newBtnObj.GetComponent<Button>();
+                        object setValue = c as object;
+                        newBtn.onClick.AddListener(() => { field.SetValue(carTemplate, setValue); });
+                        newBtn.onClick.AddListener(() => { OutFitChangingSysten.instance.OnChange(); });
                     }
-                    options.onValueChanged.AddListener((c) => { field.SetValue(carTemplate, c); });
-                    options.onValueChanged.AddListener((c) => { OutFitChangingSysten.instance.OnChange();});
                 }
             }
 
@@ -101,6 +109,9 @@ namespace ArcadeGalaxyKit
                 }
                 i++;
             }
+            result = result.Replace("Car ", "");
+            result = result.Replace(" type", "");
+            result = char.ToUpper(result[0]) + result.Substring(1);
             return result;
         }
         void Start()
@@ -123,16 +134,6 @@ namespace ArcadeGalaxyKit
         public bool isShowEditorUISystemMessagePanel = false;
         void OnGUI()
         {
-            if (attributeContentEdit) {
-                var rectTrans = attributeContentEdit.transform as RectTransform;
-                if (lastRecordScreenWidth != Screen.width) {
-                    Vector2 tmp = attributeContentEdit.cellSize;
-                    tmp.y=rectTrans.rect.height / 2 / 4;
-                    tmp.x = rectTrans.rect.width-10f;
-                    attributeContentEdit.cellSize = tmp;
-                    lastRecordScreenWidth = Screen.width;
-                }
-            }
             if (isShowEditorUISystemMessagePanel)
             {
                 float debugPanelWidth = 500;
