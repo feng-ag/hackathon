@@ -7,14 +7,14 @@ namespace ArcadeGalaxyKit
 {
     public class EditorUIControlSystem : MonoBehaviour
     {
-        [Header("鏡頭")]
+        // [Header("嚙踝蕭嚙磐")]
         public Camera carEdittingCamera;
         public Camera carPickUpCamera; //for snapshot
-        [Header("需求 UI 組件")]
+        // [Header("嚙豎求 UI 嚙調伐蕭")]
         public GameObject AttributeEditUIContent;
         public GameObject textDropdownRowPrefab;
         private CarTemplate currentEditingCarTemplate;
-        [Header("需自動調整大小的UI")]
+        // [Header("嚙豎自動調橘蕭j嚙緘嚙踝蕭UI")]
         public GridLayoutGroup attributeContentEdit;
         float lastRecordScreenWidth = 0;
         /// <summary>
@@ -45,7 +45,7 @@ namespace ArcadeGalaxyKit
                         options.value = (int)field.GetValue(carTemplate);
                     }
                     options.onValueChanged.AddListener((c) => { field.SetValue(carTemplate, c); });
-                    options.onValueChanged.AddListener((c) => { OutFitChangingSysten.instance.OnChange();});
+                    options.onValueChanged.AddListener((c) => { OutFitChangingSysten.instance.OnChange(); });
                 }
             }
 
@@ -77,7 +77,7 @@ namespace ArcadeGalaxyKit
             }
             else
             {
-                statusMessage = "未拖入任何 car template 至 EditorUIControlSystem.";
+                statusMessage = "嚙踝蕭嚙踝蕭J嚙踝蕭嚙踝蕭 car template 嚙踝蕭 EditorUIControlSystem.";
             }
 
         }
@@ -119,16 +119,18 @@ namespace ArcadeGalaxyKit
         }
         string statusMessage = "";
 
-        [Header("腳本Debug工具")]
+        // [Header("嚙罷嚙踝蕭Debug嚙線嚙踝蕭")]
         public bool isShowEditorUISystemMessagePanel = false;
         void OnGUI()
         {
-            if (attributeContentEdit) {
+            if (attributeContentEdit)
+            {
                 var rectTrans = attributeContentEdit.transform as RectTransform;
-                if (lastRecordScreenWidth != Screen.width) {
+                if (lastRecordScreenWidth != Screen.width)
+                {
                     Vector2 tmp = attributeContentEdit.cellSize;
-                    tmp.y=rectTrans.rect.height / 2 / 4;
-                    tmp.x = rectTrans.rect.width-10f;
+                    tmp.y = rectTrans.rect.height / 2 / 4;
+                    tmp.x = rectTrans.rect.width - 10f;
                     attributeContentEdit.cellSize = tmp;
                     lastRecordScreenWidth = Screen.width;
                 }
@@ -155,7 +157,7 @@ namespace ArcadeGalaxyKit
             FixedSize
         }
         //Screenshot size
-        [Header("截圖設定")]
+        // [Header("嚙瘢嚙誕設嚙緩")]
         public CaptureSize captureSize = CaptureSize.CameraSize;
 
         ///< summary > Save screenshot < / summary >

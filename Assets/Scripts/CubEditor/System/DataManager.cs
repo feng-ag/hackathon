@@ -8,11 +8,11 @@ namespace ArcadeGalaxyKit
     /// </summary>
     public class DataManager : MonoBehaviour
     {
-        [Header("³]©wÀÉ")]
+        // [Header("ï¿½]ï¿½wï¿½ï¿½")]
         public CarTemplate CurrentEditingCarTemplate;
-        public static  DataManager instance { get { return _instamce; }}
+        public static DataManager instance { get { return _instamce; } }
         private static DataManager _instamce;
-        
+
         private void Awake()
         {
             init();
@@ -24,6 +24,6 @@ namespace ArcadeGalaxyKit
                 _instamce = this;
             }
         }
-        
+
     }
 }

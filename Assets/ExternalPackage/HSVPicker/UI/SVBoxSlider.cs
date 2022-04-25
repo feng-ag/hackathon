@@ -18,7 +18,7 @@ namespace HSVPicker
         private float lastH = -1;
         private bool listen = true;
 
-        [Header("Event")]
+        // [Header("Event")]
         public SliderOnChangeEndEvent onSliderChangeEndEvent = new SliderOnChangeEndEvent();
 
         public RectTransform rectTransform
@@ -33,9 +33,9 @@ namespace HSVPicker
         {
             slider = GetComponent<BoxSlider>();
             image = GetComponent<RawImage>();
-            if(Application.isPlaying)
+            if (Application.isPlaying)
             {
-                RegenerateSVTexture ();
+                RegenerateSVTexture();
             }
         }
 
@@ -59,9 +59,9 @@ namespace HSVPicker
 
         private void OnDestroy()
         {
-            if ( image.texture != null )
+            if (image.texture != null)
             {
-                DestroyImmediate (image.texture);
+                DestroyImmediate(image.texture);
             }
         }
 
@@ -100,26 +100,26 @@ namespace HSVPicker
         {
             double h = picker != null ? picker.H * 360 : 0;
 
-            if ( image.texture != null )
-                DestroyImmediate (image.texture);
+            if (image.texture != null)
+                DestroyImmediate(image.texture);
 
-            var texture = new Texture2D (textureWidth, textureHeight);
+            var texture = new Texture2D(textureWidth, textureHeight);
             texture.wrapMode = TextureWrapMode.Clamp;
             texture.hideFlags = HideFlags.DontSave;
 
-            for ( int s = 0; s < textureWidth; s++ )
+            for (int s = 0; s < textureWidth; s++)
             {
                 Color[] colors = new Color[textureHeight];
-                for ( int v = 0; v < textureHeight; v++ )
+                for (int v = 0; v < textureHeight; v++)
                 {
-                    colors[v] = HSVUtil.ConvertHsvToRgb (h, (float)s / textureWidth, (float)v / textureHeight, 1);
+                    colors[v] = HSVUtil.ConvertHsvToRgb(h, (float)s / textureWidth, (float)v / textureHeight, 1);
                 }
-                texture.SetPixels (s, 0, 1, textureHeight, colors);
+                texture.SetPixels(s, 0, 1, textureHeight, colors);
             }
             texture.Apply();
 
             image.texture = texture;
-            
+
         }
 
         public virtual void OnEndDrag(PointerEventData eventData)

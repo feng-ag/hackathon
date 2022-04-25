@@ -8,17 +8,17 @@ namespace ArcadeGalaxyKit
     /// </summary>
     public class OutFitChangingSysten : MonoBehaviour
     {
-        [Header("¨®³¡¥ó Renderer")]
+        // [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Renderer")]
         public MeshRenderer carBodyMRD;
-        [Header("¨®³¡¥óGameObject")]
+        // [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½GameObject")]
         public GameObject tiresGroup;//tire objs should arrange as enum CarTireType's order in scene
         public GameObject glassesGroup;
         public GameObject carBodyOther;
-        [Header("Skin¶K¹Ï")]
+        // [Header("Skinï¿½Kï¿½ï¿½")]
         public Texture2D[] skins;//skin texture should arrange as enum CarSkinType's order in scene
         public Texture2D[] eyeTextures;//eye skin texture should arrange as enum CarEyesType's order in scene
         public Texture2D eyeMask;
-        [Header("ÁY©ñ¤ñ¨Ò(´ú¸Õ¥Î)")]//Umimplement
+        // [Header("ï¿½Yï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Õ¥ï¿½)")]//Umimplement
         public float scaleXYZ = 0.01067533f;
         public float posYOffset = 9.66f;
         public static OutFitChangingSysten instance { get { return _instance; } }
