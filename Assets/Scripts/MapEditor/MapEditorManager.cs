@@ -210,9 +210,13 @@ public class MapEditorManager : MonoBehaviour
                 //Debug.Log($"Move {v}");
 
                 const float moveSpeed = 0.015F;
-                Vector2 moveValue = (v * moveSpeed * -1);
 
-                camRoot.localPosition = camBeginPos + new Vector3(moveValue.x, 0, moveValue.y);
+                Vector3 v3 = new Vector3(v.x, 0, v.y);
+                Vector3 moveValue3 = Quaternion.Euler(0, -45, 0) * (v3 * moveSpeed * -1);
+
+                //Debug.Log($"{(v3 * moveSpeed * -1)} -> {moveValue3}");
+
+                camRoot.localPosition = camBeginPos + moveValue3;
             }
 
         }
@@ -231,8 +235,27 @@ public class MapEditorManager : MonoBehaviour
         }
 
 
+        if (Input.GetKey(KeyCode.Minus))
+        {
+            Zoom(zoomRatio + 1F * Time.deltaTime);
+        }
+        else if (Input.GetKey(KeyCode.Equals))
+        {
+            Zoom(zoomRatio - 1F * Time.deltaTime);
+        }
 
 
+    }
+
+
+    float zoomRatio = 1F;
+    void Zoom(float ratio)
+    {
+        ratio = Mathf.Clamp(ratio, 0.5F, 1.5F);
+        zoomRatio = ratio;
+
+        float z = -25F * ratio;
+        cam.transform.localPosition = new Vector3(0, 0, z);
     }
 
 
