@@ -11,16 +11,12 @@ namespace ArcadeGalaxyKit
         private static CubLoader _instance;
         public bool AutoLoadCub = true;
         public CarTemplate carTemplate;
-        public Texture2D[] skins;
-        public Texture2D[] eyes;
-        public Texture2D eyeMask;
         string artCarBodyPath = "Assets/Art/CarComponent/CarBody";
-        string artCarTirePath = "Assets/Art/CarComponent/Tire";
-        string artCarGlassesPath = "Assets/Art/CarComponent/Glasses";
 
         void Awake()
         {
-            if (!instance) {
+            if (!instance)
+            {
                 _instance = this;
             }
             if (AutoLoadCub) LoadCub(carTemplate);
@@ -35,50 +31,14 @@ namespace ArcadeGalaxyKit
             {
                 GameObject cubLoaded = new GameObject();
                 cubLoaded.name = "CubRoot";
-                {  
+                {
                     //Load Prefab
                     List<GameObject> toLoad = new List<GameObject>();
-                    toLoad.Add(
-                        PrefabUtility.LoadPrefabContents(artCarBodyPath + "/" + "CarBody" + ".prefab")
-                    );
-                    toLoad.Add(
-                        PrefabUtility.LoadPrefabContents(
-                            artCarBodyPath + "/" + "CarBodyOther_A" + ".prefab"
-                        )
-                    );
-                    string optionChar = GetEnumLastWord(
-                        typeof(CarTireType),
-                        (int)carTemplate.carTireType
-                    );
-                    toLoad.Add(
-                        PrefabUtility.LoadPrefabContents(
-                            artCarTirePath
-                                + "/"
-                                + "Type"
-                                + optionChar
-                                + "/Tire_"
-                                + optionChar
-                                + ".prefab"
-                        )
-                    );
-                    if (carTemplate.carGlassesType != CarGlassesType.None)
-                    {
-                        optionChar = GetEnumLastWord(
-                            typeof(CarGlassesType),
-                            (int)carTemplate.carGlassesType
-                        );
-                        toLoad.Add(
-                            PrefabUtility.LoadPrefabContents(
-                                artCarGlassesPath
-                                    + "/"
-                                    + "Type"
-                                    + optionChar
-                                    + "/glasses_"
-                                    + optionChar
-                                    + ".prefab"
-                            )
-                        );
-                    }
+                    toLoad.Add(PrefabUtility.LoadPrefabContents(artCarBodyPath + "/" + "CarBody" + ".prefab"));
+                    toLoad.Add(carTemplate.animalTypeSetting.meshPrefab);
+                    if (carTemplate.tireSetting.meshPrefab) toLoad.Add(carTemplate.tireSetting.meshPrefab);
+                    if (carTemplate.glassesSetting.meshPrefab) toLoad.Add(carTemplate.glassesSetting.meshPrefab);
+
                     if (toLoad.Count > 0)
                     {
                         foreach (GameObject toGen in toLoad)
@@ -97,13 +57,12 @@ namespace ArcadeGalaxyKit
             }
             return null;
         }
-
         void ChangeEyesType(CarTemplate carTemplate, MeshRenderer meshRenderer)
         {
-            if (eyeMask)
+            if (carTemplate.eyesSetting.eyesMask)
             {
-                Texture2D oriTexture = skins[(int)carTemplate.carSkinType];
-                Texture2D eyeTexture = eyes[(int)carTemplate.carEyesType];
+                Texture2D oriTexture = carTemplate.skinSetting.skinTex;
+                Texture2D eyeTexture = carTemplate.eyesSetting.eyesTex;
                 Texture2D eyeAddedTexture = new Texture2D(oriTexture.width, oriTexture.height);
                 eyeAddedTexture.SetPixels(oriTexture.GetPixels());
 
@@ -112,28 +71,17 @@ namespace ArcadeGalaxyKit
                     for (int c = 0; c < oriTexture.width; c++)
                     {
                         Color color = oriTexture.GetPixel(r, c, 0);
-                        if (eyeMask.GetPixel(r, c, 0) != Color.black)
+                        if (carTemplate.eyesSetting.eyesMask.GetPixel(r, c, 0) != Color.black)
                         {
                             color = eyeTexture.GetPixel(r, c, 0);
                             eyeAddedTexture.SetPixel(r, c, color);
                         }
+
                     }
                 }
                 eyeAddedTexture.Apply();
                 meshRenderer.material.SetTexture("_MainTex", eyeAddedTexture);
             }
-        }
-
-        /// <summary>
-        /// Return last char in index's enum option
-        /// </summary>
-        string GetEnumLastWord(System.Type typeEnum, int index)
-        {
-            string lastWord = "";
-            var optionStrings = System.Enum.GetValues(typeEnum);
-            string optionChar = optionStrings.GetValue(index).ToString();
-            lastWord = optionChar.Substring(optionChar.Length - 1, 1);
-            return lastWord;
         }
     }
 }
