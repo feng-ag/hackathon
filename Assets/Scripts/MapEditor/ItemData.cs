@@ -11,7 +11,12 @@ public class ItemData : ScriptableObject, IEnumerable, IEnumerable<ItemData.Item
     {
         public string name;
         public Sprite icon;
-        public GameObject prefab;
+        public GameObject[] prefabs;
+
+        public GameObject RandomPickPrefab()
+        {
+            return prefabs[Random.Range(0, prefabs.Length)];
+        }
     }
 
     [SerializeField]

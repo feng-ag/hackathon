@@ -167,7 +167,7 @@ public class MapEditorManager : MonoBehaviour
                     ItemData.Item item = itemData.GetItemAt(CurrentPlaceItemIndex);
 
 
-                    itemBase = Instantiate(item.prefab, pos3, Quaternion.identity, spawnRoot).GetComponent<ItemBase>();
+                    itemBase = Instantiate(item.RandomPickPrefab(), pos3, Quaternion.identity, spawnRoot).GetComponent<ItemBase>();
 
                     Vector2 pos2 = new Vector2(x, z);
                     itemBase.itemType = CurrentPlaceItemIndex;
