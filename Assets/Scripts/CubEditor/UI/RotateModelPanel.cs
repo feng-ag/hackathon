@@ -12,7 +12,6 @@ namespace ArcadeGalaxyKit
         bool isPointerEnter = false;
         bool isPointerExit = false;
         bool isPointerDragging = false;
-        float xRotateAmount = 0.0f;
         Vector2 clickPosition;
 
         [Header("UI需選轉的場景物件")]

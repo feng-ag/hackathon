@@ -119,6 +119,8 @@ namespace ArcadeGalaxyKit
         }
         string statusMessage = "";
 
+        [Header("¸}¥»Debug¤u¨ã")]
+        public bool isShowEditorUISystemMessagePanel = false;
         void OnGUI()
         {
             if (attributeContentEdit) {
@@ -130,16 +132,18 @@ namespace ArcadeGalaxyKit
                     lastRecordScreenWidth = Screen.width;
                 }
             }
+            if (isShowEditorUISystemMessagePanel)
+            {
+                float debugPanelWidth = 500;
+                float debugPanelheight = 90;
 
-            float debugPanelWidth = 500;
-            float debugPanelheight = 90;
-
-            float messagePaddingLeft = 10;
-            float messageHeight = 60;
-            float messageWidth = 480;
-            // Make a background box
-            GUI.Box(new Rect(Screen.width - debugPanelWidth, Screen.height - debugPanelheight, debugPanelWidth, debugPanelheight), "Message Panel");
-            GUI.TextArea(new Rect(Screen.width - debugPanelWidth + messagePaddingLeft, Screen.height - debugPanelheight + 20, messageWidth, messageHeight), statusMessage);
+                float messagePaddingLeft = 10;
+                float messageHeight = 60;
+                float messageWidth = 480;
+                // Make a background box
+                GUI.Box(new Rect(Screen.width - debugPanelWidth, Screen.height - debugPanelheight, debugPanelWidth, debugPanelheight), "Message Panel");
+                GUI.TextArea(new Rect(Screen.width - debugPanelWidth + messagePaddingLeft, Screen.height - debugPanelheight + 20, messageWidth, messageHeight), statusMessage);
+            }
         }
 
 
