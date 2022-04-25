@@ -7,6 +7,8 @@ namespace ArcadeGalaxyKit
 {
     public class CubLoader : MonoBehaviour
     {
+        public static CubLoader instance { get { return _instance; } }
+        private static CubLoader _instance;
         public bool AutoLoadCub = true;
         public CarTemplate carTemplate;
         public Texture2D[] skins;
@@ -19,6 +21,9 @@ namespace ArcadeGalaxyKit
 
         void Awake()
         {
+            if (!instance) {
+                _instance = this;
+            }
             if (AutoLoadCub) LoadCub(carTemplate);
         }
 
