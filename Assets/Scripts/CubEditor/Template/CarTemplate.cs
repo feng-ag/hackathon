@@ -12,6 +12,7 @@ namespace ArcadeGalaxyKit
         public CarSkinType carSkinType;
         public CarEyesType carEyesType;
         public CarTireType carTireType;
+        public Color CarTireColor1;
         public CarGlassesType carGlassesType;
 
     }

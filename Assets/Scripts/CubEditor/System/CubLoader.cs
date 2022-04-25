@@ -7,7 +7,7 @@ namespace ArcadeGalaxyKit
 {
     public class CubLoader : MonoBehaviour
     {
-        public bool AutoLoadCub=true;
+        public bool AutoLoadCub = true;
         public CarTemplate carTemplate;
         public Texture2D[] skins;
         public Texture2D[] eyes;
@@ -17,10 +17,11 @@ namespace ArcadeGalaxyKit
         string artCarTirePath = "Assets/Art/CarComponent/Tire";
         string artCarGlassesPath = "Assets/Art/CarComponent/Glasses";
 
-        void Awake() { 
-            if(AutoLoadCub)LoadCub(carTemplate);
-            }
-        
+        void Awake()
+        {
+            if (AutoLoadCub) LoadCub(carTemplate);
+        }
+
         /// <summary>
         /// Return gameobj of loaded cubtemplate setting and generate cub in scene position (0,0,0)
         /// </summary>
@@ -30,59 +31,64 @@ namespace ArcadeGalaxyKit
             {
                 GameObject cubLoaded = new GameObject();
                 cubLoaded.name = "CubRoot";
-                List<GameObject> toLoad = new List<GameObject>();
-                toLoad.Add(
-                    PrefabUtility.LoadPrefabContents(artCarBodyPath + "/" + "CarBody" + ".prefab")
-                );
-                toLoad.Add(
-                    PrefabUtility.LoadPrefabContents(
-                        artCarBodyPath + "/" + "CarBodyOther_A" + ".prefab"
-                    )
-                );
-                string optionChar = GetEnumLastWord(
-                    typeof(CarTireType),
-                    (int)carTemplate.carTireType
-                );
-                toLoad.Add(
-                    PrefabUtility.LoadPrefabContents(
-                        artCarTirePath
-                            + "/"
-                            + "Type"
-                            + optionChar
-                            + "/Tire_"
-                            + optionChar
-                            + ".prefab"
-                    )
-                );
-                if (carTemplate.carGlassesType != CarGlassesType.None)
-                {
-                    optionChar = GetEnumLastWord(
-                        typeof(CarGlassesType),
-                        (int)carTemplate.carGlassesType
+                {  
+                    //Load Prefab
+                    List<GameObject> toLoad = new List<GameObject>();
+                    toLoad.Add(
+                        PrefabUtility.LoadPrefabContents(artCarBodyPath + "/" + "CarBody" + ".prefab")
                     );
                     toLoad.Add(
                         PrefabUtility.LoadPrefabContents(
-                            artCarGlassesPath
+                            artCarBodyPath + "/" + "CarBodyOther_A" + ".prefab"
+                        )
+                    );
+                    string optionChar = GetEnumLastWord(
+                        typeof(CarTireType),
+                        (int)carTemplate.carTireType
+                    );
+                    toLoad.Add(
+                        PrefabUtility.LoadPrefabContents(
+                            artCarTirePath
                                 + "/"
                                 + "Type"
                                 + optionChar
-                                + "/glasses_"
+                                + "/Tire_"
                                 + optionChar
                                 + ".prefab"
                         )
                     );
-                }
-                if (toLoad.Count > 0)
-                {
-                    foreach (GameObject toGen in toLoad)
+                    if (carTemplate.carGlassesType != CarGlassesType.None)
                     {
-                        GameObject q = Instantiate(toGen) as GameObject;
-                        q.transform.parent = cubLoaded.transform;
+                        optionChar = GetEnumLastWord(
+                            typeof(CarGlassesType),
+                            (int)carTemplate.carGlassesType
+                        );
+                        toLoad.Add(
+                            PrefabUtility.LoadPrefabContents(
+                                artCarGlassesPath
+                                    + "/"
+                                    + "Type"
+                                    + optionChar
+                                    + "/glasses_"
+                                    + optionChar
+                                    + ".prefab"
+                            )
+                        );
+                    }
+                    if (toLoad.Count > 0)
+                    {
+                        foreach (GameObject toGen in toLoad)
+                        {
+                            GameObject q = Instantiate(toGen) as GameObject;
+                            q.transform.parent = cubLoaded.transform;
+                        }
                     }
                 }
+                //Change Material
                 GameObject bodyObj = cubLoaded.transform.GetChild(0).gameObject;
                 var bodyMRD = bodyObj.GetComponent<MeshRenderer>();
                 ChangeEyesType(carTemplate, bodyMRD);
+
                 return cubLoaded;
             }
             return null;

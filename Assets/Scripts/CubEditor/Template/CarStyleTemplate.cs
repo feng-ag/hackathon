@@ -25,9 +25,9 @@ namespace ArcadeGalaxyKit
     public enum CarTireType
     {
         TireA,//Tire_A
-        TireB,//Tire_B
-        TireC,//Tire_C
-        TireD,//Tire_D
+        //TireB,//Tire_B
+        //TireC,//Tire_C
+        //TireD,//Tire_D
 
     }
     public enum CarGlassesType
