@@ -16,50 +16,9 @@ namespace ArcadeGalaxyKit
         public GameObject buttonGroupRowPrefab;
         public GameObject buttonGroupUnitButtonPrefab;
         private CarTemplate currentEditingCarTemplate;
+        private CubStyleCenter cubStyleCenter;
         [Header("每頁 UI 最大欄數")]
         public int maxRow = 1;
-        /// <summary>
-        /// Reload UI infomation with selected car template
-        /// </summary>
-        void SetupSelectedCardTemplateUI(CarTemplate carTemplate)
-        {
-            var fields = typeof(CarTemplate).GetFields();
-            int i = fields.Length - 1;
-            for (; i >= 0; i--)
-            {
-                var field = fields[i];
-                if (field.FieldType.IsEnum)
-                {
-                    //Instantiate Prefab
-                    var newRow = Instantiate(buttonGroupRowPrefab);
-                    newRow.transform.SetParent(AttributeEditUIContent.transform);
-                    var viewPortRectTrans = AttributeEditUIContent.transform.parent.transform as RectTransform;
-                    var rectTrans = newRow.transform as RectTransform;
-                    rectTrans.sizeDelta = new Vector2(viewPortRectTrans.rect.width, viewPortRectTrans.rect.height / maxRow);
-                    newRow.transform.SetAsFirstSibling();
-                    newRow.SetActive(true);
-                    newRow.GetComponentInChildren<Text>().text = ParseFieldString(field.Name);
-
-                    //Setting Value
-                    int c = 0;
-                    var optionStrings = System.Enum.GetValues(field.FieldType);
-                    var btnGroupRoot = newRow.transform.GetChild(1).transform;
-                    //var options = newRow.GetComponentInChildren<Dropdown>();
-                    for (; c < optionStrings.Length; c++)
-                    {
-                        var newBtnObj = Instantiate(buttonGroupUnitButtonPrefab);
-                        newBtnObj.transform.SetParent(btnGroupRoot);
-                        var newBtn = newBtnObj.GetComponent<Button>();
-                        //Insert button icon
-                        //newBtn.image=
-                        object setValue = c as object;
-                        newBtn.onClick.AddListener(() => { field.SetValue(carTemplate, setValue); });
-                        newBtn.onClick.AddListener(() => { OutFitChangingSysten.instance.OnChange(); });
-                    }
-                }
-            }
-
-        }
 
         /// <summary>
         /// Referenced by ui button
@@ -111,27 +70,74 @@ namespace ArcadeGalaxyKit
                 }
                 i++;
             }
-            result = result.Replace("Car ", "");
-            result = result.Replace(" type", "");
+            result = result.Replace(" settings", "");
             result = char.ToUpper(result[0]) + result.Substring(1);
             return result;
         }
         void Start()
         {
+            cubStyleCenter = DataManager.instance.cubStyleCenter;
             currentEditingCarTemplate = DataManager.instance.currentEditingCarTemplate;
             if (currentEditingCarTemplate)
             {
-                SetupSelectedCardTemplateUI(currentEditingCarTemplate);
+                SetupCubStyleCenterSettingUI(cubStyleCenter, currentEditingCarTemplate);
             }
         }
 
-        // Update is called once per frame
-        void Update()
+        /// <summary>
+        /// Load UI infomation with cubStyleCenter
+        /// </summary>
+        void SetupCubStyleCenterSettingUI(CubStyleCenter cubStyleCenter, CarTemplate carTemplate)
         {
+            var fields = typeof(CubStyleCenter).GetFields();
+            int i = fields.Length - 1;
+            for (; i >= 0; i--)
+            {
+                var field = fields[i];
+                {
+                    //Instantiate Prefab
+                    var newRow = Instantiate(buttonGroupRowPrefab);
+                    newRow.transform.SetParent(AttributeEditUIContent.transform);
+                    var viewPortRectTrans = AttributeEditUIContent.transform.parent.transform as RectTransform;
+                    var rectTrans = newRow.transform as RectTransform;
+                    rectTrans.sizeDelta = new Vector2(viewPortRectTrans.rect.width, viewPortRectTrans.rect.height / maxRow);
+                    newRow.transform.SetAsFirstSibling();
+                    newRow.SetActive(true);
+                    newRow.GetComponentInChildren<Text>().text = ParseFieldString(field.Name);
 
+                    ////Setting Value
+                    var btnGroupRoot = newRow.transform.GetChild(1).transform;
+                    object options = field.GetValue(cubStyleCenter);
+                    IEnumerable enumerable = options as IEnumerable;
+                    if (enumerable != null)
+                    {
+                        foreach (var obj in enumerable)
+                        {
+                            var newBtnObj = Instantiate(buttonGroupUnitButtonPrefab);
+                            newBtnObj.transform.SetParent(btnGroupRoot);
+                            var newBtn = newBtnObj.GetComponent<Button>();
+                            object setValue = obj;
+                            newBtn.onClick.AddListener(() =>
+                            {
+                                try
+                                {
+                                    var getField = typeof(CarTemplate).GetField(field.Name.Substring(0, field.Name.Length - 1));
+                                    getField.SetValue(carTemplate, setValue);
+                                }
+                                catch
+                                {
+                                    Debug.LogError("CarTemplate didn't have field : " + field.Name + " Check definition of both class."); ;
+                                }
+                            }
+                            );
+                            newBtn.onClick.AddListener(() => { OutFitChangingSysten.instance.OnChange(); });
+                        }
+                    }
+                }
+            }
         }
-        string statusMessage = "";
 
+        string statusMessage = "";
         [Header("腳本Debug工具")]
         public bool isShowEditorUISystemMessagePanel = false;
         void OnGUI()
@@ -149,7 +155,6 @@ namespace ArcadeGalaxyKit
                 GUI.TextArea(new Rect(Screen.width - debugPanelWidth + messagePaddingLeft, Screen.height - debugPanelheight + 20, messageWidth, messageHeight), statusMessage);
             }
         }
-
 
         public enum CaptureSize
         {
