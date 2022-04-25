@@ -35,9 +35,6 @@ namespace ArcadeGalaxyKit
         }
         private void Start()
         {
-            //AUTO Load Asset
-            LoadAssets();
-
             currentEditingCarTemplate = DataManager.instance.CurrentEditingCarTemplate;
             lastEditingCarTemplate = ScriptableObject.CreateInstance("CarTemplate") as CarTemplate;
 
@@ -45,9 +42,6 @@ namespace ArcadeGalaxyKit
             {
                 OnChange();
             }
-        }
-        void LoadAssets() {
-            //TODO Auto prepare field data under ([Header("®Æ≥°•ÛGameObject")])
         }
 
         #region changing outfit API
@@ -121,7 +115,11 @@ namespace ArcadeGalaxyKit
             {
                 tire.gameObject.SetActive(false);
             }
-            tiresGroup.transform.GetChild((int)carTemplate.carTireType).gameObject.SetActive(true);
+            var tireObj = tiresGroup.transform.GetChild((int)carTemplate.carTireType).gameObject;
+            tireObj.SetActive(true);
+            //var MRD=tireObj.GetComponentInChildren<MeshRenderer>();
+            //MRD.sharedMaterial.color = carTemplate.CarTireColor1;
+            //lastEditingCarTemplate.CarTireColor1 = carTemplate.CarTireColor1;
             lastEditingCarTemplate.carTireType = carTemplate.carTireType;
         }
         #endregion
