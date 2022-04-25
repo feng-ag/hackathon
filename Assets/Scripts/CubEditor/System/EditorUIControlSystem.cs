@@ -13,9 +13,10 @@ namespace ArcadeGalaxyKit
         [Header("需求 UI 組件")]
         public GameObject AttributeEditUIContent;
         public GameObject textDropdownRowPrefab;
-
         private CarTemplate currentEditingCarTemplate;
-
+        [Header("需自動調整大小的UI")]
+        public GridLayoutGroup attributeContentEdit;
+        float lastRecordScreenWidth = 0;
         /// <summary>
         /// Reload UI infomation with selected car template
         /// </summary>
@@ -120,6 +121,16 @@ namespace ArcadeGalaxyKit
 
         void OnGUI()
         {
+            if (attributeContentEdit) {
+                var rectTrans = attributeContentEdit.transform as RectTransform;
+                if (lastRecordScreenWidth != Screen.width) {
+                    Vector2 tmp = attributeContentEdit.cellSize;
+                    tmp.x = rectTrans.rect.width-10f;
+                    attributeContentEdit.cellSize = tmp;
+                    lastRecordScreenWidth = Screen.width;
+                }
+            }
+
             float debugPanelWidth = 500;
             float debugPanelheight = 90;
 
