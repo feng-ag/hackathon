@@ -7,13 +7,16 @@ using System;
 public class MapEditorManager : MonoBehaviour
 {
     [SerializeField]
+    public GameObject editorRoot;
+
+    [SerializeField]
     Camera cam;
 
     [SerializeField]
     Collider ground;
 
     [SerializeField]
-    Transform spawnRoot;
+    public Transform spawnRoot;
 
     [SerializeField]
     LayerMask groundLayer;
@@ -35,6 +38,7 @@ public class MapEditorManager : MonoBehaviour
 
     [SerializeField]
     GameObject defaultMap;
+
 
 
     public enum ControlState
@@ -73,6 +77,7 @@ public class MapEditorManager : MonoBehaviour
 
         ConstructUIEvents();
 
+        MapEditorController.Instance.HideMapEditor();
 
         void ConstructUIEvents()
         {
@@ -132,6 +137,10 @@ public class MapEditorManager : MonoBehaviour
 
     void Update()
     {
+        if (EventSystem.current == null)
+        {
+            return;
+        }
 
 
         if (CurrentControlState == ControlState.Peek || CurrentControlState == ControlState.Place)
@@ -229,6 +238,11 @@ public class MapEditorManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (EventSystem.current == null)
+        {
+            return;
+        }
+
         if (CurrentControlState != ControlState.Move && !EventSystem.current.IsPointerOverGameObject())
         {
             ItemBase itemBase = null;

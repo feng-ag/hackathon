@@ -25,8 +25,9 @@ public class MapEditorController : IMapEditorController
 
     public GameObject CreacteMapObject()
     {
-        // TODO: 修改暫時實作
-        return new GameObject("Map");
+        GameObject map = GameObject.Instantiate(MapEditorManager.Instance.spawnRoot.gameObject);
+
+        return map;
     }
 
     public Transform GetStartingPoint(GameObject map)
@@ -35,9 +36,15 @@ public class MapEditorController : IMapEditorController
         return map.transform;
     }
 
+    public void ShowMapEditor()
+    {
+        MapEditorManager.Instance.editorRoot.SetActive(true);
+    }
+
+
     public void HideMapEditor()
     {
-        // TODO: 實作
+        MapEditorManager.Instance.editorRoot.SetActive(false);
     }
 
 

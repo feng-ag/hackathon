@@ -11,6 +11,8 @@ public interface IMapEditorController
     public Transform GetStartingPoint(GameObject map);
 
 
+    public void ShowMapEditor();
+
     public void HideMapEditor();
 
 }
