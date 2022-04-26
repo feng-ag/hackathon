@@ -3,7 +3,42 @@ guid: 4c0d2e4bdb7d1db4c9c83e93d1149b7b
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Default.1
+    second: {fileID: 2100000, guid: 24c6ccdcbfac32648878d8005f22fae8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat
+    second: {fileID: 2100000, guid: b1b4e042ddf21b347a9d937ed2a5327f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat.1
+    second: {fileID: 2100000, guid: 46f9e5f2ffac6ec4998342f066c01479, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat.2
+    second: {fileID: 2100000, guid: 1556f666c19de8943a0f7dea082f1209, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat.8
+    second: {fileID: 2100000, guid: 8e6c7bb7d10343145a92bcbbcbf5d2e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tyre
+    second: {fileID: 2100000, guid: b40ae6432fd08dc47bb4d86a7a176dda, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Galaxy_Texture_V002
+    second: {fileID: 2800000, guid: 6df8dee3febb6e348b0caa3015ead21b, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -72,7 +107,13 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - de95aa3f2ee960e4d93e53821204c7f3
+  - 399824900e57d764c92956406594fb3b
+  - 0e9899ffe97aa80419dd33fc1cfa708e
+  - 70d9ea601a7b8f1499d45c545cd3d610
+  - 738a442f929424a469912061860bdf3c
+  - 4ce17a20b2ff85643adbf904a57045c7
   importAnimation: 1
   humanDescription:
     serializedVersion: 3

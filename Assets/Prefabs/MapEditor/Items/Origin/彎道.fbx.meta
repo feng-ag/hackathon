@@ -3,7 +3,27 @@ guid: 6cd16ec435695704683b6d2a21117540
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat
+    second: {fileID: 2100000, guid: 48361d0385b1eac4a8ebff84758f0fbf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat.2
+    second: {fileID: 2100000, guid: af27ad1be1828e54fa31d7db98810d3c, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Ground
+    second: {fileID: 2800000, guid: 9d2725688cc96994babb0e3d027fa784, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: RoadLine_Round
+    second: {fileID: 2800000, guid: ac1627385c0433f4397a834d3fe84244, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -72,7 +92,11 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - de95aa3f2ee960e4d93e53821204c7f3
+  - 399824900e57d764c92956406594fb3b
+  - 0e9899ffe97aa80419dd33fc1cfa708e
+  - 70d9ea601a7b8f1499d45c545cd3d610
   importAnimation: 1
   humanDescription:
     serializedVersion: 3

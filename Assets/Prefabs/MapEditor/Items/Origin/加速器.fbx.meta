@@ -3,12 +3,37 @@ guid: c17f7c636d668074b90cdc4517352496
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat
+    second: {fileID: 2100000, guid: d59ffa1a045e25b41b1eed640f064849, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat.1
+    second: {fileID: 2100000, guid: 5ed8af3e14cbaf4468c35d5fa3a9e409, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Ground
+    second: {fileID: 2800000, guid: e3d171ffa679b5449a6982b6ebda750f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: RoadLine_Round
+    second: {fileID: 2800000, guid: 52978f81ec0b8e84b82a0893485b1ce9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: "\u52A0\u901F\u8868\u9762"
+    second: {fileID: 2800000, guid: 3ee084f4316929242a60f5d97dc09d86, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0

@@ -3,7 +3,42 @@ guid: 4b46e12b880bbec4ab590fbd920a3404
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat
+    second: {fileID: 2100000, guid: af2d056b52ab7994bb937a9c8864b975, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat.1
+    second: {fileID: 2100000, guid: 8c99f97f363a65a42823a62e63d4e4fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mat.3
+    second: {fileID: 2100000, guid: 5053f89e981ceb845bd817fb6be16a3c, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Check2
+    second: {fileID: 2800000, guid: d9974cef87a5c124286aa79a46824b4f, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Ground
+    second: {fileID: 2800000, guid: 6e18aa666f170a148ad3ab74960ee712, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: RoadLine_Round
+    second: {fileID: 2800000, guid: 06f1767943dfe4d4a85fc7c56ed07365, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: RoadLine_stright
+    second: {fileID: 2800000, guid: d47834985e5b66042ac649f6b6903fb4, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

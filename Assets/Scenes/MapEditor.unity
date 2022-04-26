@@ -1553,7 +1553,7 @@ MonoBehaviour:
   cursor: {fileID: 1669510853}
   targetCursor: {fileID: 163975914}
   camRoot: {fileID: 1737795421}
-  defaultMap: {fileID: 272134991601114764, guid: 02611d40c7e14af4c8a5dddcddd10d14, type: 3}
+  defaultMap: {fileID: 8948623923527575968, guid: 423ffab759bdd444f800ec1aa408d100, type: 3}
   CurrentControlState: 1
 --- !u!1 &884625074
 GameObject:
