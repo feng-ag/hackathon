@@ -11,6 +11,7 @@ public class ItemData : ScriptableObject, IEnumerable, IEnumerable<ItemData.Item
     {
         public string name;
         public Sprite icon;
+        public bool isUnique;
         public GameObject[] prefabs;
 
         public GameObject RandomPickPrefab()

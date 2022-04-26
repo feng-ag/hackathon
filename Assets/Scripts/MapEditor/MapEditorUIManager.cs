@@ -105,8 +105,14 @@ public class MapEditorUIManager : MonoBehaviour
 
     void DeleteItem()
     {
+
         if (currentEditItem != null)
         {
+            if (currentEditItem.Item.isUnique)
+            {
+                return;
+            }
+
             Vector2 pos = currentEditItem.pos;
             MapEditorManager.Instance.mapEditorItemDataQuery.Remove(pos);
 

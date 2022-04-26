@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using System.Linq;
 
 public class MapEditorManager : MonoBehaviour
 {
@@ -129,6 +130,20 @@ public class MapEditorManager : MonoBehaviour
 
 
 
+    void DeleteItem(MapEditorItemData itemData)
+    {
+        if (itemData.item != null)
+        {
+            Vector2 pos = itemData.pos;
+            mapEditorItemDataQuery.Remove(pos);
+
+            Destroy(itemData.item.gameObject);
+            MapEditorUIManager.Instance.SetTarget(null);
+            targetCursor.gameObject.SetActive(false);
+        }
+    }
+
+
     public int CurrentPlaceItemIndex { get; set; } = 0;
 
 
@@ -165,6 +180,15 @@ public class MapEditorManager : MonoBehaviour
                     Vector3 pos3 = new Vector3(x, 0, z);
 
                     ItemData.Item item = itemData.GetItemAt(CurrentPlaceItemIndex);
+
+
+                    if (item.isUnique)
+                    {
+                        foreach (var i in mapEditorItemDataQuery.Values.Where(i => i.type == CurrentPlaceItemIndex).ToArray())
+                        {
+                            DeleteItem(i);
+                        }
+                    }
 
 
                     itemBase = Instantiate(item.RandomPickPrefab(), pos3, Quaternion.identity, spawnRoot).GetComponent<ItemBase>();
