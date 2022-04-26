@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 
 
 public class MapEditorController : IMapEditorController
@@ -32,8 +32,10 @@ public class MapEditorController : IMapEditorController
 
     public Transform GetStartingPoint(GameObject map)
     {
-        // TODO: 修改暫時實作
-        return map.transform;
+        const int TERMINAL_TRAIL_TYPE = 0;
+        MapEditorManager.MapEditorItemData terminal = MapEditorManager.Instance.mapEditorItemDataQuery.Values.First(i => i.type == TERMINAL_TRAIL_TYPE);
+
+        return terminal.item.transform;
     }
 
     public void ShowMapEditor()

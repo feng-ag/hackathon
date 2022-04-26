@@ -18,6 +18,12 @@ public class ItemData : ScriptableObject, IEnumerable, IEnumerable<ItemData.Item
         {
             return prefabs[Random.Range(0, prefabs.Length)];
         }
+
+
+        public override string ToString()
+        {
+            return $"{{ name:{name}, isUnique:{isUnique}, prefabs:{string.Join(", ", prefabs.Select(p => p.name))} }}";
+        }
     }
 
     [SerializeField]

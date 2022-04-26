@@ -89,6 +89,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8837148329460111325}
     m_Modifications:
+    - target: {fileID: 3082053366993698850, guid: f518f4936c2e3514cb9eabb0cd4e54b2, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5500423935483578025, guid: f518f4936c2e3514cb9eabb0cd4e54b2, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -106,6 +110,10 @@ PrefabInstance:
       value: Track02
       objectReference: {fileID: 0}
     - target: {fileID: 5804994553046206309, guid: f518f4936c2e3514cb9eabb0cd4e54b2, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6983401276192223422, guid: f518f4936c2e3514cb9eabb0cd4e54b2, type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}

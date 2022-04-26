@@ -86,7 +86,7 @@ public class MapEditorManager : MonoBehaviour
             {
                 CurrentPlaceItemIndex = index;
                 MapEditorUIManager.Instance.SetSelectedItem(index);
-                Debug.Log($"Set Index = {index}");
+                //Debug.Log($"Set Index = {index}");
             };
         }
     }

@@ -108,8 +108,10 @@ public class MapEditorUIManager : MonoBehaviour
 
         if (currentEditItem != null)
         {
+
             if (currentEditItem.Item.isUnique)
             {
+                //Debug.Log(currentEditItem.Item);
                 return;
             }
 

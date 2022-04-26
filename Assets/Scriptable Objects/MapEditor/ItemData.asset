@@ -13,6 +13,16 @@ MonoBehaviour:
   m_Name: ItemData
   m_EditorClassIdentifier: 
   data:
+  - name: TerminalTrack
+    icon: {fileID: 21300000, guid: 5d29e25bc9a3a8f4fbf6f1b8759602de, type: 3}
+    isUnique: 1
+    prefabs:
+    - {fileID: 5291813963814524630, guid: eeb98b69a5519b746a02bc170dd45066, type: 3}
+  - name: CheckPoint
+    icon: {fileID: 21300000, guid: 083825a515867574e9ce11ff2d410a41, type: 3}
+    isUnique: 1
+    prefabs:
+    - {fileID: 3151076149989215891, guid: ffe643a5d13daf64b961e9a0a4056d3a, type: 3}
   - name: Track01
     icon: {fileID: 21300000, guid: 4867897e30154f540a66113379458b0e, type: 3}
     isUnique: 0
@@ -47,16 +57,6 @@ MonoBehaviour:
     isUnique: 0
     prefabs:
     - {fileID: 7967745544600779115, guid: baab7e748f98c3649b179bbd5d99c1c5, type: 3}
-  - name: TerminalTrack
-    icon: {fileID: 21300000, guid: 5d29e25bc9a3a8f4fbf6f1b8759602de, type: 3}
-    isUnique: 1
-    prefabs:
-    - {fileID: 5291813963814524630, guid: eeb98b69a5519b746a02bc170dd45066, type: 3}
-  - name: CheckPoint
-    icon: {fileID: 21300000, guid: 083825a515867574e9ce11ff2d410a41, type: 3}
-    isUnique: 1
-    prefabs:
-    - {fileID: 3151076149989215891, guid: ffe643a5d13daf64b961e9a0a4056d3a, type: 3}
   - name: JumpingTrail
     icon: {fileID: 5543941588292853863, guid: 5043777b087f5b24e9ad94864a8b3718, type: 3}
     isUnique: 0
