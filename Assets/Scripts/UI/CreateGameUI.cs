@@ -5,93 +5,95 @@ using Random = UnityEngine.Random;
 
 public class CreateGameUI : MonoBehaviour
 {
-	public InputField lobbyName;
-	public Dropdown track;
-	public Dropdown gameMode;
-	public Slider playerCountSlider;
-	public Image trackImage;
-	public Text playerCountSliderText;
-	public Image playerCountIcon;
-	public Button confirmButton;
-    
-	//resources
-	public Sprite padlockSprite, publicLobbyIcon;
+    public InputField lobbyName;
+    public Dropdown track;
+    public Dropdown gameMode;
+    public Slider playerCountSlider;
+    public Image trackImage;
+    public Text playerCountSliderText;
+    public Image playerCountIcon;
+    public Button confirmButton;
 
-	private void Start()
-	{
+    //resources
+    public Sprite padlockSprite, publicLobbyIcon;
 
-		playerCountSlider.SetValueWithoutNotify(8);
-		SetPlayerCount();
+    private void Start()
+    {
 
-		track.ClearOptions();
-		track.AddOptions(ResourceManager.Instance.tracks.Select(x => x.trackName).ToList());
-		track.onValueChanged.AddListener(SetTrack);
-		SetTrack(0);
+        playerCountSlider.SetValueWithoutNotify(8);
+        SetPlayerCount();
 
-		gameMode.ClearOptions();
-		gameMode.AddOptions(ResourceManager.Instance.gameTypes.Select(x => x.modeName).ToList());
-		gameMode.onValueChanged.AddListener(SetGameType);
-		SetGameType(0);
+        track.ClearOptions();
+        track.AddOptions(ResourceManager.Instance.tracks.Select(x => x.trackName).ToList());
+        track.onValueChanged.AddListener(SetTrack);
+        SetTrack(0);
 
-		playerCountSlider.wholeNumbers = true;
-		playerCountSlider.minValue = 1;
-		playerCountSlider.maxValue = 8;
-		playerCountSlider.value = 2;
-		playerCountSlider.onValueChanged.AddListener(x => ServerInfo.MaxUsers = (int)x);
+        gameMode.ClearOptions();
+        gameMode.AddOptions(ResourceManager.Instance.gameTypes.Select(x => x.modeName).ToList());
+        gameMode.onValueChanged.AddListener(SetGameType);
+        SetGameType(0);
 
-		lobbyName.onValueChanged.AddListener(x =>
-		{
-			ServerInfo.LobbyName = x;
-			confirmButton.interactable = !string.IsNullOrEmpty(x);
-		});
-		lobbyName.text = ServerInfo.LobbyName = "Session" + Random.Range(0, 1000);
+        playerCountSlider.wholeNumbers = true;
+        playerCountSlider.minValue = 1;
+        playerCountSlider.maxValue = 8;
+        playerCountSlider.value = 2;
+        playerCountSlider.onValueChanged.AddListener(x => ServerInfo.MaxUsers = (int)x);
 
-		ServerInfo.TrackId = track.value;
-		ServerInfo.GameMode = gameMode.value;
-		ServerInfo.MaxUsers = (int)playerCountSlider.value;
-	}
+        lobbyName.onValueChanged.AddListener(x =>
+        {
+            ServerInfo.LobbyName = x;
+            confirmButton.interactable = !string.IsNullOrEmpty(x);
+        });
+        lobbyName.text = ServerInfo.LobbyName = "Session" + Random.Range(0, 1000);
 
-	public void SetGameType(int gameType)
-	{
-		ServerInfo.GameMode = gameType;
-	}
+        ServerInfo.TrackId = track.value;
+        ServerInfo.GameMode = gameMode.value;
+        ServerInfo.MaxUsers = (int)playerCountSlider.value;
 
-	public void SetTrack(int trackId)
-	{
-		ServerInfo.TrackId = trackId;
-		trackImage.sprite = ResourceManager.Instance.tracks[trackId].trackIcon;
-	}
 
-	public void SetPlayerCount()
-	{
+    }
+
+    public void SetGameType(int gameType)
+    {
+        ServerInfo.GameMode = gameType;
+    }
+
+    public void SetTrack(int trackId)
+    {
+        ServerInfo.TrackId = trackId;
+        trackImage.sprite = ResourceManager.Instance.tracks[trackId].trackIcon;
+    }
+
+    public void SetPlayerCount()
+    {
         playerCountSlider.value = ServerInfo.MaxUsers;
-		playerCountSliderText.text = $"{ServerInfo.MaxUsers}";
-		playerCountIcon.sprite = ServerInfo.MaxUsers > 1 ? publicLobbyIcon : padlockSprite;
-	}
+        playerCountSliderText.text = $"{ServerInfo.MaxUsers}";
+        playerCountIcon.sprite = ServerInfo.MaxUsers > 1 ? publicLobbyIcon : padlockSprite;
+    }
 
-	// UI Hooks
+    // UI Hooks
 
     private bool _lobbyIsValid;
 
-	public void ValidateLobby()
-	{
-		_lobbyIsValid = string.IsNullOrEmpty(ServerInfo.LobbyName) == false;
-	}
+    public void ValidateLobby()
+    {
+        _lobbyIsValid = string.IsNullOrEmpty(ServerInfo.LobbyName) == false;
+    }
 
-	public void TryFocusScreen(UIScreen screen)
-	{
-		if (_lobbyIsValid)
-		{
-			UIScreen.Focus(screen);
-		}
-	}
+    public void TryFocusScreen(UIScreen screen)
+    {
+        if (_lobbyIsValid)
+        {
+            UIScreen.Focus(screen);
+        }
+    }
 
-	public void TryCreateLobby(GameLauncher launcher)
-	{
-		if (_lobbyIsValid)
-		{
-			launcher.JoinOrCreateLobby();
-			_lobbyIsValid = false;
-		}
-	}
+    public void TryCreateLobby(GameLauncher launcher)
+    {
+        if (_lobbyIsValid)
+        {
+            launcher.JoinOrCreateLobby();
+            _lobbyIsValid = false;
+        }
+    }
 }
