@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2848609738952831772}
   - component: {fileID: 4664572252666108466}
+  - component: {fileID: 7991386071365928534}
   m_Layer: 5
   m_Name: ButtomGroup
   m_TagString: Untagged
@@ -59,8 +60,25 @@ MonoBehaviour:
   m_StartAxis: 0
   m_CellSize: {x: 100, y: 100}
   m_Spacing: {x: 0, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Constraint: 2
+  m_ConstraintCount: 1
+--- !u!114 &7991386071365928534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2848609738952831771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4870c3df5aa39674ebc13549f323c7d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridLayoutGroup: {fileID: 4664572252666108466}
+  isSquareChild: 0
+  isWidthSquareChild: 0
+  maxRow: 1
+  maxCol: 4
 --- !u!1 &5010793034962969701
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +88,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5010793034962969706}
-  - component: {fileID: 5975701319137043672}
   m_Layer: 5
   m_Name: ButtonGroupRow
   m_TagString: Untagged
@@ -99,23 +116,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 115.6, y: 65}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &5975701319137043672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5010793034962969701}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4870c3df5aa39674ebc13549f323c7d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridLayoutGroup: {fileID: 4664572252666108466}
-  isSquareChild: 1
-  isWidthSquareChild: 0
-  maxRow: 1
-  maxCol: 3
 --- !u!1 &5010793036031708658
 GameObject:
   m_ObjectHideFlags: 0

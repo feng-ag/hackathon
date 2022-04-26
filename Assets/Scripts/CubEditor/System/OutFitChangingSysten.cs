@@ -18,7 +18,6 @@ namespace ArcadeGalaxyKit
         [Header("縮放比例(測試用)")]//Umimplement
         public float scaleXYZ = 0.01067533f;
         public float posYOffset = 9.66f;
-        public RotateModelPanel rotateModelPanel;
         public static OutFitChangingSysten instance { get { return _instance; } }
         private static OutFitChangingSysten _instance;
         private CarTemplate currentEditingCarTemplate;
