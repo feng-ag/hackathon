@@ -18,12 +18,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d106d179a2d41ed4f9244f24e8e9106d, type: 2}
   - {fileID: 11400000, guid: 6efc0d5b5858f2446b4d2581de2f3388, type: 2}
   - {fileID: 11400000, guid: e04e157258ecc2e46bea035f25224be4, type: 2}
-  - {fileID: 11400000, guid: 6169419548bfbf14db5c7ac0a0878173, type: 2}
   eyesSettings:
   - {fileID: 11400000, guid: a3d75bd0df8479c4a877fb1f1e501006, type: 2}
   - {fileID: 11400000, guid: 0ce870fbb2729af488d27ec428e73cab, type: 2}
   - {fileID: 11400000, guid: f073cb14663bd04449e1b9e619781ace, type: 2}
-  - {fileID: 11400000, guid: c6159fb6244a1af4f996c86ab5737871, type: 2}
   glassesSettings:
   - {fileID: 11400000, guid: 4416ec176e2ae6149a3947ef7a1fe071, type: 2}
   - {fileID: 11400000, guid: 98e3f81e7dfbf254aaaa8124cf0e1de4, type: 2}

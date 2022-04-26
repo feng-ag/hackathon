@@ -94,6 +94,7 @@ namespace ArcadeGalaxyKit
             for (; i >= 0; i--)
             {
                 var field = fields[i];
+                if (field.Name == "tireSettings") { continue; }
                 {
                     //Instantiate Prefab
                     var newRow = Instantiate(buttonGroupRowPrefab);
@@ -111,6 +112,7 @@ namespace ArcadeGalaxyKit
                     IEnumerable enumerable = options as IEnumerable;
                     if (enumerable != null)
                     {
+                        //Genereate UI each setting in enumerable
                         foreach (var obj in enumerable)
                         {
                             var newBtnObj = Instantiate(buttonGroupUnitButtonPrefab);
