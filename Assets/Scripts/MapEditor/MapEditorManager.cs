@@ -17,7 +17,10 @@ public class MapEditorManager : MonoBehaviour
     Collider ground;
 
     [SerializeField]
-    public Transform spawnRoot;
+    public Transform mapRoot;
+
+    [SerializeField]
+    public Transform itemRoot;
 
     [SerializeField]
     LayerMask groundLayer;
@@ -104,7 +107,7 @@ public class MapEditorManager : MonoBehaviour
             return;
         }
         
-        GameObject mapIns = Instantiate(map, spawnRoot);
+        GameObject mapIns = Instantiate(map, itemRoot);
 
 
         ItemBase[] itemBaseList = mapIns.GetComponentsInChildren<ItemBase>();
@@ -129,6 +132,18 @@ public class MapEditorManager : MonoBehaviour
     }
 
 
+
+    public bool DeleteItemByUser(MapEditorItemData itemData)
+    {
+        if (itemData.item.Item.isUnique)
+        {
+            return false;
+        }
+
+        DeleteItem(itemData);
+
+        return true;
+    }
 
     void DeleteItem(MapEditorItemData itemData)
     {
@@ -191,7 +206,7 @@ public class MapEditorManager : MonoBehaviour
                     }
 
 
-                    itemBase = Instantiate(item.RandomPickPrefab(), pos3, Quaternion.identity, spawnRoot).GetComponent<ItemBase>();
+                    itemBase = Instantiate(item.RandomPickPrefab(), pos3, Quaternion.identity, itemRoot).GetComponent<ItemBase>();
 
                     Vector2 pos2 = new Vector2(x, z);
                     itemBase.itemType = CurrentPlaceItemIndex;

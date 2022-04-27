@@ -100,27 +100,24 @@ public class MapEditorUIManager : MonoBehaviour
         {
             DeleteItem();
         }
+        else if (Input.GetKeyDown(KeyCode.X))
+        {
+            DeleteAllItem();
+        }
     }
 
 
     void DeleteItem()
     {
-
         if (currentEditItem != null)
         {
-
-            if (currentEditItem.Item.isUnique)
-            {
-                //Debug.Log(currentEditItem.Item);
-                return;
-            }
-
             Vector2 pos = currentEditItem.pos;
-            MapEditorManager.Instance.mapEditorItemDataQuery.Remove(pos);
-
-            Destroy(currentEditItem.gameObject);
-            SetTarget(null);
-            MapEditorManager.Instance.targetCursor.gameObject.SetActive(false);
+            MapEditorManager.MapEditorItemData item = MapEditorManager.Instance.mapEditorItemDataQuery[pos];
+            if (MapEditorManager.Instance.DeleteItemByUser(item))
+            {
+                SetTarget(null);
+                MapEditorManager.Instance.targetCursor.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -135,12 +132,11 @@ public class MapEditorUIManager : MonoBehaviour
 
     void DeleteAllItem()
     {
-        foreach(var item in MapEditorManager.Instance.mapEditorItemDataQuery)
+        foreach(var item in MapEditorManager.Instance.mapEditorItemDataQuery.Values.ToArray())
         {
-            Destroy(item.Value.item.gameObject);
+            MapEditorManager.Instance.DeleteItemByUser(item);
         }
 
-        MapEditorManager.Instance.mapEditorItemDataQuery.Clear();
         SetTarget(null);
         MapEditorManager.Instance.targetCursor.gameObject.SetActive(false);
 

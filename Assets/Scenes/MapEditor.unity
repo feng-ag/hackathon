@@ -452,6 +452,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191426432}
   m_CullTransparentMesh: 1
+--- !u!1 &207191726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 207191727}
+  m_Layer: 0
+  m_Name: MapRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &207191727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207191726}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.1179497, y: -3.3198767, z: -3.3195825}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1553087958}
+  m_Father: {fileID: 1675991738}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &445414682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,7 +1573,8 @@ MonoBehaviour:
   editorRoot: {fileID: 1675991737}
   cam: {fileID: 963194227}
   ground: {fileID: 1782221430}
-  spawnRoot: {fileID: 1553087958}
+  mapRoot: {fileID: 207191727}
+  itemRoot: {fileID: 1553087958}
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -3037,7 +3069,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1553087958}
   m_Layer: 0
-  m_Name: SpawnRoot
+  m_Name: ItemRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3051,11 +3083,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553087957}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.1179497, y: 3.3198767, z: 3.3195825}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1675991738}
-  m_RootOrder: 4
+  m_Father: {fileID: 207191727}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1591830581
 GameObject:
@@ -3320,7 +3352,7 @@ Transform:
   - {fileID: 1606794650}
   - {fileID: 204864}
   - {fileID: 1737795421}
-  - {fileID: 1553087958}
+  - {fileID: 207191727}
   - {fileID: 1669510853}
   - {fileID: 163975914}
   m_Father: {fileID: 0}

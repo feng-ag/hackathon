@@ -25,7 +25,7 @@ public class MapEditorController : IMapEditorController
 
     public GameObject CreacteMapObject()
     {
-        GameObject map = GameObject.Instantiate(MapEditorManager.Instance.spawnRoot.gameObject);
+        GameObject map = GameObject.Instantiate(MapEditorManager.Instance.mapRoot.gameObject);
 
         return map;
     }
@@ -35,7 +35,7 @@ public class MapEditorController : IMapEditorController
         const int TERMINAL_TRAIL_TYPE = 0;
         MapEditorManager.MapEditorItemData terminal = MapEditorManager.Instance.mapEditorItemDataQuery.Values.First(i => i.type == TERMINAL_TRAIL_TYPE);
 
-        return terminal.item.transform;
+        return terminal.item.inner;
     }
 
     public void ShowMapEditor()
