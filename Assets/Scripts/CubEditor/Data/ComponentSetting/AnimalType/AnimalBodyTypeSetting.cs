@@ -10,7 +10,7 @@ namespace ArcadeGalaxyKit
     menuName = "ArcadeGalaxyKit/Cub/ComponentSetting/AnimalType/BaseAnimalType",
     fileName = "BaseAnimalTypeSetting")]
     [Serializable]
-    public class AnimalTypeSetting : ComponentSetting
+    public class AnimalBodyTypeSetting : CubComponentSetting
     {
         public GameObject meshPrefab;
     }

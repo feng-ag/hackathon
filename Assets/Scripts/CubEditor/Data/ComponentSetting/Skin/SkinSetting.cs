@@ -10,7 +10,7 @@ namespace ArcadeGalaxyKit
     menuName = "ArcadeGalaxyKit/Cub/ComponentSetting/Skin/BaseSkin",
     fileName = "BaseSkinSetting")]
     [Serializable]
-    public class SkinSetting : ComponentSetting
+    public class SkinSetting : CubComponentSetting
     {
         public Texture2D skinTex;
     }

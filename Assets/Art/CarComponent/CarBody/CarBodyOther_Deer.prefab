@@ -577,7 +577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8658382317039245370}
   m_Layer: 0
-  m_Name: CarBodyOther_A
+  m_Name: CarBodyOther_Deer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

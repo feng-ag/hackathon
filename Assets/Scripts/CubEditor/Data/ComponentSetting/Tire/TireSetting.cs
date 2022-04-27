@@ -10,7 +10,7 @@ namespace ArcadeGalaxyKit
     menuName = "ArcadeGalaxyKit/Cub/ComponentSetting/Tire/BaseTire",
     fileName = "BaseTireSetting")]
     [Serializable]
-    public class TireSetting : ComponentSetting
+    public class TireSetting : CubComponentSetting
     {
         public GameObject meshPrefab;
     }

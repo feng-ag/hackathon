@@ -10,7 +10,7 @@ namespace ArcadeGalaxyKit
     menuName = "ArcadeGalaxyKit/Cub/ComponentSetting/Glasses/BaseGlasses",
     fileName = "BaseGlassesSetting")]
     [Serializable]
-    public class GlassesSetting : ComponentSetting
+    public class GlassesSetting : CubComponentSetting
     {
         public GameObject meshPrefab;
     }

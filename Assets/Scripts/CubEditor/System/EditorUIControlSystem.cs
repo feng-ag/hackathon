@@ -94,7 +94,7 @@ namespace ArcadeGalaxyKit
             for (; i >= 0; i--)
             {
                 var field = fields[i];
-                if (field.Name == "tireSettings") { continue; }
+                if (field.Name == "tireSettings"|| field.Name == "AnimalTypeSetting") { continue; }
                 {
                     //Instantiate Prefab
                     var newRow = Instantiate(buttonGroupRowPrefab);
@@ -118,10 +118,10 @@ namespace ArcadeGalaxyKit
                             newBtnObj.transform.SetParent(btnGroupRoot);
                             var newBtn = newBtnObj.GetComponent<Button>();
                             object setValue = obj;
-                            if (setValue is ComponentSetting)
+                            if (setValue is CubComponentSetting)
                             {
                                 var img = newBtnObj.GetComponent<Image>();
-                                var componentSetting = setValue as ComponentSetting;
+                                var componentSetting = setValue as CubComponentSetting;
                                 if (componentSetting.UIIcon)
                                 {
                                     img.sprite = componentSetting.UIIcon;

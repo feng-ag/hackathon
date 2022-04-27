@@ -10,7 +10,7 @@ namespace ArcadeGalaxyKit
     menuName = "ArcadeGalaxyKit/Cub/ComponentSetting/Eyes/BaseEyes",
     fileName = "BaseEyesSetting")]
     [Serializable]
-    public class EyesSetting : ComponentSetting
+    public class EyesSetting : CubComponentSetting
     {
         public Texture2D eyesTex;
         public Texture2D eyesMask;

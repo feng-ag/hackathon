@@ -7,7 +7,7 @@ namespace ArcadeGalaxyKit
     /// ComponentSetting Base
     /// </summary>
     [Serializable]
-    public class ComponentSetting : ScriptableObject
+    public class CubComponentSetting : ScriptableObject
     {
         public string styleName;
         public Sprite UIIcon;
