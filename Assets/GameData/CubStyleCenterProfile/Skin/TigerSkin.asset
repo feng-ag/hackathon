@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TigerSkin
   m_EditorClassIdentifier: 
   styleName: Tiger
-  UIIcon: {fileID: 21300000, guid: 4e518a034a90bc54da0727960c1cb9c0, type: 3}
-  skinTex: {fileID: 2800000, guid: 08a1546c07ec8e2489ab5bef03030eb8, type: 3}
+  UIIcon: {fileID: 21300000, guid: ea6583adeccc305459d9805f1ae72e4c, type: 3}
+  skinTex: {fileID: 2800000, guid: cf9bc73c87a61814a96d55034473ef58, type: 3}

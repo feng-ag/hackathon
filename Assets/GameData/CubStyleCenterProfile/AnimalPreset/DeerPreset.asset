@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DeerPreset
   m_EditorClassIdentifier: 
   styleName: DeerPreset
-  UIIcon: {fileID: 21300000, guid: 75135149a59522343a593a9d733ac064, type: 3}
+  UIIcon: {fileID: 21300000, guid: c9bb0ec959d354b43b286af74ad5f241, type: 3}
   animalBodyTypeSetting: {fileID: 11400000, guid: 4afe16067cbd0a845b01233b6fa3b314, type: 2}
   skinSetting: {fileID: 11400000, guid: d106d179a2d41ed4f9244f24e8e9106d, type: 2}
   eyesSetting: {fileID: 11400000, guid: a3d75bd0df8479c4a877fb1f1e501006, type: 2}

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: DeerSkin
   m_EditorClassIdentifier: 
   styleName: Deer
-  UIIcon: {fileID: 21300000, guid: 6e87568631b4d934aa43d3e7ad71ae53, type: 3}
-  skinTex: {fileID: 2800000, guid: 8a6552a93a69e4b1ea2f5e9673cee732, type: 3}
+  UIIcon: {fileID: 21300000, guid: d9eeb6e8d1fed6744bc81d6c4c150312, type: 3}
+  skinTex: {fileID: 2800000, guid: c167e6e29e7b0264db1178dfb914f174, type: 3}
