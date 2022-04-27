@@ -94,7 +94,7 @@ namespace ArcadeGalaxyKit
             for (; i >= 0; i--)
             {
                 var field = fields[i];
-                if (field.Name == "tireSettings"|| field.Name == "animalBodyTypeSettings") { continue; }
+                if (field.Name == "tireSettings" || field.Name == "animalBodyTypeSettings") { continue; }
                 {
                     //Instantiate Prefab
                     var newRow = Instantiate(buttonGroupRowPrefab);
@@ -106,62 +106,82 @@ namespace ArcadeGalaxyKit
                     newRow.GetComponentInChildren<Text>().text = ParseFieldString(field.Name);
 
                     //Setting Value
-                    var btnGroupRoot = newRow.transform.GetChild(1).transform;
                     object options = field.GetValue(cubStyleCenter);
+                    object presetFieldValue = null;
+                    var btnGroupRoot = newRow.transform.GetChild(1).transform;
+                    if (carTemplate.animalPreset)
+                    {
+                        var PresetField = typeof(AnimalPreset).GetField(field.Name.Substring(0, field.Name.Length - 1));
+                        if (PresetField != null)
+                        {
+                            presetFieldValue = PresetField.GetValue(carTemplate.animalPreset);
+                            GenerateButtonByFieldObj(field, presetFieldValue, carTemplate, btnGroupRoot);
+                        }
+                    }
                     IEnumerable enumerable = options as IEnumerable;
                     if (enumerable != null)
                     {
+                        
                         //Genereate UI setting for each field in enumerable
                         foreach (var obj in enumerable)
                         {
-                            var newBtnObj = Instantiate(buttonGroupUnitButtonPrefab);
-                            newBtnObj.transform.SetParent(btnGroupRoot);
-                            var newBtn = newBtnObj.GetComponent<Button>();
-                            object setValue = obj;
-                            if (setValue is CubComponentSetting)
-                            {
-                                var img = newBtnObj.GetComponent<Image>();
-                                var componentSetting = setValue as CubComponentSetting;
-                                if (componentSetting.UIIcon)
-                                {
-                                    img.sprite = componentSetting.UIIcon;
-                                }
-                            }
-                            if (field.Name == "animalPresets")
-                            {
-                                // Special Case:
-                                // Cause CarTemplate.cs didn't have this field. Replace CarTemplate's setting with setting under AnimalPreset
-                                newBtn.onClick.AddListener(() =>
-                                {
-                                    AnimalPreset animalPreset = setValue as AnimalPreset;
-                                    carTemplate.animalTypeSetting = animalPreset.animalTypeSetting;
-                                    carTemplate.eyesSetting= animalPreset.eyesSetting;
-                                    carTemplate.skinSetting= animalPreset.skinSetting;
-                                    carTemplate.glassesSetting = animalPreset.glassesSetting;
-                                    carTemplate.tireSetting = animalPreset.tireSetting;
-                                });
-                            }
-                            else
-                            {
-                                newBtn.onClick.AddListener(() =>
-                                {
-                                    try
-                                    {
-                                        var getField = typeof(CarTemplate).GetField(field.Name.Substring(0, field.Name.Length - 1));
-                                        getField.SetValue(carTemplate, setValue);
-                                    }
-                                    catch
-                                    {
-                                        Debug.LogError("CarTemplate didn't have field : " + field.Name + " Check definition of both class."); ;
-                                    }
-                                }
-                                );
-                            }
-                            newBtn.onClick.AddListener(() => { OutFitChangingSysten.instance.OnChange(); });
+                            GenerateButtonByFieldObj(field, obj, carTemplate, btnGroupRoot);
                         }
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Generate UI button accroding to CubStyleCenter's Field
+        /// </summary>
+        void GenerateButtonByFieldObj(FieldInfo field, object obj, CarTemplate carTemplate, Transform btnGroupRoot)
+        {
+            var newBtnObj = Instantiate(buttonGroupUnitButtonPrefab);
+            newBtnObj.transform.SetParent(btnGroupRoot);
+            var newBtn = newBtnObj.GetComponent<Button>();
+            object setValue = obj;
+            if (setValue is CubComponentSetting)
+            {
+                var img = newBtnObj.GetComponent<Image>();
+                var componentSetting = setValue as CubComponentSetting;
+                if (componentSetting.UIIcon)
+                {
+                    img.sprite = componentSetting.UIIcon;
+                }
+            }
+            if (field.Name == "animalPresets")
+            {
+                // Special Case:
+                // Cause CarTemplate.cs didn't have this field. Replace CarTemplate's setting with setting under AnimalPreset
+                newBtn.onClick.AddListener(() =>
+                {
+                    AnimalPreset animalPreset = setValue as AnimalPreset;
+                    carTemplate.animalPreset = animalPreset;
+                    carTemplate.animalTypeSetting = animalPreset.animalBodyTypeSetting;
+                    carTemplate.eyesSetting = animalPreset.eyesSetting;
+                    carTemplate.skinSetting = animalPreset.skinSetting;
+                    carTemplate.glassesSetting = animalPreset.glassesSetting;
+                    carTemplate.tireSetting = animalPreset.tireSetting;
+                });
+            }
+            else
+            {
+                newBtn.onClick.AddListener(() =>
+                {
+                    try
+                    {
+                        var getField = typeof(CarTemplate).GetField(field.Name.Substring(0, field.Name.Length - 1));
+                        getField.SetValue(carTemplate, setValue);
+                    }
+                    catch
+                    {
+                        Debug.LogError("CarTemplate didn't have field : " + field.Name + " Check definition of both class."); ;
+                    }
+                }
+                );
+            }
+            newBtn.onClick.AddListener(() => { OutFitChangingSysten.instance.OnChange(); });
         }
 
         string statusMessage = "";

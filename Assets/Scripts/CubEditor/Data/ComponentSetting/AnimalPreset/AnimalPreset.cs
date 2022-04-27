@@ -8,7 +8,7 @@ namespace ArcadeGalaxyKit
     fileName = "AnimalPresetSetting")]
     public class AnimalPreset : CubComponentSetting
     {
-        public AnimalBodyTypeSetting animalTypeSetting;
+        public AnimalBodyTypeSetting animalBodyTypeSetting;
         public SkinSetting skinSetting;
         public EyesSetting eyesSetting;
         public GlassesSetting glassesSetting;
