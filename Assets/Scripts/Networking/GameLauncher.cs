@@ -42,8 +42,8 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 
         DontDestroyOnLoad(gameObject);
 
-        scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.LOBBY_SCENE));
-        scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.CUBS_EDITOR_SCENE, LoadSceneMode.Additive));
+        //scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.LOBBY_SCENE));
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.CUBS_EDITOR_SCENE));
         scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.MAP_EDITOR_SCENE, LoadSceneMode.Additive));
     }
 
