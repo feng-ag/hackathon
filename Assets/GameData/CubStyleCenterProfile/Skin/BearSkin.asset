@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cc82aad85713fb45bc8ed0c1df752ca, type: 3}
+  m_Name: BearSkin
+  m_EditorClassIdentifier: 
+  styleName: Bear
+  UIIcon: {fileID: 21300000, guid: 4e518a034a90bc54da0727960c1cb9c0, type: 3}
+  skinTex: {fileID: 2800000, guid: 0d09c634cc5b85942b989a6d083aeb59, type: 3}
