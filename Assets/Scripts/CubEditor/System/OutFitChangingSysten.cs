@@ -8,23 +8,24 @@ namespace ArcadeGalaxyKit
     /// </summary>
     public class OutFitChangingSysten : MonoBehaviour
     {
-        [Header("¨®³¡¥ó Renderer")]
+        [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Renderer")]
         public MeshRenderer carBodyMRD;
-        [Header("¨®³¡¥óGameObject")]
-        public GameObject tiresGroup;//tire objs should arrange as enum CarTireType's order in scene
-        public GameObject glassesGroup;
-        public GameObject carBodyOther;
-        [Header("Skin¶K¹Ï")]
-        public Texture2D[] skins;//skin texture should arrange as enum CarSkinType's order in scene
-        public Texture2D[] eyeTextures;//eye skin texture should arrange as enum CarEyesType's order in scene
-        public Texture2D eyeMask;
-        [Header("ÁY©ñ¤ñ¨Ò(´ú¸Õ¥Î)")]//Umimplement
+        public GameObject CubPosAnchor;
+        [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PlaceHolder")]
+        public GameObject tirePlaceHolder;
+        public GameObject glassesPlaceHolder;
+        public GameObject animalTypePlaceHolder;
+        [Header("ï¿½Yï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Õ¥ï¿½)")]//Umimplement
         public float scaleXYZ = 0.01067533f;
         public float posYOffset = 9.66f;
         public static OutFitChangingSysten instance { get { return _instance; } }
         private static OutFitChangingSysten _instance;
         private CarTemplate currentEditingCarTemplate;
         private CarTemplate lastEditingCarTemplate;
+
+        [SerializeField]
+        public GameObject editorRoot;
+
 
         private void Awake()
         {
@@ -35,13 +36,25 @@ namespace ArcadeGalaxyKit
         }
         private void Start()
         {
-            currentEditingCarTemplate = DataManager.instance.CurrentEditingCarTemplate;
+            currentEditingCarTemplate = DataManager.instance.currentEditingCarTemplate;
             lastEditingCarTemplate = ScriptableObject.CreateInstance("CarTemplate") as CarTemplate;
 
             if (currentEditingCarTemplate)
             {
                 OnChange();
             }
+        }
+
+
+        public void ShowCubsEditor()
+        {
+            editorRoot.SetActive(true);
+        }
+
+
+        public void HideCubsEditor()
+        {
+            editorRoot.SetActive(false);
         }
 
         #region changing outfit API
@@ -52,27 +65,33 @@ namespace ArcadeGalaxyKit
         {
             if (!lastEditingCarTemplate.Equals(currentEditingCarTemplate))
             {
-                ChangeTireType(currentEditingCarTemplate);
-                if (lastEditingCarTemplate.carEyesType != currentEditingCarTemplate.carEyesType
-                    || lastEditingCarTemplate.carSkinType != currentEditingCarTemplate.carSkinType)
+                if (currentEditingCarTemplate.tireSetting != lastEditingCarTemplate.tireSetting)
+                {
+                    ChangeTireType(currentEditingCarTemplate);
+                }
+                if (lastEditingCarTemplate.eyesSetting != currentEditingCarTemplate.eyesSetting
+                    || lastEditingCarTemplate.skinSetting != currentEditingCarTemplate.skinSetting)
                 {
                     ChangeSkinType(currentEditingCarTemplate);
                     ChangeEyesType(currentEditingCarTemplate);
                 }
-                ChangeGlassesType(currentEditingCarTemplate);
+                if (currentEditingCarTemplate.glassesSetting != lastEditingCarTemplate.glassesSetting)
+                {
+                    ChangeGlassesType(currentEditingCarTemplate);
+                }
             }
         }
         void ChangeSkinType(CarTemplate carTemplate)
         {
-            carBodyMRD.material.SetTexture("_MainTex", skins[(int)carTemplate.carSkinType]);
-            lastEditingCarTemplate.carSkinType = carTemplate.carSkinType;
+            carBodyMRD.material.SetTexture("_MainTex", carTemplate.skinSetting.skinTex);
+            lastEditingCarTemplate.skinSetting = carTemplate.skinSetting;
         }
         void ChangeEyesType(CarTemplate carTemplate)
         {
-            if (eyeMask)
+            if (carTemplate.eyesSetting.eyesMask)
             {
-                Texture2D oriTexture = skins[(int)carTemplate.carSkinType];
-                Texture2D eyeTexture = eyeTextures[(int)carTemplate.carEyesType];
+                Texture2D oriTexture = carTemplate.skinSetting.skinTex;
+                Texture2D eyeTexture = carTemplate.eyesSetting.eyesTex;
                 Texture2D eyeAddedTexture = new Texture2D(oriTexture.width, oriTexture.height);
                 eyeAddedTexture.SetPixels(oriTexture.GetPixels());
 
@@ -81,7 +100,7 @@ namespace ArcadeGalaxyKit
                     for (int c = 0; c < oriTexture.width; c++)
                     {
                         Color color = oriTexture.GetPixel(r, c, 0);
-                        if (eyeMask.GetPixel(r, c, 0) != Color.black)
+                        if (carTemplate.eyesSetting.eyesMask.GetPixel(r, c, 0) != Color.black)
                         {
                             color = eyeTexture.GetPixel(r, c, 0);
                             eyeAddedTexture.SetPixel(r, c, color);
@@ -89,38 +108,63 @@ namespace ArcadeGalaxyKit
 
                     }
                 }
-
                 eyeAddedTexture.Apply();
                 carBodyMRD.material.SetTexture("_MainTex", eyeAddedTexture);
             }
-            lastEditingCarTemplate.carEyesType = carTemplate.carEyesType;
+            lastEditingCarTemplate.eyesSetting = carTemplate.eyesSetting;
         }
         void ChangeGlassesType(CarTemplate carTemplate)
         {
+            if (glassesPlaceHolder)
+            {
+                foreach (Transform obj in glassesPlaceHolder.transform)
+                {
+                    Destroy(obj.gameObject);
+                }
+                if (carTemplate.glassesSetting.meshPrefab)
+                {
+                    var glassedObj = Instantiate(carTemplate.glassesSetting.meshPrefab);
+                    var localR = glassedObj.transform.localRotation;
+                    var CubPosAnchorLocalRY = CubPosAnchor.transform.localRotation.eulerAngles.y;
+                    glassedObj.transform.RotateAround(CubPosAnchor.transform.position, Vector3.up, CubPosAnchorLocalRY);
+                    glassedObj.transform.SetParent(glassesPlaceHolder.transform);
+                }
+            }
+            else
+            {
+                Debug.LogError("Can't find glassesPlaceHolder.");
+            }
 
-            foreach (Transform tire in glassesGroup.transform)
-            {
-                tire.gameObject.SetActive(false);
-            }
-            if (carTemplate.carGlassesType != CarGlassesType.None)
-            {
-                glassesGroup.transform.GetChild((int)carTemplate.carGlassesType - 1).gameObject.SetActive(true);
-            }
-            lastEditingCarTemplate.carGlassesType = carTemplate.carGlassesType;
+            lastEditingCarTemplate.glassesSetting = carTemplate.glassesSetting;
         }
 
         void ChangeTireType(CarTemplate carTemplate)
         {
-            foreach (Transform tire in tiresGroup.transform)
+            if (tirePlaceHolder)
             {
-                tire.gameObject.SetActive(false);
+                foreach (Transform obj in tirePlaceHolder.transform)
+                {
+                    Destroy(obj.gameObject);
+                }
+                if (carTemplate.tireSetting.meshPrefab)
+                {
+                    var tireGameObj = Instantiate(carTemplate.tireSetting.meshPrefab);
+                    var localR = tireGameObj.transform.localRotation;
+                    var CubPosAnchorLocalRY = CubPosAnchor.transform.localRotation.eulerAngles.y;
+                    tireGameObj.transform.RotateAround(CubPosAnchor.transform.position, Vector3.up, CubPosAnchorLocalRY);
+                    tireGameObj.transform.SetParent(tirePlaceHolder.transform);
+                }
             }
-            var tireObj = tiresGroup.transform.GetChild((int)carTemplate.carTireType).gameObject;
-            tireObj.SetActive(true);
+            else
+            {
+                Debug.LogError("Can't find tirePlaceHolder.");
+            }
+
+            lastEditingCarTemplate.tireSetting = carTemplate.tireSetting;
+            //TODO check if tire setting has color attribute
             //var MRD=tireObj.GetComponentInChildren<MeshRenderer>();
             //MRD.sharedMaterial.color = carTemplate.CarTireColor1;
             //lastEditingCarTemplate.CarTireColor1 = carTemplate.CarTireColor1;
-            lastEditingCarTemplate.carTireType = carTemplate.carTireType;
         }
         #endregion
     }

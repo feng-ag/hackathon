@@ -20,7 +20,7 @@ namespace HSVPicker
 
         private bool listen = true;
 
-        [Header("Event")]
+        // [Header("Event")]
         public SliderOnChangeEndEvent onSliderChangeEndEvent = new SliderOnChangeEndEvent();
 
         private void Awake()

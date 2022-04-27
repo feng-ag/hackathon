@@ -11,10 +11,10 @@ namespace HSVPicker
         [SerializeField]
         private Color _color = Color.red;
 
-        [Header("Setup")]
+        // [Header("Setup")]
         public ColorPickerSetup Setup;
 
-        [Header("Event")]
+        // [Header("Event")]
         public ColorChangedEvent onValueChanged = new ColorChangedEvent();
         public HSVChangedEvent onHSVChanged = new HSVChangedEvent();
 
@@ -32,7 +32,7 @@ namespace HSVPicker
                 _color = value;
 
                 RGBChanged();
-            
+
                 SendChangedEvent();
             }
         }
@@ -274,7 +274,7 @@ namespace HSVPicker
             Setup.ShowRgb = !Setup.ShowRgb;
             Setup.HsvSliders.Toggle(Setup.ShowHsv);
             Setup.RgbSliders.Toggle(Setup.ShowRgb);
-            
+
             onHSVChanged.Invoke(_hue, _saturation, _brightness);
 
             UpdateColorToggleText();

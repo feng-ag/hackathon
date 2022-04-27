@@ -9,7 +9,8 @@ namespace ArcadeGalaxyKit
     public class DataManager : MonoBehaviour
     {
         [Header("≥]©w¿…")]
-        public CarTemplate CurrentEditingCarTemplate;
+        public CarTemplate currentEditingCarTemplate;
+        public CubStyleCenter cubStyleCenter;
         public static  DataManager instance { get { return _instamce; }}
         private static DataManager _instamce;
         

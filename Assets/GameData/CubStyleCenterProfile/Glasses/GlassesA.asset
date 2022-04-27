@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836647d0d5931354c9ac33344baf5372, type: 3}
+  m_Name: GlassesA
+  m_EditorClassIdentifier: 
+  styleName: GlassesA
+  UIIcon: {fileID: 21300000, guid: 43d89980f6a9eeb438d6588ebaf1bb82, type: 3}
+  meshPrefab: {fileID: 6440542275403216206, guid: 35253ca7419ff084cb621d4775223a5d, type: 3}

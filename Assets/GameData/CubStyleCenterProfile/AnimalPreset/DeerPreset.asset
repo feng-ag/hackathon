@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd6087457f93ef40aacd9ed05a5d1ed, type: 3}
+  m_Name: DeerPreset
+  m_EditorClassIdentifier: 
+  styleName: DeerPreset
+  UIIcon: {fileID: 21300000, guid: 75135149a59522343a593a9d733ac064, type: 3}
+  animalTypeSetting: {fileID: 11400000, guid: 4afe16067cbd0a845b01233b6fa3b314, type: 2}
+  skinSetting: {fileID: 11400000, guid: d106d179a2d41ed4f9244f24e8e9106d, type: 2}
+  eyesSetting: {fileID: 11400000, guid: a3d75bd0df8479c4a877fb1f1e501006, type: 2}
+  glassesSetting: {fileID: 11400000, guid: 4416ec176e2ae6149a3947ef7a1fe071, type: 2}
+  tireSetting: {fileID: 11400000, guid: 53846fde7652fd843b615be08c9d220b, type: 2}
