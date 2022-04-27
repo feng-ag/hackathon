@@ -455,30 +455,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CreateGameUI, Assembly-CSharp
-        m_MethodName: ValidateLobby
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CreateGameUI, Assembly-CSharp
-        m_MethodName: TryCreateLobby
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1819301325}
-          m_ObjectArgumentAssemblyTypeName: GameLauncher, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 255323085}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -498,6 +474,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 565481340}
           m_ObjectArgumentAssemblyTypeName: UIScreen, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1819301323}
+        m_TargetAssemblyTypeName: Managers.LevelManager, Assembly-CSharp
+        m_MethodName: ShowCubsEditor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -644,7 +632,6 @@ GameObject:
   - component: {fileID: 255323086}
   - component: {fileID: 255323089}
   - component: {fileID: 255323088}
-  - component: {fileID: 255323087}
   m_Layer: 5
   m_Name: Main Page
   m_TagString: Untagged
@@ -665,8 +652,8 @@ RectTransform:
   m_Children:
   - {fileID: 167912651}
   - {fileID: 531643152}
-  - {fileID: 1794550150}
   - {fileID: 1896587039}
+  - {fileID: 1794550150}
   m_Father: {fileID: 1819301330}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -675,28 +662,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &255323087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 255323085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf89701b8229b38458b7d0670fd4baf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lobbyName: {fileID: 0}
-  track: {fileID: 0}
-  gameMode: {fileID: 0}
-  playerCountSlider: {fileID: 0}
-  trackImage: {fileID: 0}
-  playerCountSliderText: {fileID: 0}
-  playerCountIcon: {fileID: 0}
-  confirmButton: {fileID: 0}
-  padlockSprite: {fileID: -8179040606652740800, guid: 5043777b087f5b24e9ad94864a8b3718, type: 3}
-  publicLobbyIcon: {fileID: 2514988542215765323, guid: 5043777b087f5b24e9ad94864a8b3718, type: 3}
 --- !u!114 &255323088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2794,7 +2759,7 @@ Transform:
   m_LocalScale: {x: 0.7499999, y: 0.75000006, z: 0.75}
   m_Children: []
   m_Father: {fileID: 255323086}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 17.2, y: 233.81, z: 1.96}
 --- !u!1 &1815872853
 GameObject:
@@ -2939,7 +2904,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1819301330}
-  - component: {fileID: 1819301329}
   - component: {fileID: 1819301328}
   - component: {fileID: 1819301327}
   - component: {fileID: 1819301326}
@@ -3058,22 +3022,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &1819301329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819301322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58998e4f912d44048aeb1af59c02ca9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profileSetup: {fileID: 0}
-  mainMenu: {fileID: 0}
-  pauseMenu: {fileID: 0}
-  lobbyMenu: {fileID: 0}
 --- !u!224 &1819301330
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3298,7 +3246,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 255323086}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1896587040
 MonoBehaviour:
