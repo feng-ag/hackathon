@@ -158,7 +158,7 @@ namespace ArcadeGalaxyKit
                 {
                     AnimalPreset animalPreset = setValue as AnimalPreset;
                     carTemplate.animalPreset = animalPreset;
-                    carTemplate.animalTypeSetting = animalPreset.animalBodyTypeSetting;
+                    carTemplate.animalBodyTypeSetting = animalPreset.animalBodyTypeSetting;
                     carTemplate.eyesSetting = animalPreset.eyesSetting;
                     carTemplate.skinSetting = animalPreset.skinSetting;
                     carTemplate.glassesSetting = animalPreset.glassesSetting;
