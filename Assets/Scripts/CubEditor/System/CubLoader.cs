@@ -19,13 +19,13 @@ namespace ArcadeGalaxyKit
             {
                 _instance = this;
             }
-            if (AutoLoadCub) LoadCub(carTemplate);
+            if (AutoLoadCub) LoadCub();
         }
 
         /// <summary>
         /// Return gameobj of loaded cubtemplate setting and generate cub in scene position (0,0,0)
         /// </summary>
-        public GameObject LoadCub(CarTemplate carTemplate)
+        public GameObject LoadCub()
         {
             if (carTemplate)
             {
@@ -54,6 +54,10 @@ namespace ArcadeGalaxyKit
                 ChangeEyesType(carTemplate, bodyMRD);
 
                 return cubLoaded;
+            }
+            else
+            {
+                LoadCub();
             }
             return null;
         }
