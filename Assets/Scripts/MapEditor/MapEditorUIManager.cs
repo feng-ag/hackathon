@@ -38,6 +38,12 @@ public class MapEditorUIManager : MonoBehaviour
     [SerializeField]
     Button editItemClear;
 
+    [SerializeField]
+    Button helpBtn;
+
+    [SerializeField]
+    GameObject helpBox;
+
 
     //State
 
@@ -79,7 +85,7 @@ public class MapEditorUIManager : MonoBehaviour
         editItemRotateRight.onClick.AddListener(() => currentEditItem.RotateRight());
         editItemDelete.onClick.AddListener(() => DeleteItem());
         editItemClear.onClick.AddListener(() => DeleteAllItem());
-
+        helpBtn.onClick.AddListener(() => helpBox.SetActive(!helpBox.activeSelf));
 
         placeMode.onClick.AddListener(() => gm.CurrentControlState = MapEditorManager.ControlState.Place);
         selectMode.onClick.AddListener(() => gm.CurrentControlState = MapEditorManager.ControlState.Peek);
