@@ -4,6 +4,7 @@ using Fusion;
 using FusionExamples.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ArcadeGalaxyKit;
 
 namespace Managers
 {
@@ -29,6 +30,34 @@ namespace Managers
         {
             Instance.Runner.SetActiveScene(sceneIndex);
         }
+
+
+        public static void ShowMapEditor()
+        {
+            MapEditorController.Instance.ShowMapEditor();
+        }
+
+        public static void HideMapEditor()
+        {
+            MapEditorController.Instance.HideMapEditor();
+        }
+
+        public static void ShowCubsEditor()
+        {
+            OutFitChangingSysten.instance.ShowCubsEditor();
+        }
+
+        public static void HideCubsEditor()
+        {
+            OutFitChangingSysten.instance.HideCubsEditor();
+        }
+
+        public static void LoadCub()
+        {
+            GameObject cub = CubLoader.instance.LoadCub();
+        }
+
+   
 
         protected override IEnumerator SwitchScene(SceneRef prevScene, SceneRef newScene, FinishedLoadingDelegate finished)
         {

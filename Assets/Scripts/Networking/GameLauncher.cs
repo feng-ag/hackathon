@@ -29,6 +29,9 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
     private FusionObjectPoolRoot _pool;
     private LevelManager _levelManager;
 
+    List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
+
+
     private void Start()
     {
         Application.runInBackground = true;
@@ -39,7 +42,9 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 
         DontDestroyOnLoad(gameObject);
 
-        SceneManager.LoadScene(LevelManager.LOBBY_SCENE);
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.LOBBY_SCENE));
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.CUBS_EDITOR_SCENE, LoadSceneMode.Additive));
+        scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.MAP_EDITOR_SCENE, LoadSceneMode.Additive));
     }
 
     public void SetCreateLobby() => _gameMode = GameMode.Host;
