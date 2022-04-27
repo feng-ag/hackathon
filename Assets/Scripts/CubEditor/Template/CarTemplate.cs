@@ -9,7 +9,7 @@ namespace ArcadeGalaxyKit
     [Serializable]
     public class CarTemplate : ScriptableObject
     {
-        public AnimalTypeSetting animalTypeSetting;
+        public AnimalBodyTypeSetting animalTypeSetting;
         public SkinSetting skinSetting;
         public EyesSetting eyesSetting;
         public GlassesSetting glassesSetting;
