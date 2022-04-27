@@ -8,20 +8,24 @@ namespace ArcadeGalaxyKit
     /// </summary>
     public class OutFitChangingSysten : MonoBehaviour
     {
-        [Header("¨®³¡¥ó Renderer")]
+        [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Renderer")]
         public MeshRenderer carBodyMRD;
         public GameObject CubPosAnchor;
-        [Header("¨®³¡¥óPlaceHolder")]
+        [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PlaceHolder")]
         public GameObject tirePlaceHolder;
         public GameObject glassesPlaceHolder;
         public GameObject animalTypePlaceHolder;
-        [Header("ÁY©ñ¤ñ¨Ò(´ú¸Õ¥Î)")]//Umimplement
+        [Header("ï¿½Yï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Õ¥ï¿½)")]//Umimplement
         public float scaleXYZ = 0.01067533f;
         public float posYOffset = 9.66f;
         public static OutFitChangingSysten instance { get { return _instance; } }
         private static OutFitChangingSysten _instance;
         private CarTemplate currentEditingCarTemplate;
         private CarTemplate lastEditingCarTemplate;
+
+        [SerializeField]
+        public GameObject editorRoot;
+
 
         private void Awake()
         {
@@ -39,6 +43,18 @@ namespace ArcadeGalaxyKit
             {
                 OnChange();
             }
+        }
+
+
+        public void ShowCubsEditor()
+        {
+            editorRoot.SetActive(true);
+        }
+
+
+        public void HideCubsEditor()
+        {
+            editorRoot.SetActive(false);
         }
 
         #region changing outfit API
