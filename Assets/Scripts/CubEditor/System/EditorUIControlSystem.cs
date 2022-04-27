@@ -101,10 +101,7 @@ namespace ArcadeGalaxyKit
                     newRow.transform.SetParent(AttributeEditUIContent.transform);
                     var viewPortRectTrans = AttributeEditUIContent.transform.parent.transform as RectTransform;
                     var rectTrans = newRow.transform as RectTransform;
-                    rectTrans.localScale = Vector3.one;
                     rectTrans.sizeDelta = new Vector2(viewPortRectTrans.rect.width, viewPortRectTrans.rect.height / maxRow);
-                    //rectTrans.sizeDelta = new Vector2(rectTrans.sizeDelta.x, viewPortRectTrans.rect.height / maxRow);
-
                     newRow.transform.SetAsFirstSibling();
                     newRow.SetActive(true);
                     newRow.GetComponentInChildren<Text>().text = ParseFieldString(field.Name);
