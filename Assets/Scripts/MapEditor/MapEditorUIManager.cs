@@ -45,16 +45,16 @@ public class MapEditorUIManager : MonoBehaviour
     GameObject helpBox;
 
 
-    //State
-
-
-    [SerializeField]
-    Button placeMode;
-
-    [SerializeField]
-    Button selectMode;
-
     List<UI_PlaceItemElement> uiItemList = new List<UI_PlaceItemElement>();
+
+
+
+
+    [SerializeField]
+    Toggle[] tabs;
+
+    [SerializeField]
+    GameObject[] tabPages;
 
 
     public static MapEditorUIManager Instance;
@@ -87,8 +87,19 @@ public class MapEditorUIManager : MonoBehaviour
         editItemClear.onClick.AddListener(() => DeleteAllItem());
         helpBtn.onClick.AddListener(() => helpBox.SetActive(!helpBox.activeSelf));
 
-        placeMode.onClick.AddListener(() => gm.CurrentControlState = MapEditorManager.ControlState.Place);
-        selectMode.onClick.AddListener(() => gm.CurrentControlState = MapEditorManager.ControlState.Peek);
+
+        for (int i = 0; i < tabs.Length; i++)
+        {
+            int iCache = i;
+            tabs[i].onValueChanged.AddListener(isOn =>
+            {
+                for (int p = 0; p < tabPages.Length; p++)
+                {
+                    tabPages[p].SetActive(p == iCache);
+                    
+                }
+            });
+        }
 
 
         SetTarget(null);
