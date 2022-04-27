@@ -89,6 +89,10 @@ namespace ArcadeGalaxyKit
         /// </summary>
         void SetupCubStyleCenterSettingUI(CubStyleCenter cubStyleCenter, CarTemplate carTemplate)
         {
+            foreach (Transform t in AttributeEditUIContent.transform) {
+                Destroy(t.gameObject);
+            }
+            
             var fields = typeof(CubStyleCenter).GetFields();
             int i = fields.Length - 1;
             for (; i >= 0; i--)
@@ -163,6 +167,7 @@ namespace ArcadeGalaxyKit
                     carTemplate.skinSetting = animalPreset.skinSetting;
                     carTemplate.glassesSetting = animalPreset.glassesSetting;
                     carTemplate.tireSetting = animalPreset.tireSetting;
+                    SetupCubStyleCenterSettingUI(cubStyleCenter, currentEditingCarTemplate);
                 });
             }
             else
