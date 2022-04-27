@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd6087457f93ef40aacd9ed05a5d1ed, type: 3}
+  m_Name: BearPreset
+  m_EditorClassIdentifier: 
+  styleName: TigerPreset
+  UIIcon: {fileID: 21300000, guid: 5a61a73695ea43c429b887fe579a436c, type: 3}
+  animalBodyTypeSetting: {fileID: 11400000, guid: fc9b81e705e73a245b5c8430fdd4373d, type: 2}
+  skinSetting: {fileID: 11400000, guid: 02bf54e850ee60040b254f428aab5e58, type: 2}
+  eyesSetting: {fileID: 11400000, guid: a3d75bd0df8479c4a877fb1f1e501006, type: 2}
+  glassesSetting: {fileID: 11400000, guid: 4416ec176e2ae6149a3947ef7a1fe071, type: 2}
+  tireSetting: {fileID: 11400000, guid: 53846fde7652fd843b615be08c9d220b, type: 2}

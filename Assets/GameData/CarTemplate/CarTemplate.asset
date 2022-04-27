@@ -12,13 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67966a58c3f522042a8d89db916596ba, type: 3}
   m_Name: CarTemplate
   m_EditorClassIdentifier: 
-  carSkinType: 0
-  carEyesType: 1
-  carTireType: 0
-  CarTireColor1: {r: 0, g: 0, b: 0, a: 0}
-  carGlassesType: 0
-  animalTypeSetting: {fileID: 11400000, guid: 4afe16067cbd0a845b01233b6fa3b314, type: 2}
-  skinSetting: {fileID: 11400000, guid: d106d179a2d41ed4f9244f24e8e9106d, type: 2}
-  eyesSetting: {fileID: 11400000, guid: a3d75bd0df8479c4a877fb1f1e501006, type: 2}
-  glassesSetting: {fileID: 11400000, guid: 98e3f81e7dfbf254aaaa8124cf0e1de4, type: 2}
+  animalPreset: {fileID: 11400000, guid: 5e4fd7ca2c1bb884ca7a100a40ec33d1, type: 2}
+  animalBodyTypeSetting: {fileID: 11400000, guid: fc9b81e705e73a245b5c8430fdd4373d, type: 2}
+  skinSetting: {fileID: 11400000, guid: 02bf54e850ee60040b254f428aab5e58, type: 2}
+  eyesSetting: {fileID: 11400000, guid: 0ce870fbb2729af488d27ec428e73cab, type: 2}
+  glassesSetting: {fileID: 11400000, guid: 4416ec176e2ae6149a3947ef7a1fe071, type: 2}
   tireSetting: {fileID: 11400000, guid: 53846fde7652fd843b615be08c9d220b, type: 2}

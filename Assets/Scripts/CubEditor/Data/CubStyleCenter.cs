@@ -11,8 +11,8 @@ namespace ArcadeGalaxyKit
     [Serializable]
     public class CubStyleCenter : ScriptableObject
     {
-        public AnimalPreset[] animalPreset;
-        public AnimalBodyTypeSetting[] animalTypeSettings;
+        public AnimalPreset[] animalPresets;
+        public AnimalBodyTypeSetting[] animalBodyTypeSettings;
         public SkinSetting[] skinSettings;
         public EyesSetting[] eyesSettings;
         public GlassesSetting[] glassesSettings;

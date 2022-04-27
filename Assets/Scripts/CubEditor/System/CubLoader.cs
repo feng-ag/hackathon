@@ -11,7 +11,7 @@ namespace ArcadeGalaxyKit
         private static CubLoader _instance;
         public bool AutoLoadCub = true;
         public CarTemplate carTemplate;
-        string artCarBodyPath = "Assets/Art/CarComponent/CarBody";
+        string artCarBodyPath = "Assets/Art/CarComponent/CarBody/MainBody";
 
         void Awake()
         {
@@ -35,7 +35,7 @@ namespace ArcadeGalaxyKit
                     //Load Prefab
                     List<GameObject> toLoad = new List<GameObject>();
                     toLoad.Add(PrefabUtility.LoadPrefabContents(artCarBodyPath + "/" + "CarBody" + ".prefab"));
-                    toLoad.Add(carTemplate.animalTypeSetting.meshPrefab);
+                    if (carTemplate.animalBodyTypeSetting) toLoad.Add(carTemplate.animalBodyTypeSetting.meshPrefab);
                     if (carTemplate.tireSetting.meshPrefab) toLoad.Add(carTemplate.tireSetting.meshPrefab);
                     if (carTemplate.glassesSetting.meshPrefab) toLoad.Add(carTemplate.glassesSetting.meshPrefab);
 

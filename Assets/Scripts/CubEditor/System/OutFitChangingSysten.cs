@@ -69,6 +69,10 @@ namespace ArcadeGalaxyKit
                 {
                     ChangeTireType(currentEditingCarTemplate);
                 }
+                if (currentEditingCarTemplate.animalBodyTypeSetting != lastEditingCarTemplate.animalBodyTypeSetting)
+                {
+                    ChangeBodyType(currentEditingCarTemplate);
+                }
                 if (lastEditingCarTemplate.eyesSetting != currentEditingCarTemplate.eyesSetting
                     || lastEditingCarTemplate.skinSetting != currentEditingCarTemplate.skinSetting)
                 {
@@ -80,6 +84,29 @@ namespace ArcadeGalaxyKit
                     ChangeGlassesType(currentEditingCarTemplate);
                 }
             }
+        }
+        void ChangeBodyType(CarTemplate carTemplate)
+        {
+            if (animalTypePlaceHolder)
+            {
+                foreach (Transform obj in animalTypePlaceHolder.transform)
+                {
+                    Destroy(obj.gameObject);
+                }
+                if (carTemplate.animalBodyTypeSetting.meshPrefab)
+                {
+                    var glassedObj = Instantiate(carTemplate.animalBodyTypeSetting.meshPrefab);
+                    var localR = glassedObj.transform.localRotation;
+                    var CubPosAnchorLocalRY = CubPosAnchor.transform.localRotation.eulerAngles.y;
+                    glassedObj.transform.RotateAround(CubPosAnchor.transform.position, Vector3.up, CubPosAnchorLocalRY);
+                    glassedObj.transform.SetParent(animalTypePlaceHolder.transform);
+                }
+            }
+            else
+            {
+                Debug.LogError("Can't find animalTypePlaceHolder.");
+            }
+            lastEditingCarTemplate.animalBodyTypeSetting= currentEditingCarTemplate.animalBodyTypeSetting;
         }
         void ChangeSkinType(CarTemplate carTemplate)
         {
