@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3672d88216848ef408d8ea72578026d9, type: 3}
   m_Name: CubStyleCenter
   m_EditorClassIdentifier: 
+  animalPreset:
+  - {fileID: 11400000, guid: d03b373df0117494daf9c3ea970da70d, type: 2}
   animalTypeSettings:
   - {fileID: 11400000, guid: 4afe16067cbd0a845b01233b6fa3b314, type: 2}
   skinSettings:
