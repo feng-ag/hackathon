@@ -23,8 +23,10 @@ namespace ArcadeGalaxyKit
         private CarTemplate currentEditingCarTemplate;
         private CarTemplate lastEditingCarTemplate;
 
+
+
         [SerializeField]
-        public GameObject editorRoot;
+        private EditorUIControlSystem editorUIControlSystem;
 
 
         private void Awake()
@@ -48,13 +50,13 @@ namespace ArcadeGalaxyKit
 
         public void ShowCubsEditor()
         {
-            editorRoot.SetActive(true);
+            editorUIControlSystem.editorRoot.SetActive(true);
         }
 
 
         public void HideCubsEditor()
         {
-            editorRoot.SetActive(false);
+            editorUIControlSystem.editorRoot.SetActive(false);
         }
 
         #region changing outfit API
