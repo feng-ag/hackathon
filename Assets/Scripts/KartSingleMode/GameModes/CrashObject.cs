@@ -35,8 +35,8 @@ public class CrashObject : TargetObject
     private void OnTriggerEnter(Collider other)
     {
         if (!active) return;
-        
-        if ((layerMask.value & 1 << other.gameObject.layer) > 0)
+
+        if ((layerMask.value & 1 << other.gameObject.layer) > 0 && other.gameObject.CompareTag("Player"))
             OnCollect(other);
     }
     
