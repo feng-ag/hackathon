@@ -84,7 +84,7 @@ namespace ArcadeGalaxyKit
                     }
                 }
                 //Change Material
-                GameObject bodyObj = modelRoot.transform.GetChild(0).gameObject;
+                GameObject bodyObj = modelRoot.transform.Find("CarBody(Clone)").gameObject;
                 var bodyMRD = bodyObj.GetComponent<MeshRenderer>();
                 ChangeEyesType(carTemplate, bodyMRD);
 
