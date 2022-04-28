@@ -2514,7 +2514,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AutoLoadCub: 1
-  carTemplate: {fileID: 11400000, guid: e2339f67ba4aa2b4c8c83712ae5e03dc, type: 2}
+  kartContainer: {fileID: 0}
 --- !u!1 &1840865654
 GameObject:
   m_ObjectHideFlags: 0
@@ -2761,7 +2761,7 @@ PrefabInstance:
       objectReference: {fileID: 1620263385}
     - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -2772,6 +2772,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1819301325}
@@ -2780,12 +2784,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 812519948}
     - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 1819301325}
+    - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: HideMapEditor
       objectReference: {fileID: 0}
     - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: EnterGamePlay
       objectReference: {fileID: 0}
     - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -2796,7 +2808,15 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: LevelManagerSingle, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791402568617560948, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2791402568617560949, guid: d01b1c4fe7cbc47c792f71427dc75367, type: 3}

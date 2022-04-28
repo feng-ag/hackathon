@@ -36,6 +36,9 @@ public class GameFlowManager : MonoBehaviour
     public DisplayMessage loseDisplayMessage;
 
 
+    public InGameMenuManager inGameMenuManager;
+
+
     public GameState gameState { get; private set; }
 
     public bool autoFindKarts = true;
@@ -47,6 +50,7 @@ public class GameFlowManager : MonoBehaviour
     float m_TimeLoadEndGameScene;
     string m_SceneToLoad;
     float elapsedTimeBeforeEndScene = 0;
+  
 
     void Start()
     {
@@ -130,11 +134,17 @@ public class GameFlowManager : MonoBehaviour
                 float volume = Mathf.Clamp(1 - volumeRatio, 0, 1);
                 AudioUtility.SetMasterVolume(volume);
 
+
+
                 // See if it's time to load the end scene (after the delay)
                 if (Time.time >= m_TimeLoadEndGameScene)
                 {
-                    SceneManager.LoadScene(m_SceneToLoad);
-                    gameState = GameState.Play;
+                    if (!inGameMenuManager.menuRoot.activeSelf)
+                    {
+                        inGameMenuManager.TogglePauseMenu();
+                    }
+                    //SceneManager.LoadScene(m_SceneToLoad);
+                    //gameState = GameState.Play;
                 }
             }
         }
@@ -161,7 +171,7 @@ public class GameFlowManager : MonoBehaviour
         endGameFadeCanvasGroup.gameObject.SetActive(true);
         if (win)
         {
-            m_SceneToLoad = winSceneName;
+            //m_SceneToLoad = winSceneName;
             m_TimeLoadEndGameScene = Time.time + endSceneLoadDelay + delayBeforeFadeToBlack;
 
             // play a sound on win
@@ -174,16 +184,19 @@ public class GameFlowManager : MonoBehaviour
             // create a game message
             winDisplayMessage.delayBeforeShowing = delayBeforeWinMessage;
             winDisplayMessage.gameObject.SetActive(true);
+
         }
         else
         {
-            m_SceneToLoad = loseSceneName;
+            //m_SceneToLoad = loseSceneName;
             m_TimeLoadEndGameScene = Time.time + endSceneLoadDelay + delayBeforeFadeToBlack;
 
             // create a game message
             loseDisplayMessage.delayBeforeShowing = delayBeforeWinMessage;
             loseDisplayMessage.gameObject.SetActive(true);
         }
+
+
     }
 
     public void QuitGame()
