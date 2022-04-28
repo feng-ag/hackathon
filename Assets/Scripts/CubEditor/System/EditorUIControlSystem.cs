@@ -7,6 +7,7 @@ namespace ArcadeGalaxyKit
 {
     public class EditorUIControlSystem : MonoBehaviour
     {
+        public bool isOpenCarEditorUI;
         [Header("���Y")]
         public Camera carEdittingCamera;
         public Camera carPickUpCamera; //for snapshot
@@ -85,8 +86,10 @@ namespace ArcadeGalaxyKit
             {
                 SetupCubStyleCenterSettingUI(cubStyleCenter, currentEditingCarTemplate);
             }
-
-            editorRoot.gameObject.SetActive(false);
+            if (!isOpenCarEditorUI)
+            {
+                editorRoot.gameObject.SetActive(false);
+            }
         }
 
         /// <summary>
