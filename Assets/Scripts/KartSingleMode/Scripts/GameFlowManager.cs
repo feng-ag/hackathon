@@ -185,4 +185,15 @@ public class GameFlowManager : MonoBehaviour
             loseDisplayMessage.gameObject.SetActive(true);
         }
     }
+
+    public void QuitGame()
+    {
+        SceneManager.LoadScene("Launch_Hackathon");
+    }
+
+    public void ResumeGame()
+    {
+        SceneManager.LoadScene("GameScene");
+        gameState = GameState.Play;
+    }
 }
