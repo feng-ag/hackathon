@@ -3546,7 +3546,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5e424428800073d48890745160e131cd, type: 3}
-    m_FontSize: 20
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -4252,7 +4252,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 30, y: 79}
+  m_AnchoredPosition: {x: 83.137, y: 79}
   m_SizeDelta: {x: 166.273, y: 81.754}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1558352843
@@ -4746,8 +4746,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -191.493, y: 79}
-  m_SizeDelta: {x: 217.013, y: 81.754}
+  m_AnchoredPosition: {x: -163.22595, y: 79}
+  m_SizeDelta: {x: 273.547, y: 81.754}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1752310533
 MonoBehaviour:
@@ -5329,7 +5329,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1913954360}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -5404,7 +5404,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 5e424428800073d48890745160e131cd, type: 3}
-    m_FontSize: 20
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2

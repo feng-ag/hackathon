@@ -150,7 +150,7 @@ public class MapEditorManager : MonoBehaviour
         }
 
 
-        currentEnvenmentObject = map.transform.Find("EnvRoot").GetChild(0).gameObject;
+        currentEnvenmentObject = mapIns.transform.Find("EnvRoot").GetChild(0).gameObject;
 
     }
 
