@@ -20,7 +20,6 @@ public class UI_PlaceItemElement : MonoBehaviour
     GameObject selected;
 
 
-    ItemData.Item item;
 
 
     private void Start()
@@ -33,11 +32,11 @@ public class UI_PlaceItemElement : MonoBehaviour
         selected.SetActive(isSelect);
     }
 
-    public void SetItem(ItemData.Item _item) {
-        item = _item;
+    public void SetItem(ITitleAndIconReadable item) {
 
-        nameText.text = item.name;
-        iconImg.sprite = item.icon;
+        nameText.text = item.Title;
+        iconImg.sprite = item.Icon;
+
     }
 
     public void SetOnClick(Action action)

@@ -13,6 +13,10 @@ public class MapEditorUIManager : MonoBehaviour
     RectTransform placeItemContainer;
 
     [SerializeField]
+    RectTransform envContainer;
+
+
+    [SerializeField]
     GameObject placeItemElement;
 
     [SerializeField]
@@ -46,6 +50,7 @@ public class MapEditorUIManager : MonoBehaviour
 
 
     List<UI_PlaceItemElement> uiItemList = new List<UI_PlaceItemElement>();
+    List<UI_PlaceItemElement> uiEnvList = new List<UI_PlaceItemElement>();
 
 
 
@@ -69,9 +74,10 @@ public class MapEditorUIManager : MonoBehaviour
     {
         MapEditorManager gm = MapEditorManager.Instance;
 
-        ItemData itemData = gm.itemData;
 
-        
+
+        // Item
+        ItemData itemData = gm.itemData;        
         foreach (var (item, index) in itemData.Select((item, index) => (item, index)))
         {
             UI_PlaceItemElement itemEl = Instantiate(placeItemElement, placeItemContainer).GetComponent<UI_PlaceItemElement>();
@@ -79,6 +85,20 @@ public class MapEditorUIManager : MonoBehaviour
             itemEl.SetOnClick(() => gm.onClickPlaceItem(index));
             uiItemList.Add(itemEl);
         }
+
+
+        // Env
+        EnvironmentData environmentData = gm.environmentData;
+        foreach (var (item, index) in environmentData.Select((item, index) => (item, index)))
+        {
+            UI_PlaceItemElement itemEl = Instantiate(placeItemElement, envContainer).GetComponent<UI_PlaceItemElement>();
+            itemEl.SetItem(item);
+            itemEl.SetOnClick(() => gm.onClickEnvItem(index));
+            uiEnvList.Add(itemEl);
+        }
+
+
+
 
 
         editItemRotateLeft.onClick.AddListener(() => currentEditItem.RotateLeft());
@@ -104,6 +124,7 @@ public class MapEditorUIManager : MonoBehaviour
 
         SetTarget(null);
         SetSelectedItem(gm.CurrentPlaceItemIndex);
+        SetSelectedEnv(gm.CurrentEnvIndex);
 
     }
 
@@ -163,6 +184,14 @@ public class MapEditorUIManager : MonoBehaviour
     public void SetSelectedItem(int selectIndex)
     {
         foreach (var (el, index) in uiItemList.Select((item, index) => (item, index)))
+        {
+            el.SetSelect(selectIndex == index);
+        }
+    }
+
+    public void SetSelectedEnv(int selectIndex)
+    {
+        foreach (var (el, index) in uiEnvList.Select((item, index) => (item, index)))
         {
             el.SetSelect(selectIndex == index);
         }

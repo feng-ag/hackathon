@@ -1344,6 +1344,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   itemData: {fileID: 11400000, guid: 3b50f0c643f65594490f9ead4846acaf, type: 2}
+  environmentData: {fileID: 11400000, guid: 2d6fc0431843d6942adeb25ae19d881b, type: 2}
   cursor: {fileID: 1669510853}
   targetCursor: {fileID: 163975914}
   camRoot: {fileID: 1737795421}
@@ -4133,6 +4134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvas: {fileID: 204863}
   placeItemContainer: {fileID: 1216052003}
+  envContainer: {fileID: 1489146168}
   placeItemElement: {fileID: 3083013142408429121, guid: 40055e11ef6cc804fb16554799722006, type: 3}
   currentEditItem: {fileID: 0}
   editItemContainer: {fileID: 191426433}

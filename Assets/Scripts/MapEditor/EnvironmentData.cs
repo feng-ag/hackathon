@@ -4,47 +4,47 @@ using UnityEngine;
 using System.Linq;
 
 
-public class ItemData : ScriptableObject, IEnumerable, IEnumerable<ItemData.Item>
+public class EnvironmentData : ScriptableObject, IEnumerable, IEnumerable<EnvironmentData.Environment>
 {
     [System.Serializable]
-    public struct Item : ITitleAndIconReadable
+    public struct Environment: ITitleAndIconReadable
     {
         public string name;
         public Sprite icon;
-        public bool isUnique;
+
         public GameObject[] prefabs;
 
         public string Title => name;
 
         public Sprite Icon => icon;
 
+
         public GameObject RandomPickPrefab()
         {
             return prefabs[Random.Range(0, prefabs.Length)];
         }
 
-
         public override string ToString()
         {
-            return $"{{ name:{name}, isUnique:{isUnique}, prefabs:{string.Join(", ", prefabs.Select(p => p.name))} }}";
+            return $"{{ name:{name}, prefabs:{string.Join(", ", prefabs.Select(p => p.name))} }}";
         }
     }
 
     [SerializeField]
-    List<Item> data = new List<Item>();
+    List<Environment> data = new List<Environment>();
 
 
-    //public Item GetItem(string name)
+    //public Environment GetEnvironment(string name)
     //{
     //    return data.SingleOrDefault(item => item.name == name);
     //}
 
-    public Item GetItemAt(int index)
+    public Environment GetEnvironmentAt(int index)
     {
         return data[index];
     }
 
-    public IEnumerator<Item> GetEnumerator()
+    public IEnumerator<Environment> GetEnumerator()
     {
         foreach (var item in data)
             yield return item;

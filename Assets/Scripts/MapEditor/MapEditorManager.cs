@@ -32,6 +32,9 @@ public class MapEditorManager : MonoBehaviour
     public ItemData itemData;
 
     [SerializeField]
+    public EnvironmentData environmentData;
+
+    [SerializeField]
     public Transform cursor;
 
     [SerializeField]
@@ -71,9 +74,13 @@ public class MapEditorManager : MonoBehaviour
 
 
     public Action<int> onClickPlaceItem { get; private set; }
+    public Action<int> onClickEnvItem { get; private set; }
+
 
     public static MapEditorManager Instance;
 
+    public int CurrentPlaceItemIndex { get; set; } = 0;
+    public int CurrentEnvIndex { get; set; } = 0;
 
     void Awake()
     {
@@ -90,6 +97,14 @@ public class MapEditorManager : MonoBehaviour
                 CurrentPlaceItemIndex = index;
                 MapEditorUIManager.Instance.SetSelectedItem(index);
                 //Debug.Log($"Set Index = {index}");
+            };
+
+            onClickEnvItem += (int index) =>
+            {
+                CurrentEnvIndex = index;
+                MapEditorUIManager.Instance.SetSelectedEnv(index);
+
+                Debug.Log($"Set ENV Index = {index}");
             };
         }
     }
@@ -159,7 +174,6 @@ public class MapEditorManager : MonoBehaviour
     }
 
 
-    public int CurrentPlaceItemIndex { get; set; } = 0;
 
 
     Vector2 moveBeginMousePos;
