@@ -82,6 +82,8 @@ public class LevelManagerSingle : MonoBehaviour
 
         cub.transform.SetParent(GameSceneManager.instance.gameRoot.transform);
         cub.transform.position = Vector3.zero;
+        cub.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+
         map.transform.SetParent(GameSceneManager.instance.gameRoot.transform);
         map.transform.position = Vector3.zero;
 
