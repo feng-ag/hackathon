@@ -75,7 +75,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 80, y: 80}
-  m_Spacing: {x: 5, y: 0}
+  m_Spacing: {x: 10, y: 0}
   m_Constraint: 2
   m_ConstraintCount: 1
 --- !u!1 &5010793034962969701
@@ -158,10 +158,10 @@ MonoBehaviour:
   m_IgnoreLayout: 0
   m_MinWidth: 80
   m_MinHeight: 130
-  m_PreferredWidth: -1
-  m_PreferredHeight: -1
+  m_PreferredWidth: 80
+  m_PreferredHeight: 130
   m_FlexibleWidth: 160
-  m_FlexibleHeight: -1
+  m_FlexibleHeight: 260
   m_LayoutPriority: 1
 --- !u!1 &5010793036031708658
 GameObject:
