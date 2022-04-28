@@ -7,18 +7,22 @@ namespace ArcadeGalaxyKit
 {
     public class EditorUIControlSystem : MonoBehaviour
     {
-        [Header("ÃèÀY")]
+        public bool isOpenCarEditorUI;
+        [Header("ï¿½ï¿½ï¿½Y")]
         public Camera carEdittingCamera;
         public Camera carPickUpCamera; //for snapshot
-        [Header("»Ý¨D UI ²Õ¥ó")]
+        [Header("ï¿½Ý¨D UI ï¿½Õ¥ï¿½")]
         public GameObject AttributeEditUIContent;
         public GameObject textDropdownRowPrefab;
         public GameObject buttonGroupRowPrefab;
         public GameObject buttonGroupUnitButtonPrefab;
         private CarTemplate currentEditingCarTemplate;
         private CubStyleCenter cubStyleCenter;
-        [Header("¨C­¶ UI ³Ì¤jÄæ¼Æ")]
+        [Header("ï¿½Cï¿½ï¿½ UI ï¿½Ì¤jï¿½ï¿½ï¿½")]
         public int maxRow = 1;
+
+        [SerializeField]
+        public GameObject editorRoot;
 
         /// <summary>
         /// Referenced by ui button
@@ -46,7 +50,7 @@ namespace ArcadeGalaxyKit
             }
             else
             {
-                statusMessage = "¥¼©ì¤J¥ô¦ó car template ¦Ü EditorUIControlSystem.";
+                statusMessage = "ï¿½ï¿½ï¿½ï¿½Jï¿½ï¿½ï¿½ car template ï¿½ï¿½ EditorUIControlSystem.";
             }
 
         }
@@ -81,6 +85,10 @@ namespace ArcadeGalaxyKit
             if (currentEditingCarTemplate)
             {
                 SetupCubStyleCenterSettingUI(cubStyleCenter, currentEditingCarTemplate);
+            }
+            if (!isOpenCarEditorUI)
+            {
+                editorRoot.gameObject.SetActive(false);
             }
         }
 
@@ -190,7 +198,7 @@ namespace ArcadeGalaxyKit
         }
 
         string statusMessage = "";
-        [Header("¸}¥»Debug¤u¨ã")]
+        [Header("ï¿½}ï¿½ï¿½Debugï¿½uï¿½ï¿½")]
         public bool isShowEditorUISystemMessagePanel = false;
         void OnGUI()
         {
@@ -215,7 +223,7 @@ namespace ArcadeGalaxyKit
             FixedSize
         }
         //Screenshot size
-        [Header("ºI¹Ï³]©w")]
+        [Header("ï¿½Iï¿½Ï³]ï¿½w")]
         public CaptureSize captureSize = CaptureSize.CameraSize;
 
         ///< summary > Save screenshot < / summary >
