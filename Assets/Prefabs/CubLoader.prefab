@@ -43,16 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dedb643dede319442864252ab6a1b4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoLoadCub: 1
-  carTemplate: {fileID: 11400000, guid: e2339f67ba4aa2b4c8c83712ae5e03dc, type: 2}
-  skins:
-  - {fileID: 2800000, guid: c0ac90cbfc1acaa428e9cdd0a0b4d7f4, type: 3}
-  - {fileID: 2800000, guid: a87341fab5844ce4ead9566ad5f5e2dc, type: 3}
-  - {fileID: 2800000, guid: b5eda26eb87e26c4897dfc4caa092d8d, type: 3}
-  - {fileID: 2800000, guid: 734eff4c8324bca4491ddc058ace3347, type: 3}
-  eyes:
-  - {fileID: 2800000, guid: 357eab7391c247340a8acca502375f85, type: 3}
-  - {fileID: 2800000, guid: 6da36a2f96a459643bb417631666c453, type: 3}
-  - {fileID: 2800000, guid: f361420eb129af04c9433db1a21b84d7, type: 3}
-  - {fileID: 2800000, guid: 00d02807526abea409edfb2dd96bc616, type: 3}
-  eyeMask: {fileID: 2800000, guid: 1059da2ffc929c2408e381784c37204d, type: 3}
+  AutoLoadCub: 0
+  kartContainer: {fileID: 8101287981751533645, guid: 8b8193f4ea7527d4a9d96eb4c2325df1, type: 3}
