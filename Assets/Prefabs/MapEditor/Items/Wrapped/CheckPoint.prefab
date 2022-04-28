@@ -73,7 +73,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8773166776508080270}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -325,6 +325,10 @@ PrefabInstance:
     - target: {fileID: 6926923255157352319, guid: 67a6c0134508a4f549118248d87e2e0d, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972624742742338666, guid: 67a6c0134508a4f549118248d87e2e0d, type: 3}
+      propertyPath: gameMode
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 67a6c0134508a4f549118248d87e2e0d, type: 3}

@@ -72,8 +72,8 @@ public class LevelManagerSingle : MonoBehaviour
     {
         var map = MapEditorController.Instance.CreacteMapObject();
 
-        var trans = MapEditorController.Instance.GetStartingPoint(map);
-
+        var spawnPos = MapEditorController.Instance.GetStartingPoint(map);
+        
 
 
         var cub = CubLoader.instance.LoadCub();
@@ -81,7 +81,7 @@ public class LevelManagerSingle : MonoBehaviour
         arcadeKartComp.KartAudio.gameObject.SetActive(true);
 
         cub.transform.SetParent(GameSceneManager.instance.gameRoot.transform);
-        cub.transform.position = Vector3.zero;
+        cub.transform.position = spawnPos.position;
         cub.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
         map.transform.SetParent(GameSceneManager.instance.gameRoot.transform);
