@@ -67,10 +67,23 @@ public class LevelManagerSingle : MonoBehaviour
             OutFitChangingSysten.instance.HideCubsEditor();
         }
 
-        //public static void LoadCub()
-        //{
-        //    GameObject cub = CubLoader.instance.LoadCub();
-        //}
+    public static void EnterGamePlay()
+    {
+        var map = MapEditorController.Instance.CreacteMapObject();
+
+        var trans = MapEditorController.Instance.GetStartingPoint(map);
+
+        GameSceneManager.instance.gameRoot.SetActive(true);
+
+        var cub = CubLoader.instance.LoadCub();
+
+        Instantiate(cub, trans.position, Quaternion.identity);
+    }
+
+    //public static void LoadCub()
+    //{
+    //    GameObject cub = CubLoader.instance.LoadCub();
+    //}
 
     //public static void ShowGameScene()
     //{

@@ -129,7 +129,7 @@ public abstract class Objective : MonoBehaviour
         {
             pickupCollected.active = false;
 
-            LapObject lapObject = (LapObject) pickupCollected;
+            LapObject lapObject = (LapObject)pickupCollected;
 
             if (!lapObject.finishLap) return;
 
