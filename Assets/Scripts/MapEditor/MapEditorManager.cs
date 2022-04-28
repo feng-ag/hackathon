@@ -23,6 +23,9 @@ public class MapEditorManager : MonoBehaviour
     public Transform itemRoot;
 
     [SerializeField]
+    Transform envRoot;
+
+    [SerializeField]
     LayerMask groundLayer;
 
     [SerializeField]
@@ -82,6 +85,8 @@ public class MapEditorManager : MonoBehaviour
     public int CurrentPlaceItemIndex { get; set; } = 0;
     public int CurrentEnvIndex { get; set; } = 0;
 
+    GameObject currentEnvenmentObject;
+
     void Awake()
     {
         Instance = this;
@@ -103,8 +108,8 @@ public class MapEditorManager : MonoBehaviour
             {
                 CurrentEnvIndex = index;
                 MapEditorUIManager.Instance.SetSelectedEnv(index);
-
-                Debug.Log($"Set ENV Index = {index}");
+                ChangeEnvTo(index);
+                //Debug.Log($"Set ENV Index = {index}");
             };
         }
     }
@@ -122,7 +127,7 @@ public class MapEditorManager : MonoBehaviour
             return;
         }
         
-        GameObject mapIns = Instantiate(map, itemRoot);
+        GameObject mapIns = Instantiate(map, mapRoot);
 
 
         ItemBase[] itemBaseList = mapIns.GetComponentsInChildren<ItemBase>();
@@ -144,8 +149,20 @@ public class MapEditorManager : MonoBehaviour
 
         }
 
+
+        currentEnvenmentObject = map.transform.Find("EnvRoot").GetChild(0).gameObject;
+
     }
 
+    void ChangeEnvTo(int index)
+    {
+        if (currentEnvenmentObject != null)
+        {
+            Destroy(currentEnvenmentObject);
+        }
+
+        currentEnvenmentObject = Instantiate(environmentData.GetEnvironmentAt(index).RandomPickPrefab(), envRoot);
+    }
 
 
     public bool DeleteItemByUser(MapEditorItemData itemData)

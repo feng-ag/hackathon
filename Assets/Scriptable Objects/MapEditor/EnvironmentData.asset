@@ -15,7 +15,9 @@ MonoBehaviour:
   data:
   - name: Env01
     icon: {fileID: 21300000, guid: d558ff739b0c6eb4fa5a3663917b1f6e, type: 3}
-    prefabs: []
+    prefabs:
+    - {fileID: 7700679972875319782, guid: 750d5a6006a33ed4383fb9fd0579a9c6, type: 3}
   - name: Env02
     icon: {fileID: 21300000, guid: 0774b96f5aaf02a4d814a749f1986bb8, type: 3}
-    prefabs: []
+    prefabs:
+    - {fileID: 7700679972875319782, guid: 15007b36bb3d3f34894821c79df863f7, type: 3}
