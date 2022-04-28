@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// This class inherits from TargetObject and represents a LapObject.
-/// </summary>
+
 public class LapObject : TargetObject
 {
-    [Header("LapObject")]
-    [Tooltip("Is this the first/last lap object?")]
+
     public bool finishLap;
 
     [HideInInspector]

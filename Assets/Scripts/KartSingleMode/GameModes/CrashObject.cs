@@ -1,18 +1,13 @@
 ﻿using UnityEngine;
 
-/// <summary>
-/// This class inherits from TargetObject and represents a CrashObject.
-/// </summary>
+
 public class CrashObject : TargetObject
 {
-    [Header("CrashObject")]
-    [Tooltip("The VFX prefab spawned when the object is collected")]
+   
     public ParticleSystem CollectVFX;
 
-    [Tooltip("The position of the centerOfMass of this rigidbody")]
     public Vector3 centerOfMass;
 
-    [Tooltip("Apply a force to the crash object to make it fly up onTrigger")]
     public float forceUpOnCollide;
 
     Rigidbody m_rigid;
