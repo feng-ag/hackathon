@@ -5,6 +5,7 @@ using FusionExamples.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ArcadeGalaxyKit;
+using KartGame.KartSystems;
 
 public class LevelManagerSingle : MonoBehaviour
 {
@@ -73,27 +74,22 @@ public class LevelManagerSingle : MonoBehaviour
 
         var trans = MapEditorController.Instance.GetStartingPoint(map);
 
-        GameSceneManager.instance.gameRoot.SetActive(true);
+
 
         var cub = CubLoader.instance.LoadCub();
+        var arcadeKartComp = cub.GetComponentInChildren<ArcadeKart>();
+        arcadeKartComp.KartAudio.gameObject.SetActive(true);
 
-        Instantiate(cub, trans.position, Quaternion.identity);
+        cub.transform.SetParent(GameSceneManager.instance.gameRoot.transform);
+        cub.transform.position = Vector3.zero;
+        map.transform.SetParent(GameSceneManager.instance.gameRoot.transform);
+        map.transform.position = Vector3.zero;
+
+        GameSceneManager.instance.gameRoot.SetActive(true);
+
+
     }
 
-    //public static void LoadCub()
-    //{
-    //    GameObject cub = CubLoader.instance.LoadCub();
-    //}
-
-    //public static void ShowGameScene()
-    //{
-    //    Track.Instance.ShowGameScene();
-    //}
-
-    //public static void ShowGameScene()
-    //{
-    //    Track.Instance.HideGameScene();
-    //}
 
 
 

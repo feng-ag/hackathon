@@ -878,7 +878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &870412494714876819
 Transform:
   m_ObjectHideFlags: 0
@@ -1026,7 +1026,7 @@ GameObject:
   - component: {fileID: 2829283604704739417}
   m_Layer: 6
   m_Name: KartBouncingCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1201,7 +1201,7 @@ GameObject:
   - component: {fileID: 949396410613529627}
   m_Layer: 2
   m_Name: Kart_Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1213,7 +1213,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949396410613529620}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_Children:
@@ -1262,7 +1262,7 @@ MonoBehaviour:
     Braking: 16
     CoastingDrag: 5
     Grip: 0.97
-    Steer: 4
+    Steer: 5
     AddedGravity: 1
   m_VisualWheels:
   - {fileID: 4666099465416841535}
@@ -1297,6 +1297,7 @@ MonoBehaviour:
   GroundLayers:
     serializedVersion: 2
     m_Bits: 4294967291
+  KartAudio: {fileID: 870412494714876818}
 --- !u!114 &949396410613529625
 MonoBehaviour:
   m_ObjectHideFlags: 0

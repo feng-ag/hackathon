@@ -154,6 +154,8 @@ namespace KartGame.KartSystems
         [Tooltip("Which layers the wheels will detect.")]
         public LayerMask GroundLayers = Physics.DefaultRaycastLayers;
 
+        public GameObject KartAudio;
+
         // the input sources that can control the kart
         IInput[] m_Inputs;
 
