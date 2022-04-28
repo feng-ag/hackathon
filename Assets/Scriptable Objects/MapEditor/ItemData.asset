@@ -14,66 +14,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
   - name: TerminalTrack
-    icon: {fileID: 21300000, guid: 5d29e25bc9a3a8f4fbf6f1b8759602de, type: 3}
+    icon: {fileID: 21300000, guid: c3437d1df8a54cc4a8bcc9df7742a6f8, type: 3}
     isUnique: 1
     prefabs:
     - {fileID: 5291813963814524630, guid: eeb98b69a5519b746a02bc170dd45066, type: 3}
   - name: CheckPoint
-    icon: {fileID: 21300000, guid: 083825a515867574e9ce11ff2d410a41, type: 3}
+    icon: {fileID: 21300000, guid: e82659491ace96449bc3250def0e08f7, type: 3}
     isUnique: 1
     prefabs:
     - {fileID: 3151076149989215891, guid: ffe643a5d13daf64b961e9a0a4056d3a, type: 3}
   - name: Track01
-    icon: {fileID: 21300000, guid: 4867897e30154f540a66113379458b0e, type: 3}
+    icon: {fileID: 21300000, guid: 80f627aa0d7fcfb48a9fa6197ae7b4ee, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 3238403723215647696, guid: 0618b947576b11b4f9e055ffbd79c45a, type: 3}
   - name: Track02
-    icon: {fileID: 21300000, guid: c8a9b74eaab3d904aa062d65013b69bf, type: 3}
+    icon: {fileID: 21300000, guid: 61cd1783de2d8af4b9f4f9be36ce40fc, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 7651496514373850765, guid: 9e5471836b72c3f47b0c29968e2712a9, type: 3}
   - name: Tree
-    icon: {fileID: 21300000, guid: d958347cb78c6d343b9a8b5169c875f5, type: 3}
+    icon: {fileID: 21300000, guid: 2b53d96750e0a2943a1ba49735196cc5, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 5770321471724996636, guid: 8ca79d00a8ca2a04f985390d23f0549e, type: 3}
     - {fileID: 5178446957226932055, guid: 4ac4ea8a76b480947bdd15dab9e4eb57, type: 3}
     - {fileID: 5178446957226932055, guid: f6eee51eb09bf4d4283e463ebaf5d1c4, type: 3}
   - name: Stone
-    icon: {fileID: 21300000, guid: 4e518a034a90bc54da0727960c1cb9c0, type: 3}
+    icon: {fileID: 21300000, guid: e7afa4969fd096c418cda6856558b524, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 4523708424660386116, guid: 8c13062302272ae4e86374b13df08880, type: 3}
     - {fileID: 4523708424660386116, guid: 020a2b948e39c3e40b2d1bced5adf258, type: 3}
     - {fileID: 4523708424660386116, guid: 20b45c3a8bfa681448e759783033a51b, type: 3}
   - name: Boost
-    icon: {fileID: 21300000, guid: 5ccb5aa2ba961ca4796f48c905dfee8c, type: 3}
+    icon: {fileID: 21300000, guid: b914b2aaf108d0041af91e4f51907af3, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 6519374904869248463, guid: 70790932190ba594ea427307ee75594d, type: 3}
   - name: Banana
-    icon: {fileID: 21300000, guid: 6e87568631b4d934aa43d3e7ad71ae53, type: 3}
+    icon: {fileID: 21300000, guid: a91be06aef49c054aaa475f0bfeeb6e5, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 7967745544600779115, guid: baab7e748f98c3649b179bbd5d99c1c5, type: 3}
   - name: JumpingTrail
-    icon: {fileID: 5543941588292853863, guid: 5043777b087f5b24e9ad94864a8b3718, type: 3}
+    icon: {fileID: 21300000, guid: 4dce7f2d2ea91b14c97be5801784ac15, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 2618255440490948558, guid: b5054faa5fb2c6442b41cc9511ccb04e, type: 3}
   - name: Building01
-    icon: {fileID: 3220665290143086019, guid: 5043777b087f5b24e9ad94864a8b3718, type: 3}
+    icon: {fileID: 21300000, guid: e3100c2f949d8ee4786d7019709984ec, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 3879270172667645893, guid: 631759f5d7b6d81488e258e8dbd8cd20, type: 3}
   - name: Building02
-    icon: {fileID: 3220665290143086019, guid: 5043777b087f5b24e9ad94864a8b3718, type: 3}
+    icon: {fileID: 21300000, guid: 27a198c4ac7ad4240bd591c7fde5c27b, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 4965717474948241896, guid: 6480f6f46b2475941bc0a5c88820c9e3, type: 3}
   - name: Building03
-    icon: {fileID: 3220665290143086019, guid: 5043777b087f5b24e9ad94864a8b3718, type: 3}
+    icon: {fileID: 21300000, guid: 48c2cf359aff34f48827ff78c3ff8ee2, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 2381073754111742491, guid: 8df1f7605edcd39449e4ac40ae533a73, type: 3}
