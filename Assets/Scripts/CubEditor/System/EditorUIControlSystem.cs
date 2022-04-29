@@ -82,13 +82,17 @@ namespace ArcadeGalaxyKit
         {
             cubStyleCenter = DataManager.instance.cubStyleCenter;
             currentEditingCarTemplate = DataManager.instance.currentEditingCarTemplate;
-            if (currentEditingCarTemplate)
-            {
-                SetupCubStyleCenterSettingUI(cubStyleCenter, currentEditingCarTemplate);
-            }
             if (!isOpenCarEditorUI)
             {
                 editorRoot.gameObject.SetActive(false);
+            }
+            else
+            {
+                editorRoot.gameObject.SetActive(true);
+            }
+            if (currentEditingCarTemplate)
+            {
+                SetupCubStyleCenterSettingUI(cubStyleCenter, currentEditingCarTemplate);
             }
         }
 
@@ -97,10 +101,11 @@ namespace ArcadeGalaxyKit
         /// </summary>
         void SetupCubStyleCenterSettingUI(CubStyleCenter cubStyleCenter, CarTemplate carTemplate)
         {
-            foreach (Transform t in AttributeEditUIContent.transform) {
+            foreach (Transform t in AttributeEditUIContent.transform)
+            {
                 Destroy(t.gameObject);
             }
-            
+
             var fields = typeof(CubStyleCenter).GetFields();
             int i = fields.Length - 1;
             for (; i >= 0; i--)
@@ -133,7 +138,7 @@ namespace ArcadeGalaxyKit
                     IEnumerable enumerable = options as IEnumerable;
                     if (enumerable != null)
                     {
-                        
+
                         //Genereate UI setting for each field in enumerable
                         foreach (var obj in enumerable)
                         {
