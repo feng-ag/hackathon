@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 namespace ArcadeGalaxyKit
 {
@@ -12,8 +11,7 @@ namespace ArcadeGalaxyKit
         public bool AutoLoadCub = true;
         CarTemplate carTemplate;
         public GameObject kartContainer;
-        string artCarBodyPath = "Assets/Art/CarComponent/CarBody/MainBody";
-        bool isCanInitWheel = false;
+        public GameObject kartBody;
         GameObject container = null;
         void Awake()
         {
@@ -23,24 +21,7 @@ namespace ArcadeGalaxyKit
             }
             if (AutoLoadCub) LoadCub();
         }
-        private void Update()
-        {
-            //if (isCanInitWheel) {
-            //    isCanInitWheel = false;
-            //    //Setup Tire Colider
-            //    var kart = container.GetComponent<KartGame.KartSystems.ArcadeKart>();
-            //    WheelCollider[] wheels = container.GetComponentsInChildren<WheelCollider>();
-            //    kart.FrontLeftWheel = wheels[0];
-            //    kart.FrontRightWheel = wheels[1];
-            //    kart.RearRightWheel = wheels[2];
-            //    kart.RearLeftWheel = wheels[3];
-            //    kart.CenterOfMass = container.transform.Find("TireType/TireA_InGame(Clone)/WheelColliders").transform;
-            //    container.GetComponent<KartGame.KartSystems.KartAnimation>().WheelReset();
-                
 
-            //    container.SetActive(true);
-            //}
-        }
         /// <summary>
         /// Return gameobj of loaded cubtemplate setting and generate cub in scene position (0,0,0)
         /// </summary>
@@ -71,7 +52,7 @@ namespace ArcadeGalaxyKit
                 {
                     //Load Prefab
                     List<GameObject> toLoad = new List<GameObject>();
-                    toLoad.Add(PrefabUtility.LoadPrefabContents(artCarBodyPath + "/" + "CarBody" + ".prefab"));
+                    toLoad.Add(kartBody);
                     if (carTemplate.animalBodyTypeSetting) toLoad.Add(carTemplate.animalBodyTypeSetting.meshPrefab);
                     if (carTemplate.glassesSetting.meshPrefab) toLoad.Add(carTemplate.glassesSetting.meshPrefab);
                     if (toLoad.Count > 0)
@@ -87,20 +68,6 @@ namespace ArcadeGalaxyKit
                 GameObject bodyObj = modelRoot.transform.Find("CarBody(Clone)").gameObject;
                 var bodyMRD = bodyObj.GetComponent<MeshRenderer>();
                 ChangeEyesType(carTemplate, bodyMRD);
-
-                ////Change Tire
-                //var tireRoot = container.transform.Find("TireType");
-                //foreach (Transform child in tireRoot)
-                //{
-                //    Destroy(child.gameObject);
-                //}
-                //if (carTemplate.tireSetting.meshPrefab)
-                //{
-                //    GameObject q = Instantiate(carTemplate.tireSetting.meshPrefab) as GameObject;
-                //    q.transform.parent = tireRoot.transform;
-                //}
-                //isCanInitWheel = true;
-
 
                 return container;
             }

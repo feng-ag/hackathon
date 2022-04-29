@@ -45,3 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoLoadCub: 0
   kartContainer: {fileID: 8101287981751533645, guid: 8b8193f4ea7527d4a9d96eb4c2325df1, type: 3}
+  kartBody: {fileID: 1104916099559443335, guid: e2947ae17d01eb14fb7f2b143b08e9ec, type: 3}
