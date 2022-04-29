@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameLauncherSingle : MonoBehaviour
 {
  
-    [SerializeField] private GameManagerSingle _gameManagerPrefab;
-    [SerializeField] private RoomPlayer _roomPlayerPrefab;
+    //[SerializeField] private GameManagerSingle _gameManagerPrefab;
+    //[SerializeField] private RoomPlayer _roomPlayerPrefab;
 
 
     //private LevelManagerSingle _levelManager;

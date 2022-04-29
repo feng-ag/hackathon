@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Fusion;
-using FusionExamples.Utility;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ArcadeGalaxyKit;
@@ -11,17 +9,17 @@ public class LevelManagerSingle : MonoBehaviour
 {
 
         public const int LAUNCH_SCENE = 0;
-        public const int LOBBY_SCENE = 1;
-        public const int CUBS_EDITOR_SCENE = 2;
-        public const int MAP_EDITOR_SCENE = 3;
-        public const int Game_Scene = 4;
+        //public const int LOBBY_SCENE = 1;
+        public const int CUBS_EDITOR_SCENE = 1;
+        public const int MAP_EDITOR_SCENE = 2;
+        public const int Game_Scene = 3;
 
 
     //[SerializeField] private UIScreen _dummyScreen;
     [SerializeField] private UIScreen _lobbyScreen;
         [SerializeField] private CanvasFader fader;
 
-        public static LevelManagerSingle Instance => Singleton<LevelManagerSingle>.Instance;
+        //public static LevelManagerSingle Instance => Singleton<LevelManagerSingle>.Instance;
 
     List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
 

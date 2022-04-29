@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using FusionExamples.Utility;
 using UnityEngine;
 using UnityEngine.Audio;
 #if UNITY_EDITOR
@@ -26,13 +25,34 @@ public class AudioManager : MonoBehaviour
 
 	// Singleton
 
-	public static AudioManager Instance => Singleton<AudioManager>.Instance;
+	public static AudioManager Instance { get; private set; }
+
+
+	//private void Awake()
+	//{
+	//	if (Instance)
+	//	{
+	//		Destroy(gameObject);
+	//		return;
+	//	}
+	//	Instance = this;
+	//	DontDestroyOnLoad(gameObject);
+	//}
 
 	private void Awake()
 	{
+
+		if (Instance)
+		{
+			Destroy(gameObject);
+			return;
+		}
+		Instance = this;
+		DontDestroyOnLoad(gameObject);
+
 		InitBanks();
 		musicSource.outputAudioMixerGroup = musicMixer;
-		DontDestroyOnLoad(gameObject);
+		//DontDestroyOnLoad(gameObject);
 	}
 
 	private void Start()
