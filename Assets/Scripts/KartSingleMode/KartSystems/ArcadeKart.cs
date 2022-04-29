@@ -156,6 +156,14 @@ namespace KartGame.KartSystems
 
         public GameObject KartAudio;
 
+        public bool IsOffroad => IsGrounded && GroundResistance >= 0.2f;
+        public bool IsGrounded { get; set; }
+        public float GroundResistance { get; set; }
+        public new CapsuleCollider collider;
+        public bool IsOnRoad { get; set; }
+
+
+
         // the input sources that can control the kart
         IInput[] m_Inputs;
 
@@ -237,6 +245,9 @@ namespace KartGame.KartSystems
         {
             Rigidbody = GetComponent<Rigidbody>();
             m_Inputs = GetComponents<IInput>();
+
+            collider = GetComponentInChildren<CapsuleCollider>();
+
 
             UpdateSuspensionParams(FrontLeftWheel);
             UpdateSuspensionParams(FrontRightWheel);
@@ -320,8 +331,39 @@ namespace KartGame.KartSystems
 
             m_PreviousGroundPercent = GroundPercent;
 
-            UpdateDriftVFXOrientation();
+            GroundNormalRotation();
+
+            //UpdateDriftVFXOrientation();
         }
+
+        private void GroundNormalRotation()
+        {
+            //var wasOffroad = IsOffroad;
+
+            //var IsGrounded = Physics.SphereCast(collider.transform.TransformPoint(collider.center), collider.radius - 0.1f,
+            //    Vector3.down, out var hit, 0.3f, ~LayerMask.GetMask("Kart"));
+
+            //if (IsGrounded)
+            //{
+                //Debug.DrawRay(hit.point, hit.normal, Color.magenta);
+                //GroundResistance = hit.collider.material.dynamicFriction;
+                //if (GroundResistance == 0)
+                //{
+                //    Debug.Log("on road");
+                //    IsOnRoad = true;
+                //}
+                //else
+                //{
+                //    Debug.Log("off road");
+                //    IsOnRoad = false;
+                //}
+                //model.transform.rotation = Quaternion.Lerp(
+               
+            //}
+
+         
+        }
+
 
         void GatherInputs()
         {
@@ -472,6 +514,18 @@ namespace KartGame.KartSystems
                 newVelocity = Vector3.MoveTowards(newVelocity, new Vector3(0, Rigidbody.velocity.y, 0), Time.fixedDeltaTime * m_FinalStats.CoastingDrag);
             }
 
+            
+            //var resistance = 1 - (IsGrounded ? GroundResistance : 0);
+            //if (resistance < 1)
+            //{
+            //    var AppliedSpeed = transform.InverseTransformDirection(Rigidbody.velocity).z;
+                
+            //    AppliedSpeed = Mathf.Lerp(AppliedSpeed, AppliedSpeed * resistance, Time.fixedDeltaTime * 2);
+            //    newVelocity = (Rigidbody.rotation * Vector3.forward) * AppliedSpeed;
+            //    newVelocity.y = Rigidbody.velocity.y;
+            //}
+
+
             Rigidbody.velocity = newVelocity;
 
             // Drift
@@ -488,7 +542,7 @@ namespace KartGame.KartSystems
                 float angularVelocitySmoothSpeed = 20f;
 
                 // turning is reversed if we're going in reverse and pressing reverse
-                if (!localVelDirectionIsFwd && !accelDirectionIsFwd) 
+                if (!localVelDirectionIsFwd && !accelDirectionIsFwd)
                     angularVelocitySteering *= -1.0f;
 
                 var angularVel = Rigidbody.angularVelocity;
@@ -514,6 +568,7 @@ namespace KartGame.KartSystems
                         m_DriftTurningPower = 0.0f;
                     }
                 }
+
 
                 // Drift Management
                 if (!IsDrifting)
@@ -562,7 +617,7 @@ namespace KartGame.KartSystems
             }
             else
             {
-                m_InAir = true;
+                //m_InAir = true;
             }
 
             bool validPosition = false;

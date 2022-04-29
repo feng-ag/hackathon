@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+//#if UNITY_EDITOR
+//using UnityEditor;
+//#endif
 
 public class AudioManager : MonoBehaviour
 {
@@ -291,39 +291,39 @@ public class AudioManager : MonoBehaviour
 		}
 	}
 
-#if UNITY_EDITOR
-	[CustomPropertyDrawer(typeof(AudioBank))]
-	public class AudioBankDrawer : PropertyDrawer
-	{
-		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
-		{
-			return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("kvps"));
-		}
+//#if UNITY_EDITOR
+	//[CustomPropertyDrawer(typeof(AudioBank))]
+	//public class AudioBankDrawer : PropertyDrawer
+	//{
+	//	public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+	//	{
+	//		return EditorGUI.GetPropertyHeight(property.FindPropertyRelative("kvps"));
+	//	}
 
-		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-		{
-			EditorGUI.BeginProperty(position, label, property);
-			EditorGUI.PropertyField(position, property.FindPropertyRelative("kvps"),label, true);
-			EditorGUI.EndProperty();
-		}
-	}
+	//	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+	//	{
+	//		EditorGUI.BeginProperty(position, label, property);
+	//		EditorGUI.PropertyField(position, property.FindPropertyRelative("kvps"),label, true);
+	//		EditorGUI.EndProperty();
+	//	}
+	//}
 
-	[CustomPropertyDrawer(typeof(BankKVP))]
-	public class BankKVPDrawer : PropertyDrawer
-	{
-		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-		{
+	//[CustomPropertyDrawer(typeof(BankKVP))]
+	//public class BankKVPDrawer : PropertyDrawer
+	//{
+	//	public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+	//	{
 
-			EditorGUI.BeginProperty(position, label, property);
+	//		EditorGUI.BeginProperty(position, label, property);
 
-			Rect rect1 = new Rect(position.x, position.y, position.width / 2 - 4, position.height);
-			Rect rect2 = new Rect(position.center.x + 2, position.y, position.width / 2 - 4, position.height);
+	//		Rect rect1 = new Rect(position.x, position.y, position.width / 2 - 4, position.height);
+	//		Rect rect2 = new Rect(position.center.x + 2, position.y, position.width / 2 - 4, position.height);
 
-			EditorGUI.PropertyField(rect1, property.FindPropertyRelative("Key"), GUIContent.none);
-			EditorGUI.PropertyField(rect2, property.FindPropertyRelative("Value"), GUIContent.none);
+	//		EditorGUI.PropertyField(rect1, property.FindPropertyRelative("Key"), GUIContent.none);
+	//		EditorGUI.PropertyField(rect2, property.FindPropertyRelative("Value"), GUIContent.none);
 
-			EditorGUI.EndProperty();
-		}
-	}
-#endif
+	//		EditorGUI.EndProperty();
+	//	}
+	//}
+//#endif
 }

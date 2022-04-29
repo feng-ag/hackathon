@@ -6,7 +6,7 @@ public class CanvasFader : MonoBehaviour
 {
 	public CanvasGroup group;
 
-	public float fadeInTime = 0f;
+	public float fadeInTime = 1f;
 	public float fadeOutTime = 1f;
     private bool fading = false;
 
@@ -15,13 +15,25 @@ public class CanvasFader : MonoBehaviour
 		StartCoroutine(FadeRoutine(false));
 	}
 
+	public void FadeOutDirectly()
+	{
+		group.alpha = 0;
+		gameObject.SetActive(false);
+	}
+
 	public void FadeIn()
 	{
 		gameObject.SetActive(true);
 		StartCoroutine(FadeRoutine(true));
 	}
 
-    private IEnumerator FadeRoutine(bool fadeIn)
+	public void FadeInDirectly()
+	{
+		gameObject.SetActive(true);
+		group.alpha = 1;
+	}
+
+	private IEnumerator FadeRoutine(bool fadeIn)
 	{
 		float from = fadeIn ? 0 : 1;
 		float to = fadeIn ? 1 : 0;

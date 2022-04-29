@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1159969008300890718
+--- !u!1 &103465214385844718
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5230654552323537945}
-  - component: {fileID: 9082130054272696031}
+  - component: {fileID: 734255206577239991}
+  - component: {fileID: 2827889905182160746}
   m_Layer: 2
   m_Name: Directional Light
   m_TagString: Untagged
@@ -17,33 +17,33 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5230654552323537945
+--- !u!4 &734255206577239991
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159969008300890718}
-  m_LocalRotation: {x: 0.14780942, y: 0, z: 0, w: 0.9890159}
-  m_LocalPosition: {x: 0, y: 0.65, z: -0.95}
+  m_GameObject: {fileID: 103465214385844718}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8101287981751533638}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 17, y: 0, z: 0}
---- !u!108 &9082130054272696031
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!108 &2827889905182160746
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159969008300890718}
+  m_GameObject: {fileID: 103465214385844718}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.5
+  m_Intensity: 0.3
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -454,6 +454,7 @@ GameObject:
   - component: {fileID: 8101287981751533633}
   - component: {fileID: 8101287981751533632}
   - component: {fileID: 8101287981751533634}
+  - component: {fileID: -279738694263293629}
   m_Layer: 2
   m_Name: Kart_Player_New
   m_TagString: Player
@@ -476,7 +477,7 @@ Transform:
   - {fileID: 8101287982423727527}
   - {fileID: 4323331375818306469}
   - {fileID: 8166489518721847242}
-  - {fileID: 5230654552323537945}
+  - {fileID: 734255206577239991}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -509,7 +510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    TopSpeed: 2
+    TopSpeed: 15
     Acceleration: 7
     ReverseSpeed: 10
     ReverseAcceleration: 3
@@ -551,7 +552,7 @@ MonoBehaviour:
   RearRightWheel: {fileID: 8101287981938836765}
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 4294967291
+    m_Bits: 256
   KartAudio: {fileID: 8166489518721847243}
 --- !u!114 &8101287981751533632
 MonoBehaviour:
@@ -567,7 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kartController: {fileID: 8101287981751533633}
   steeringAnimationDamping: 10
-  maxSteeringAngle: 30
+  maxSteeringAngle: 5
   frontLeftWheel:
     wheelTransform: {fileID: 2118693278617925777}
     wheelCollider: {fileID: 8101287981072998631}
@@ -595,6 +596,59 @@ MonoBehaviour:
   TurnInputName: Horizontal
   AccelerateButtonName: Accelerate
   BrakeButtonName: Brake
+--- !u!114 &-279738694263293629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101287981751533645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2d4869a13876dd4687e7aac1dc3a37b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BounceFactor: 10
+  RotationSpeed: 3
+  CollisionLayer:
+    serializedVersion: 2
+    m_Bits: 4096
+  RayDistance: 1
+  PauseTime: 0.5
+  HeightOffset: 0
+  Angles:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  DrawGizmos: 0
+  BounceSound: {fileID: 0}
 --- !u!1 &8101287982423727526
 GameObject:
   m_ObjectHideFlags: 0
@@ -1353,13 +1407,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4323331375818306469}
     m_Modifications:
-    - target: {fileID: 194862858321289536, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 321990908697729530, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Radius
-      value: 3
+      propertyPath: m_Center.y
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 321990908717512004, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
       propertyPath: m_Name
@@ -1410,28 +1460,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 321990909491667929, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Radius
-      value: 3
+      propertyPath: m_Center.y
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 321990910634329635, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Radius
-      value: 3
+      propertyPath: m_Center.y
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 321990910682338550, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Radius
-      value: 3
+      propertyPath: m_Center.y
+      value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 2119226038374139593, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3880409623480957280, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4479199817294621809, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Enabled
-      value: 0
+    - target: {fileID: 7758544587251797504, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
+      propertyPath: m_Name
+      value: Wheels
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
@@ -1465,14 +1507,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8633258107846022338, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
   m_PrefabInstance: {fileID: 8366139419618240196}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &5313763099255042999 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4441736822855308659, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
+  m_PrefabInstance: {fileID: 8366139419618240196}
+  m_PrefabAsset: {fileID: 0}
 --- !u!146 &8101287981016216114 stripped
 WheelCollider:
   m_CorrespondingSourceObject: {fileID: 321990910682338550, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-  m_PrefabInstance: {fileID: 8366139419618240196}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1609122483733559345 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7083809435653807861, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
   m_PrefabInstance: {fileID: 8366139419618240196}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8978553322577308403 stripped
@@ -1500,8 +1542,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 321990908717512005, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
   m_PrefabInstance: {fileID: 8366139419618240196}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5313763099255042999 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4441736822855308659, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
+--- !u!1 &1609122483733559345 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7083809435653807861, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
   m_PrefabInstance: {fileID: 8366139419618240196}
   m_PrefabAsset: {fileID: 0}

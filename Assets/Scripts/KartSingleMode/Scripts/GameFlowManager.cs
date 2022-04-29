@@ -86,6 +86,9 @@ public class GameFlowManager : MonoBehaviour
         StartCoroutine(ShowObjectivesRoutine());
 
         StartCoroutine(CountdownThenStartRaceRoutine());
+
+        Debug.Log("Start finish");
+
     }
 
     IEnumerator CountdownThenStartRaceRoutine() {
@@ -201,12 +204,17 @@ public class GameFlowManager : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene("Launch_Hackathon");
+        EndGame(true);
+
+        LevelManager.Instance.QuitGameplay();
+
     }
 
     public void ResumeGame()
     {
-        SceneManager.LoadScene("GameScene");
-        gameState = GameState.Play;
+        EndGame(true);
+
+        LevelManager.Instance.EnterGamePlay();
+
     }
 }
