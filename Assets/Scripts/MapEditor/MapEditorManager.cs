@@ -375,7 +375,8 @@ public class MapEditorManager : MonoBehaviour
         {
             Zoom(zoomRatio - 1F * Time.deltaTime);
         }
-        else if (Input.mouseScrollDelta.y > 0F || Input.mouseScrollDelta.y < 0F)
+        else if (!EventSystem.current.IsPointerOverGameObject() &&
+            (Input.mouseScrollDelta.y > 0F || Input.mouseScrollDelta.y < 0F))
         {
             Zoom(zoomRatio - 0.1F * Input.mouseScrollDelta.y);
         }
