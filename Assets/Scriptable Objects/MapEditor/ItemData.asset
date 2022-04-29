@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ItemData
   m_EditorClassIdentifier: 
   data:
-  - name: TerminalTrack
+  - name: Start / Finish Line
     icon: {fileID: 21300000, guid: c3437d1df8a54cc4a8bcc9df7742a6f8, type: 3}
     isUnique: 1
     prefabs:
@@ -40,14 +40,14 @@ MonoBehaviour:
     - {fileID: 5770321471724996636, guid: 8ca79d00a8ca2a04f985390d23f0549e, type: 3}
     - {fileID: 5178446957226932055, guid: 4ac4ea8a76b480947bdd15dab9e4eb57, type: 3}
     - {fileID: 5178446957226932055, guid: f6eee51eb09bf4d4283e463ebaf5d1c4, type: 3}
-  - name: Stone
+  - name: Rock
     icon: {fileID: 21300000, guid: e7afa4969fd096c418cda6856558b524, type: 3}
     isUnique: 0
     prefabs:
     - {fileID: 4523708424660386116, guid: 8c13062302272ae4e86374b13df08880, type: 3}
     - {fileID: 4523708424660386116, guid: 020a2b948e39c3e40b2d1bced5adf258, type: 3}
     - {fileID: 4523708424660386116, guid: 20b45c3a8bfa681448e759783033a51b, type: 3}
-  - name: Boost
+  - name: Boost Pad
     icon: {fileID: 21300000, guid: b914b2aaf108d0041af91e4f51907af3, type: 3}
     isUnique: 0
     prefabs:
@@ -57,7 +57,7 @@ MonoBehaviour:
     isUnique: 0
     prefabs:
     - {fileID: 7967745544600779115, guid: baab7e748f98c3649b179bbd5d99c1c5, type: 3}
-  - name: JumpingTrail
+  - name: Ramp
     icon: {fileID: 21300000, guid: 4dce7f2d2ea91b14c97be5801784ac15, type: 3}
     isUnique: 0
     prefabs:

@@ -138,6 +138,10 @@ public class MapEditorUIManager : MonoBehaviour
         {
             DeleteItem();
         }
+        else if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            DeleteItem();
+        }
         else if (Input.GetKeyDown(KeyCode.X))
         {
             DeleteAllItem();
