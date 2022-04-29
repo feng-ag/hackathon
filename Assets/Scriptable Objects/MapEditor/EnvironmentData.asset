@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
   - name: Env01
-    icon: {fileID: 21300000, guid: d558ff739b0c6eb4fa5a3663917b1f6e, type: 3}
+    icon: {fileID: 21300000, guid: ca170ca926db2bb409d7940564d9071b, type: 3}
     prefabs:
     - {fileID: 7700679972875319782, guid: 750d5a6006a33ed4383fb9fd0579a9c6, type: 3}
   - name: Env02
-    icon: {fileID: 21300000, guid: 0774b96f5aaf02a4d814a749f1986bb8, type: 3}
+    icon: {fileID: 21300000, guid: 229f1e60244367e42b439e672380b976, type: 3}
     prefabs:
     - {fileID: 7700679972875319782, guid: 15007b36bb3d3f34894821c79df863f7, type: 3}
