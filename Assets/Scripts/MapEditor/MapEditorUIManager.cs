@@ -42,12 +42,6 @@ public class MapEditorUIManager : MonoBehaviour
     [SerializeField]
     Button editItemClear;
 
-    [SerializeField]
-    Button helpBtn;
-
-    [SerializeField]
-    GameObject helpBox;
-
 
     List<UI_PlaceItemElement> uiItemList = new List<UI_PlaceItemElement>();
     List<UI_PlaceItemElement> uiEnvList = new List<UI_PlaceItemElement>();
@@ -105,7 +99,6 @@ public class MapEditorUIManager : MonoBehaviour
         editItemRotateRight.onClick.AddListener(() => currentEditItem.RotateRight());
         editItemDelete.onClick.AddListener(() => DeleteItem());
         editItemClear.onClick.AddListener(() => DeleteAllItem());
-        helpBtn.onClick.AddListener(() => helpBox.SetActive(!helpBox.activeSelf));
 
 
         for (int i = 0; i < tabs.Length; i++)
