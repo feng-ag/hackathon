@@ -82,7 +82,7 @@ public class MapEditorManager : MonoBehaviour
 
     public static MapEditorManager Instance;
 
-    public int CurrentPlaceItemIndex { get; set; } = 0;
+    public int CurrentPlaceItemIndex { get; set; } = -1;
     public int CurrentEnvIndex { get; set; } = 0;
 
     GameObject currentEnvenmentObject;
@@ -208,19 +208,27 @@ public class MapEditorManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
+
                 ItemBase itemBase = null;
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value) &&
                     hitInfo.collider.TryGetComponent(out itemBase))
                 {
-                    CurrentControlState = ControlState.Place;
+                    CurrentControlState = ControlState.Peek;
                     targetCursor.position = itemBase.transform.position;
                     targetCursor.gameObject.SetActive(true);
                     MapEditorUIManager.Instance.SetTarget(itemBase);
                 }
                 else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
                 {
-                    CurrentControlState = ControlState.Peek;
+                    if (CurrentPlaceItemIndex < 0)
+                    {
+                        targetCursor.gameObject.SetActive(false);
+                        MapEditorUIManager.Instance.SetTarget(null);
+                        return;
+                    }
+
+                    CurrentControlState = ControlState.Place;
                     float x = Mathf.Round(hitInfo2.point.x);
                     float z = Mathf.Round(hitInfo2.point.z);
                     Vector3 pos3 = new Vector3(x, 0, z);
