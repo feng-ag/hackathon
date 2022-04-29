@@ -59,7 +59,7 @@ public class MapEditorManager : MonoBehaviour
         Move = 3,
     }
 
-    public ControlState CurrentControlState = ControlState.Place;
+    public ControlState CurrentControlState = ControlState.Peek;
 
 
     public struct MapEditorItemData
@@ -99,9 +99,18 @@ public class MapEditorManager : MonoBehaviour
         {
             onClickPlaceItem += (int index) =>
             {
-                CurrentPlaceItemIndex = index;
-                MapEditorUIManager.Instance.SetSelectedItem(index);
-                //Debug.Log($"Set Index = {index}");
+
+                if(CurrentPlaceItemIndex == index)
+                {
+                    ChangeToPeek(null);
+                }
+                else
+                {
+                    HidePeek();
+                    ChangeToPlace(index);
+                }
+
+
             };
 
             onClickEnvItem += (int index) =>
@@ -112,6 +121,46 @@ public class MapEditorManager : MonoBehaviour
                 //Debug.Log($"Set ENV Index = {index}");
             };
         }
+    }
+
+
+    void ChangeToPeek(ItemBase itemBase)
+    {
+        CurrentControlState = ControlState.Peek;
+        MapEditorUIManager.Instance.SetSelectedItem(-1);
+        CurrentPlaceItemIndex = -1;
+
+        if (itemBase != null)
+        {
+            ShowPeek(itemBase);
+        }
+        else
+        {
+            HidePeek();
+        }
+
+
+    }
+
+    void ShowPeek(ItemBase itemBase)
+    {
+        targetCursor.position = itemBase.transform.position;
+        targetCursor.gameObject.SetActive(true);
+        MapEditorUIManager.Instance.SetTarget(itemBase);
+    }
+
+    void HidePeek()
+    {
+        targetCursor.gameObject.SetActive(false);
+        MapEditorUIManager.Instance.SetTarget(null);
+    }
+
+
+    void ChangeToPlace(int index)
+    {
+        CurrentControlState = ControlState.Place;
+        MapEditorUIManager.Instance.SetSelectedItem(index);
+        CurrentPlaceItemIndex = index;
     }
 
 
@@ -214,21 +263,26 @@ public class MapEditorManager : MonoBehaviour
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value) &&
                     hitInfo.collider.TryGetComponent(out itemBase))
                 {
-                    CurrentControlState = ControlState.Peek;
-                    targetCursor.position = itemBase.transform.position;
-                    targetCursor.gameObject.SetActive(true);
-                    MapEditorUIManager.Instance.SetTarget(itemBase);
+                    //初次選擇就顯示info，重複選擇就關閉
+                    if (MapEditorUIManager.Instance.currentEditItem != itemBase)
+                    {
+                        ChangeToPeek(itemBase);
+                    }
+                    else
+                    {
+                        ChangeToPeek(null);
+                        MapEditorUIManager.Instance.currentEditItem = null;
+                    }
+
                 }
                 else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
                 {
-                    if (CurrentPlaceItemIndex < 0)
+                    if (CurrentControlState != ControlState.Place)
                     {
-                        targetCursor.gameObject.SetActive(false);
-                        MapEditorUIManager.Instance.SetTarget(null);
+                        ChangeToPeek(null);
                         return;
                     }
 
-                    CurrentControlState = ControlState.Place;
                     float x = Mathf.Round(hitInfo2.point.x);
                     float z = Mathf.Round(hitInfo2.point.z);
                     Vector3 pos3 = new Vector3(x, 0, z);
@@ -356,17 +410,14 @@ public class MapEditorManager : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value) &&
                 hitInfo.collider.TryGetComponent(out itemBase))
             {
-                CurrentControlState = ControlState.Place;
                 cursor.position = itemBase.transform.position;
                 cursor.gameObject.SetActive(true);
             }
             else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
             {
-                CurrentControlState = ControlState.Peek;
                 float x = Mathf.Round(hitInfo2.point.x);
                 float z = Mathf.Round(hitInfo2.point.z);
                 Vector3 pos = new Vector3(x, 0, z);
-
 
                 cursor.gameObject.SetActive(true);
                 cursor.transform.position = pos;

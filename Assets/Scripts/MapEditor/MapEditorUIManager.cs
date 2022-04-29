@@ -20,7 +20,7 @@ public class MapEditorUIManager : MonoBehaviour
     GameObject placeItemElement;
 
     [SerializeField]
-    ItemBase currentEditItem;
+    public ItemBase currentEditItem;
 
     //Edit
 
