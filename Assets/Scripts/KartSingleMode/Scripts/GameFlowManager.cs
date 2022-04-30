@@ -150,6 +150,7 @@ public class GameFlowManager : MonoBehaviour
                     if (!inGameMenuManager.menuRoot.activeSelf)
                     {
                         inGameMenuManager.TogglePauseMenu();
+                        gameState = GameState.Play;
                     }
                     //SceneManager.LoadScene(m_SceneToLoad);
                     //gameState = GameState.Play;
@@ -209,15 +210,16 @@ public class GameFlowManager : MonoBehaviour
 
     public void QuitGame()
     {
-
+        EndGame(true);
+        StopAllCoroutines();
         LevelManager.Instance.QuitGameplay();
 
     }
 
     public void ResumeGame()
     {
-
+        EndGame(true);
+        StopAllCoroutines();
         LevelManager.Instance.EnterGamePlay();
-
     }
 }

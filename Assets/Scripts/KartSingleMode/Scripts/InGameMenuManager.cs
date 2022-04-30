@@ -78,17 +78,21 @@ public class InGameMenuManager : MonoBehaviour
 
         if (menuRoot.activeSelf)
         {
+            Debug.Log("SetPauseMenuActivation: true");
+
        //     Cursor.lockState = CursorLockMode.None;
           //  Cursor.visible = true;
-            Time.timeScale = 0f;
+            Time.timeScale = 1f;
             AudioUtility.SetMasterVolume(volumeWhenMenuOpen);
 
             EventSystem.current.SetSelectedGameObject(null);
         }
         else
         {
-         //   Cursor.lockState = CursorLockMode.Locked;
-         //   Cursor.visible = false;
+            Debug.Log("SetPauseMenuActivation: false");
+
+            //   Cursor.lockState = CursorLockMode.Locked;
+            //   Cursor.visible = false;
             Time.timeScale = 1f;
             AudioUtility.SetMasterVolume(1);
         }

@@ -19,7 +19,7 @@
         [SerializeField] private UIScreen _levelEditorScreen;
         [SerializeField] private CanvasFader fader;
 
-         List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
+         //List<AsyncOperation> scenesToLoad = new List<AsyncOperation>();
 
          public static LevelManager Instance { get; private set; }
 
@@ -40,19 +40,33 @@
 
     private void Start()
     {
-            StartCoroutine(LoadMultiScenes());
+        StartCoroutine(LoadMultiScenes());
+
     }
 
     private IEnumerator LoadMultiScenes()
     {
-        
-            scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.CUBS_EDITOR_SCENE));
-            scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.MAP_EDITOR_SCENE, LoadSceneMode.Additive));
-            //scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.Game_Scene, LoadSceneMode.Additive));
+        fader.FadeIn();
 
-            yield return new WaitForSeconds(2);
 
-            fader.FadeOut();
+        AsyncOperation asyncUnload = SceneManager.LoadSceneAsync(LevelManager.CUBS_EDITOR_SCENE);
+
+        while (!asyncUnload.isDone)
+        {
+            yield return null;
+        }
+
+        AsyncOperation asyncUnload2 = SceneManager.LoadSceneAsync(LevelManager.MAP_EDITOR_SCENE, LoadSceneMode.Additive);
+
+        while (!asyncUnload2.isDone)
+        {
+            yield return null;
+        }
+        //scenesToLoad.Add(SceneManager.LoadSceneAsync(LevelManager.Game_Scene, LoadSceneMode.Additive));
+
+
+        fader.FadeOut();
+
     }
 
 
@@ -126,8 +140,7 @@
     {
 
 
-        fader.FadeInDirectly();
-
+        fader.FadeIn();
 
 
         if (SceneManager.GetSceneByBuildIndex(LevelManager.Game_Scene).IsValid())
@@ -174,7 +187,7 @@
 
 
 
-        fader.FadeOutDirectly();
+        fader.FadeOut();
 
     }
 

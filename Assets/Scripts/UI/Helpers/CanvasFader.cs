@@ -30,24 +30,25 @@ public class CanvasFader : MonoBehaviour
 		StartCoroutine(FadeRoutine(false));
 	}
 
-	public void FadeOutDirectly()
-	{
-		group.alpha = 0;
-		gameObject.SetActive(false);
-	}
+	//public void FadeOutDirectly()
+	//{
+	//	group.alpha = 0;
+	//	gameObject.SetActive(false);
+	//}
 
 	public void FadeIn()
 	{
 		gameObject.SetActive(true);
+		VideoPlayer.Play();
 		StartCoroutine(FadeRoutine(true));
 	}
 
-	public void FadeInDirectly()
-	{
-		gameObject.SetActive(true);
-		group.alpha = 1;
-		VideoPlayer.Play();
-	}
+	//public void FadeInDirectly()
+	//{
+	//	gameObject.SetActive(true);
+	//	group.alpha = 1;
+	//	VideoPlayer.Play();
+	//}
 
 	private IEnumerator FadeRoutine(bool fadeIn)
 	{
