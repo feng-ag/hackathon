@@ -64,10 +64,14 @@ public class TimeManager : MonoBehaviour
     public void StartRace()
     {
         raceStarted = true;
+        Debug.Log("StartRace");
+
     }
 
     public void StopRace() {
         raceStarted = false;
+        Debug.Log("StopRace");
+
     }
 }
 

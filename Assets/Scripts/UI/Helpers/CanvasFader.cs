@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Video;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class CanvasFader : MonoBehaviour
@@ -9,8 +10,22 @@ public class CanvasFader : MonoBehaviour
 	public float fadeInTime = 1f;
 	public float fadeOutTime = 1f;
     private bool fading = false;
+	private string url;
+	public VideoPlayer VideoPlayer;
 
-	public void FadeOut()
+    private void Start()
+    {
+		if (string.IsNullOrEmpty(url))
+		{
+			url = System.IO.Path.Combine(Application.streamingAssetsPath, "Loading.mp4");
+		}
+
+		VideoPlayer.url = url;
+		group.alpha = 1;
+		VideoPlayer.Play();
+	}
+
+    public void FadeOut()
 	{
 		StartCoroutine(FadeRoutine(false));
 	}
@@ -31,6 +46,7 @@ public class CanvasFader : MonoBehaviour
 	{
 		gameObject.SetActive(true);
 		group.alpha = 1;
+		VideoPlayer.Play();
 	}
 
 	private IEnumerator FadeRoutine(bool fadeIn)

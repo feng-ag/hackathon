@@ -100,11 +100,15 @@ public class GameFlowManager : MonoBehaviour
         foreach (ArcadeKart k in karts)
         {
 			k.SetCanMove(true);
+            Debug.Log("SetCanMove");
         }
         m_TimeManager.StartRace();
     }
 
     void ShowRaceCountdownAnimation() {
+
+        Debug.Log("ShowRaceCountdownAnimation");
+
         raceCountdownTrigger.Play();
     }
 
@@ -126,6 +130,7 @@ public class GameFlowManager : MonoBehaviour
 
         if (gameState != GameState.Play)
         {
+            Debug.Log(gameState);
             elapsedTimeBeforeEndScene += Time.deltaTime;
             if (elapsedTimeBeforeEndScene >= endSceneLoadDelay)
             {
@@ -204,7 +209,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void QuitGame()
     {
-        EndGame(true);
 
         LevelManager.Instance.QuitGameplay();
 
@@ -212,7 +216,6 @@ public class GameFlowManager : MonoBehaviour
 
     public void ResumeGame()
     {
-        EndGame(true);
 
         LevelManager.Instance.EnterGamePlay();
 
