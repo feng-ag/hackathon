@@ -83,7 +83,7 @@ public class GameFlowManager : MonoBehaviour
 
         //run race countdown animation
         ShowRaceCountdownAnimation();
-        StartCoroutine(ShowObjectivesRoutine());
+        //StartCoroutine(ShowObjectivesRoutine());
 
         StartCoroutine(CountdownThenStartRaceRoutine());
 
@@ -147,11 +147,12 @@ public class GameFlowManager : MonoBehaviour
                 // See if it's time to load the end scene (after the delay)
                 if (Time.time >= m_TimeLoadEndGameScene)
                 {
-                    if (!inGameMenuManager.menuRoot.activeSelf)
-                    {
-                        inGameMenuManager.TogglePauseMenu();
-                        gameState = GameState.Play;
-                    }
+                    QuitGame();
+                    //if (!inGameMenuManager.menuRoot.activeSelf)
+                    //{
+                    //    inGameMenuManager.TogglePauseMenu();
+                    //    gameState = GameState.Play;
+                    //}
                     //SceneManager.LoadScene(m_SceneToLoad);
                     //gameState = GameState.Play;
                 }

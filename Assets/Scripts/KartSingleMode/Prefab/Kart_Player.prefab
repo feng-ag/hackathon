@@ -992,7 +992,7 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949396409457492832}
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 2.5
+  m_Radius: 5
   m_SuspensionSpring:
     spring: 35000
     damper: 4500
@@ -1132,7 +1132,7 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949396409718438213}
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 2.5
+  m_Radius: 5
   m_SuspensionSpring:
     spring: 35000
     damper: 4500
@@ -1298,6 +1298,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967291
   KartAudio: {fileID: 870412494714876818}
+  collider: {fileID: 0}
 --- !u!114 &949396410613529625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1379,7 +1380,7 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949396410674679396}
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 2.5
+  m_Radius: 5
   m_SuspensionSpring:
     spring: 35000
     damper: 4500
@@ -1440,7 +1441,7 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949396410722688191}
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 2.5
+  m_Radius: 5
   m_SuspensionSpring:
     spring: 35000
     damper: 4500

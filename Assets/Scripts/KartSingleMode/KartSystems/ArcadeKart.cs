@@ -333,7 +333,7 @@ namespace KartGame.KartSystems
 
             GroundNormalRotation();
 
-            //UpdateDriftVFXOrientation();
+          UpdateDriftVFXOrientation();
         }
 
         private void GroundNormalRotation()
@@ -531,11 +531,11 @@ namespace KartGame.KartSystems
             // Drift
             if (GroundPercent > 0.0f)
             {
-                //if (m_InAir)
-                //{
-                //    m_InAir = false;
-                //    Instantiate(JumpVFX, transform.position, Quaternion.identity);
-                //}
+                if (m_InAir)
+                {
+                    m_InAir = false;
+                    Instantiate(JumpVFX, transform.position, Quaternion.identity);
+                }
 
                 // manual angular velocity coefficient
                 float angularVelocitySteering = 0.4f;
@@ -617,7 +617,7 @@ namespace KartGame.KartSystems
             }
             else
             {
-                //m_InAir = true;
+                m_InAir = true;
             }
 
             bool validPosition = false;

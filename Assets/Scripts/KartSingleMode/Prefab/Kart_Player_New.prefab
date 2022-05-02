@@ -420,7 +420,7 @@ MonoBehaviour:
     Acceleration: 7
     ReverseSpeed: 10
     ReverseAcceleration: 3
-    AccelerationCurve: 0.3
+    AccelerationCurve: 0.5
     Braking: 16
     CoastingDrag: 5
     Grip: 0.97
@@ -458,7 +458,7 @@ MonoBehaviour:
   RearRightWheel: {fileID: 8101287981938836765}
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 6651
   KartAudio: {fileID: 8166489518721847243}
   collider: {fileID: 0}
 --- !u!114 &8101287981751533632
@@ -1314,10 +1314,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4323331375818306469}
     m_Modifications:
-    - target: {fileID: 321990908697729530, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Center.y
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 321990908717512004, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
       propertyPath: m_Name
       value: TireA_InGame
@@ -1366,21 +1362,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 321990909491667929, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Center.y
-      value: -1
+    - target: {fileID: 321990909491667926, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.368
       objectReference: {fileID: 0}
-    - target: {fileID: 321990910634329635, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Center.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 321990910682338550, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Center.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7758544587251797504, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
-      propertyPath: m_Name
-      value: Wheels
+    - target: {fileID: 321990910682338551, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.368
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
