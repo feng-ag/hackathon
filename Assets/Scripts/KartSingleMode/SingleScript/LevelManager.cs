@@ -8,10 +8,10 @@
     public class LevelManager : MonoBehaviour
     {
 
-        public const int LAUNCH_SCENE = 0;
-        public const int CUBS_EDITOR_SCENE = 1;
-        public const int MAP_EDITOR_SCENE = 2;
-        public const int Game_Scene = 3;
+        public const int LAUNCH_SCENE = 1;
+        public const int CUBS_EDITOR_SCENE = 2;
+        public const int MAP_EDITOR_SCENE = 3;
+        public const int Game_Scene = 4;
 
 
         [SerializeField] private UIScreen _lobbyScreen;

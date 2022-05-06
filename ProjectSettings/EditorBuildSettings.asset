@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Web3Unity/Scenes/WebLogin.unity
+    guid: a1b2001e782bb47659732d7e2bcdc35f
+  - enabled: 1
     path: Assets/Scenes/Launch_Hackathon.unity
     guid: 989a07f1902c94a9ebb4844cfd9c3858
   - enabled: 1
