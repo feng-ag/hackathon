@@ -4,7 +4,8 @@ using UnityEngine;
 using System.Linq;
 
 
-public class ItemData : ScriptableObject, IEnumerable, IEnumerable<ItemData.Item>
+[System.Obsolete]
+public class ItemTypeData_v1 : ScriptableObject, IEnumerable, IEnumerable<ItemTypeData_v1.Item>
 {
     [System.Serializable]
     public struct Item : ITitleAndIconReadable
@@ -33,11 +34,6 @@ public class ItemData : ScriptableObject, IEnumerable, IEnumerable<ItemData.Item
     [SerializeField]
     List<Item> data = new List<Item>();
 
-
-    //public Item GetItem(string name)
-    //{
-    //    return data.SingleOrDefault(item => item.name == name);
-    //}
 
     public Item GetItemAt(int index)
     {

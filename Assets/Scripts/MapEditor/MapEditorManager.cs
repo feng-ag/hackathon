@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
 using System.Linq;
+using MapEditor;
 
 public class MapEditorManager : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class MapEditorManager : MonoBehaviour
     LayerMask itemLayer;
 
     [SerializeField]
-    public ItemData itemData;
+    public ItemTypeDataGroup itemDataGroup;
 
     [SerializeField]
     public EnvironmentData environmentData;
@@ -62,19 +63,6 @@ public class MapEditorManager : MonoBehaviour
     public ControlState CurrentControlState = ControlState.Peek;
 
 
-    public struct MapEditorItemData
-    {
-        public Vector2 pos;
-        public int type;
-        public float rotate;
-
-        public ItemBase item;
-    }
-
-    public Dictionary<Vector2, MapEditorItemData> mapEditorItemDataQuery = new Dictionary<Vector2, MapEditorItemData>();
-
-
-
 
     public Action<int> onClickPlaceItem { get; private set; }
     public Action<int> onClickEnvItem { get; private set; }
@@ -82,7 +70,7 @@ public class MapEditorManager : MonoBehaviour
 
     public static MapEditorManager Instance;
 
-    public int CurrentPlaceItemIndex { get; set; } = -1;
+    public int CurrentItemType { get; set; } = -1;
     public int CurrentEnvIndex { get; set; } = 0;
 
     GameObject currentEnvenmentObject;
@@ -100,7 +88,7 @@ public class MapEditorManager : MonoBehaviour
             onClickPlaceItem += (int index) =>
             {
 
-                if(CurrentPlaceItemIndex == index)
+                if(CurrentItemType == index)
                 {
                     ChangeToPeek(null);
                 }
@@ -124,11 +112,11 @@ public class MapEditorManager : MonoBehaviour
     }
 
 
-    void ChangeToPeek(ItemBase itemBase)
+    void ChangeToPeek(Item itemBase)
     {
         CurrentControlState = ControlState.Peek;
         MapEditorUIManager.Instance.SetSelectedItem(-1);
-        CurrentPlaceItemIndex = -1;
+        CurrentItemType = -1;
 
         if (itemBase != null)
         {
@@ -142,7 +130,7 @@ public class MapEditorManager : MonoBehaviour
 
     }
 
-    void ShowPeek(ItemBase itemBase)
+    void ShowPeek(Item itemBase)
     {
         targetCursor.position = itemBase.transform.position;
         targetCursor.gameObject.SetActive(true);
@@ -160,13 +148,15 @@ public class MapEditorManager : MonoBehaviour
     {
         CurrentControlState = ControlState.Place;
         MapEditorUIManager.Instance.SetSelectedItem(index);
-        CurrentPlaceItemIndex = index;
+        CurrentItemType = index;
     }
 
 
     private void Start()
     {
         LoadMap(defaultMap);
+
+
     }
 
     void LoadMap(GameObject map)
@@ -175,28 +165,28 @@ public class MapEditorManager : MonoBehaviour
         {
             return;
         }
-        
+
         GameObject mapIns = Instantiate(map, mapRoot);
 
 
-        ItemBase[] itemBaseList = mapIns.GetComponentsInChildren<ItemBase>();
+        Item[] itemBaseList = mapIns.GetComponentsInChildren<Item>();
 
 
-        foreach (var itemBase in itemBaseList)
-        {
+        //foreach (var itemBase in itemBaseList)
+        //{
 
 
-            MapEditorItemData mapEditorItemData = new MapEditorItemData
-            {
-                item = itemBase,
-                pos = itemBase.pos,
-                rotate = itemBase.Rotate,
-                type = itemBase.itemType,
-            };
+        //    MapEditorItemData mapEditorItemData = new MapEditorItemData
+        //    {
+        //        item = itemBase,
+        //        pos = itemBase.pos,
+        //        rotate = itemBase.Rotate,
+        //        type = itemBase.itemType,
+        //    };
 
-            mapEditorItemDataQuery[itemBase.pos] = mapEditorItemData;
+        //    mapEditorItemDataQuery[itemBase.pos] = mapEditorItemData;
 
-        }
+        //}
 
 
         currentEnvenmentObject = mapIns.transform.Find("EnvRoot").GetChild(0).gameObject;
@@ -214,29 +204,20 @@ public class MapEditorManager : MonoBehaviour
     }
 
 
-    public bool DeleteItemByUser(MapEditorItemData itemData)
+    public bool DeleteItemByUser(ItemData itemData)
     {
-        if (itemData.item.Item.isUnique)
-        {
-            return false;
-        }
 
         DeleteItem(itemData);
 
         return true;
     }
 
-    void DeleteItem(MapEditorItemData itemData)
+    void DeleteItem(ItemData itemData)
     {
-        if (itemData.item != null)
-        {
-            Vector2 pos = itemData.pos;
-            mapEditorItemDataQuery.Remove(pos);
+        itemData.UnEmbed();
 
-            Destroy(itemData.item.gameObject);
-            MapEditorUIManager.Instance.SetTarget(null);
-            targetCursor.gameObject.SetActive(false);
-        }
+        MapEditorUIManager.Instance.SetTarget(null);
+        targetCursor.gameObject.SetActive(false);
     }
 
 
@@ -258,15 +239,15 @@ public class MapEditorManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
 
-                ItemBase itemBase = null;
+                Item item = null;
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value) &&
-                    hitInfo.collider.TryGetComponent(out itemBase))
+                    hitInfo.collider.TryGetComponent(out item))
                 {
                     //初次選擇就顯示info，重複選擇就關閉
-                    if (MapEditorUIManager.Instance.currentEditItem != itemBase)
+                    if (MapEditorUIManager.Instance.currentEditItem != item)
                     {
-                        ChangeToPeek(itemBase);
+                        ChangeToPeek(item);
                     }
                     else
                     {
@@ -287,37 +268,39 @@ public class MapEditorManager : MonoBehaviour
                     float z = Mathf.Round(hitInfo2.point.z);
                     Vector3 pos3 = new Vector3(x, 0, z);
 
-                    ItemData.Item item = itemData.GetItemAt(CurrentPlaceItemIndex);
+                    ItemTypeData itemTypeData = itemDataGroup.GetTypeData(CurrentItemType);
 
 
-                    if (item.isUnique)
+                    //if (item.isUnique)
+                    //{
+                    //    foreach (var i in mapEditorItemDataQuery.Values.Where(i => i.type == CurrentPlaceItemIndex).ToArray())
+                    //    {
+                    //        DeleteItem(i);
+                    //    }
+                    //}
+
+                    if (itemTypeData != null)
                     {
-                        foreach (var i in mapEditorItemDataQuery.Values.Where(i => i.type == CurrentPlaceItemIndex).ToArray())
+                        Debug.Log(itemTypeData.ToString());
+
+                        item = Instantiate(itemTypeData.prefab, pos3, Quaternion.identity, itemRoot).GetComponent<Item>();
+
+                        Vector2 pos2 = new Vector2(x, z);
+
+                        ItemData itemData = new ItemData
                         {
-                            DeleteItem(i);
-                        }
+                            type = CurrentItemType,
+                            rot = 0,
+                            //pos = pos2,
+                            item = item,
+                        };
+
+                        item.Data = itemData;
+
+                        targetCursor.gameObject.SetActive(true);
+                        targetCursor.transform.position = item.transform.position;
+                        MapEditorUIManager.Instance.SetTarget(item);
                     }
-
-
-                    itemBase = Instantiate(item.RandomPickPrefab(), pos3, Quaternion.identity, itemRoot).GetComponent<ItemBase>();
-
-                    Vector2 pos2 = new Vector2(x, z);
-                    itemBase.itemType = CurrentPlaceItemIndex;
-                    itemBase.pos = pos2;
-
-                    MapEditorItemData mapEditorItemData = new MapEditorItemData
-                    {
-                        pos = pos2,
-                        rotate = 0,
-                        type = CurrentPlaceItemIndex,
-                        item = itemBase,
-                    };
-
-                    mapEditorItemDataQuery[pos2] = mapEditorItemData;
-
-                    targetCursor.gameObject.SetActive(true);
-                    targetCursor.transform.position = itemBase.transform.position;
-                    MapEditorUIManager.Instance.SetTarget(itemBase);
                 }
                 else
                 {

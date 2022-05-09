@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+[System.Obsolete]
 public class ItemBase : MonoBehaviour
 {
 
@@ -9,7 +12,7 @@ public class ItemBase : MonoBehaviour
     public Vector2 pos;
     public float Rotate => inner.rotation.y;
 
-    public ItemData.Item Item => MapEditorManager.Instance.itemData.GetItemAt(itemType);
+    //public ItemTypeData_v1.Item Item => MapEditorManager.Instance.itemDataGroup.GetItemAt(itemType);
     public Transform inner;
 
 
@@ -27,11 +30,11 @@ public class ItemBase : MonoBehaviour
 
     void SyncData()
     {
-        MapEditorManager.MapEditorItemData mapEditorItemData = MapEditorManager.Instance.mapEditorItemDataQuery[pos];
+        //MapEditorManager.MapEditorItemData mapEditorItemData = MapEditorManager.Instance.mapEditorItemDataQuery[pos];
 
-        mapEditorItemData.rotate = inner.localRotation.eulerAngles.y;
+        //mapEditorItemData.rotate = inner.localRotation.eulerAngles.y;
 
-        MapEditorManager.Instance.mapEditorItemDataQuery[pos] = mapEditorItemData;
+        //MapEditorManager.Instance.mapEditorItemDataQuery[pos] = mapEditorItemData;
     }
 
 }

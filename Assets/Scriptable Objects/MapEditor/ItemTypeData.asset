@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab31bb70b44fcda4687524b15d59389f, type: 3}
-  m_Name: ItemData
+  m_Name: ItemTypeData
   m_EditorClassIdentifier: 
   data:
   - name: Start / Finish Line

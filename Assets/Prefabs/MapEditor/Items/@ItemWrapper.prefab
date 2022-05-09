@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3359497002877466097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5158737938192380887}
+  m_Layer: 11
+  m_Name: Root
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5158737938192380887
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3359497002877466097}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5960701796494538654}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4770687134453102286
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5960701796494538654}
-  - component: {fileID: 132215839233758795}
+  - component: {fileID: 4205975897628741974}
   - component: {fileID: 3980808405898856902}
   - component: {fileID: 2042375415473960203}
   m_Layer: 11
@@ -29,11 +59,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 5158737938192380887}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &132215839233758795
+--- !u!114 &4205975897628741974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,12 +73,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4770687134453102286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c337967e19d09c4d972f6c421c6b358, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a659f178827413468d13e7277eebdff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemType: 0
-  pos: {x: 0, y: 0}
-  inner: {fileID: 0}
+  root: {fileID: 5158737938192380887}
 --- !u!65 &3980808405898856902
 BoxCollider:
   m_ObjectHideFlags: 0
