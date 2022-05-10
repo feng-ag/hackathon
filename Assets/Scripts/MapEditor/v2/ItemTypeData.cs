@@ -25,6 +25,9 @@ namespace MapEditor
 
         public GameObject prefab;
 
+        public Vector2 placeOffset;
+        public Vector2 cursorOffset;
+
 
 
 

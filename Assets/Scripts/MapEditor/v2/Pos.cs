@@ -19,6 +19,15 @@ namespace MapEditor
             y = _y;
         }
 
+        public Vector2 GetVector2()
+        {
+            return new Vector2(x, y);
+        }
+        public Vector3 GetVector3(float vy = 0)
+        {
+            return new Vector3(x, vy, y);
+        }
+
         public static Pos operator +(Pos a) => a;
         public static Pos operator -(Pos a) => new Pos
         {

@@ -73,7 +73,7 @@ public class MapEditorUIManager : MonoBehaviour
 
 
         // Item
-        ItemTypeDataGroup itemData = gm.itemDataGroup;        
+        ItemTypeDataGroup itemData = gm.itemTypeDataGroup;        
         foreach (var (item, index) in itemData.Select((item, index) => (item, index)))
         {
             UI_PlaceItemElement itemEl = Instantiate(placeItemElement, placeItemContainer).GetComponent<UI_PlaceItemElement>();

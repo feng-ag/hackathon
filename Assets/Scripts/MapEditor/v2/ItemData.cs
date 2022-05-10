@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 
 namespace MapEditor
 {
+    [Serializable]
     public class ItemData
     {
         public int type;
@@ -16,7 +18,7 @@ namespace MapEditor
 
         public Item item;
 
-        public ItemTypeData TypeData => MapEditorManager.Instance.itemDataGroup.GetTypeData(type);
+        public ItemTypeData TypeData => MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
 
         public void Embed(Pos pos)

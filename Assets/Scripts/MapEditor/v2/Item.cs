@@ -10,7 +10,10 @@ namespace MapEditor
         [SerializeField]
         Transform root;
 
-        public ItemData Data { get; set; }
+        [SerializeField]
+        public ItemData data;
+
+        public ItemData Data => data;
 
         public ItemTypeData TypeData => Data.TypeData;
 
