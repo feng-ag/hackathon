@@ -77,13 +77,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 5158737938192380887}
+  colRoot: {fileID: 6327138294674927734}
   data:
     type: 0
     rot: 0
     pos:
       x: 0
       y: 0
-    item: {fileID: 0}
+    item: {fileID: 4205975897628741974}
 --- !u!114 &2042375415473960203
 MonoBehaviour:
   m_ObjectHideFlags: 0

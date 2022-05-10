@@ -1,1 +1,0 @@
-此 GameObject 的 Layer 必須設定成 MapEditorItem，子物件則不應設定為該 Layer。

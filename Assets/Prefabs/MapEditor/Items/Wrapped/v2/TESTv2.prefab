@@ -412,6 +412,10 @@ PrefabInstance:
       propertyPath: inner
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4205975897628741974, guid: 2d4846a94ad704c409d20f80ba1b3272, type: 3}
+      propertyPath: data.item
+      value: 
+      objectReference: {fileID: 4591358751879516367}
     - target: {fileID: 4770687134453102286, guid: 2d4846a94ad704c409d20f80ba1b3272, type: 3}
       propertyPath: m_Name
       value: TESTv2

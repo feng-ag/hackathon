@@ -30,7 +30,7 @@ public class MapEditorManager : MonoBehaviour
     LayerMask groundLayer;
 
     [SerializeField]
-    LayerMask itemLayer;
+    public LayerMask itemLayer;
 
     [SerializeField]
     public ItemTypeDataGroup itemTypeDataGroup;
