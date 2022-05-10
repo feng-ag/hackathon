@@ -273,33 +273,20 @@ public class MapEditorManager : MonoBehaviour
 
                     if (itemTypeData != null)
                     {
-                        Vector3 cursorOffsetVec3 = new Vector3(itemTypeData.cursorOffset.x, 0, itemTypeData.cursorOffset.y);
-                        Vector3 hitPos = hitInfo2.point + cursorOffsetVec3;
-
-                        float x = Mathf.Round(hitPos.x);
-                        float z = Mathf.Round(hitPos.z);
-                        Vector3 pos3 = new Vector3(x, 0, z);
-
-
-                        Vector3 placeOffsetVec3 = new Vector3(itemTypeData.placeOffset.x, 0, itemTypeData.placeOffset.y);
-
-                        item = Instantiate(itemTypeData.prefab, pos3 + placeOffsetVec3, Quaternion.identity, itemRoot).GetComponent<Item>();
-
-                        //Vector2 pos2 = new Vector2(x, z);
-
                         ItemData itemData = new ItemData
                         {
                             type = CurrentItemType,
                             rot = 0,
-                            //pos = pos2,
-                            item = item,
                         };
 
-                        item.data = itemData;
+                        item = itemData.Embed(hitInfo2.point, CurrentItemType, itemRoot);
 
-                        targetCursor.gameObject.SetActive(true);
-                        targetCursor.transform.position = item.transform.position;
-                        MapEditorUIManager.Instance.SetTarget(item);
+                        if (item != null)
+                        {
+                            targetCursor.gameObject.SetActive(true);
+                            targetCursor.transform.position = item.transform.position;
+                            MapEditorUIManager.Instance.SetTarget(item);
+                        }
                     }
                 }
                 else

@@ -25,7 +25,6 @@ namespace MapEditor
 
         public GameObject prefab;
 
-        [Obsolete("可能直接預設以Item座標中心旋轉，不再偏移")]
         public Vector2 placeOffset;
 
         public Vector2 cursorOffset;

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee2cce2e1e01a6498f0e62bdf01c726, type: 3}
+  m_Name: ItemType02
+  m_EditorClassIdentifier: 
+  type: 0
+  grids:
+  - x: 0
+    y: 0
+  - x: 1
+    y: 0
+  - x: 0
+    y: 1
+  - x: 1
+    y: 1
+  name: O
+  icon: {fileID: 21300000, guid: 4178046078f174dda99ea2fe1426c44c, type: 3}
+  prefab: {fileID: 5178446957226932055, guid: f2b522190f54a754dbce40c4803e64d4, type: 3}
+  placeOffset: {x: 0, y: 0}
+  cursorOffset: {x: -0.5, y: -0.5}
