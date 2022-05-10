@@ -26,8 +26,8 @@ namespace MapEditor
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
-            Vector3 cursorOffsetVec3 = new Vector3(itemTypeData.cursorOffset.x, 0, itemTypeData.cursorOffset.y);
-            Vector3 hitPos = cursorPos + cursorOffsetVec3;
+            Vector3 cursorOffsetV3 = itemTypeData.cursorOffsetV3;
+            Vector3 hitPos = cursorPos + cursorOffsetV3;
 
             float x = Mathf.Round(hitPos.x);
             float z = Mathf.Round(hitPos.z);
@@ -40,9 +40,7 @@ namespace MapEditor
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
-            Vector3 placeOffsetVec3 = new Vector3(itemTypeData.placeOffset.x, 0, itemTypeData.placeOffset.y);
-
-            return offsetCursorPos + placeOffsetVec3;
+            return offsetCursorPos + itemTypeData.placeOffsetV3;
         }
 
 
@@ -84,12 +82,11 @@ namespace MapEditor
 
             Vector3 placePos = CursorToOffsetCursorPos(pos, type);
 
-            Vector3 placeOffsetV3 = new Vector3(itemTypeData.placeOffset.x, 0, itemTypeData.placeOffset.y);
+            Vector3 placeOffsetV3 = itemTypeData.placeOffsetV3;
 
             foreach (var grid in itemTypeData.grids)
             {
-                Vector2 pos2 = grid.GetVector2() + itemTypeData.placeOffset;
-                Vector3 pos3 = new Vector3(pos2.x, 0, pos2.y);
+                Vector3 pos3 = grid.GetVector3() + itemTypeData.placeOffsetV3;
 
                 Vector3 vaildPos = placePos + pos3 - placeOffsetV3;
 

@@ -26,8 +26,10 @@ namespace MapEditor
         public GameObject prefab;
 
         public Vector2 placeOffset;
+        public Vector3 placeOffsetV3 => new Vector3(placeOffset.x, 0, placeOffset.y);
 
         public Vector2 cursorOffset;
+        public Vector3 cursorOffsetV3 => new Vector3(cursorOffset.x, 0, cursorOffset.y);
 
 
 

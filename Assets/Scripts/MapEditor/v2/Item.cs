@@ -57,7 +57,6 @@ namespace MapEditor
             {
 
                 Vector3 pos = child.position;
-                //Debug.Log(pos);
 
                 RaycastHit[] hits = Physics.BoxCastAll(
                     pos,
@@ -67,13 +66,9 @@ namespace MapEditor
                     0,
                     MapEditorManager.Instance.itemLayer.value);
 
-                //GameObject box = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                //box.transform.position = pos;
-                //box.transform.localScale = Vector3.one * 0.9F;
 
                 if (hits.Length > 0 && !cols.Intersect(hits.Select(h => h.transform)).Any())
                 {
-                    //EditorGUIUtility.PingObject(hit.collider);
                     foreach (var hit in hits)
                     {
                         hit.collider.name += Random.Range(0, 999);
