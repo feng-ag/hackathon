@@ -161,17 +161,14 @@ public class MapEditorUIManager : MonoBehaviour
 
     void DeleteItem()
     {
-        //if (currentEditItem != null)
-        //{
-        //    Vector2 pos = currentEditItem.pos;
-        //    if (MapEditorManager.Instance.DeleteItemByUser(item))
-        //    {
-        //        SetTarget(null);
-        //        MapEditorManager.Instance.targetCursor.gameObject.SetActive(false);
-        //    }
-        //}
-
-        throw new System.NotImplementedException();
+        if (currentEditItem != null)
+        {
+            if (MapEditorManager.Instance.DeleteItemByUser(currentEditItem.Data))
+            {
+                SetTarget(null);
+                MapEditorManager.Instance.targetCursor.Hide();
+            }
+        }
     }
 
     void RotateItem()
@@ -186,15 +183,10 @@ public class MapEditorUIManager : MonoBehaviour
 
     void DeleteAllItem()
     {
-        //foreach(var item in MapEditorManager.Instance.mapEditorItemDataQuery.Values.ToArray())
-        //{
-        //    MapEditorManager.Instance.DeleteItemByUser(item);
-        //}
-
-        //SetTarget(null);
-        //MapEditorManager.Instance.targetCursor.gameObject.SetActive(false);
-
-        throw new System.NotImplementedException();
+        foreach(var itemData in MapStructManager.Instance.items.ToArray())
+        {
+            ItemData.UnEmbed(itemData);
+        }
     }
 
 

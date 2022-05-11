@@ -21,7 +21,7 @@ namespace MapEditor
             }
         }
 
-        readonly List<ItemData> items = new List<ItemData>();
+        public readonly List<ItemData> items = new List<ItemData>();
 
 
         public void AddItem(ItemData itemData)

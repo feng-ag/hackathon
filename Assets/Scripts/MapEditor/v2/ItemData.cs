@@ -86,17 +86,21 @@ namespace MapEditor
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
-            Vector3 placePos = CursorToOffsetCursorPos(pos, type);
+            Vector3 cursorPos = CursorToOffsetCursorPos(pos, type);
+            Vector3 placePos = OffsetCursorPosToPlacePos(cursorPos, type);
 
-            Vector3 placeOffsetV3 = itemTypeData.placeOffsetV3;
+            ////Center
+            //GameObject gd = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            //gd.transform.localPosition = placePos;
+            //gd.transform.localScale = new Vector3(0.1F, 10F, 0.1F);
 
             foreach (var grid in itemTypeData.grids)
             {
-                Vector3 pos3 = grid.GetVector3() + itemTypeData.placeOffsetV3;
+                Vector3 pos3 = cursorPos + grid.GetVector3();
 
-                Vector3 vaildPos = placePos + pos3 - placeOffsetV3;
+                Vector3 vaildPos = pos3 - placePos;
                 Quaternion q = Quaternion.AngleAxis(rot, Vector3.up);
-                Vector3 vaildRotPos = q * vaildPos;
+                Vector3 vaildRotPos = placePos + q * vaildPos;
 
 
                 RaycastHit[] hits = Physics.BoxCastAll(
@@ -106,6 +110,11 @@ namespace MapEditor
                     Quaternion.identity,
                     0,
                     MapEditorManager.Instance.itemLayer.value);
+
+                ////Grid
+                //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                //g.transform.localPosition = vaildRotPos;
+                //g.transform.localScale = new Vector3(0.1F, 5F, 0.1F);
 
                 if (hits.Length > 0)
                 {
@@ -121,6 +130,8 @@ namespace MapEditor
         public static void UnEmbed(ItemData itemData)
         {
             MapStructManager.Instance.RemoveItem(itemData);
+
+            GameObject.Destroy(itemData.item.gameObject);
         }
 
     }
