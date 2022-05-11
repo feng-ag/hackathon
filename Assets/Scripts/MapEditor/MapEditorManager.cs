@@ -137,12 +137,14 @@ public class MapEditorManager : MonoBehaviour
         targetCursor.BuildCursor(item.TypeData);
         targetCursor.Position = item.transform.position - item.TypeData.placeOffsetV3;
         targetCursor.Show();
+        cursor.Hide();
         MapEditorUIManager.Instance.SetTarget(item);
     }
 
     void HidePeek()
     {
         targetCursor.Hide();
+        cursor.Show();
         MapEditorUIManager.Instance.SetTarget(null);
     }
 
@@ -219,7 +221,7 @@ public class MapEditorManager : MonoBehaviour
 
     void DeleteItem(ItemData itemData)
     {
-        itemData.UnEmbed();
+        ItemData.UnEmbed(itemData);
 
         MapEditorUIManager.Instance.SetTarget(null);
         targetCursor.Hide();
@@ -278,13 +280,7 @@ public class MapEditorManager : MonoBehaviour
 
                     if (itemTypeData != null)
                     {
-                        ItemData itemData = new ItemData
-                        {
-                            type = CurrentItemType,
-                            rot = 0,
-                        };
-
-                        item = itemData.Embed(hitInfo2.point, CurrentItemType, itemRoot);
+                        item = ItemData.Embed(hitInfo2.point, CurrentItemType, itemRoot);
 
                         if (item != null)
                         {
@@ -385,17 +381,19 @@ public class MapEditorManager : MonoBehaviour
         if (CurrentControlState != ControlState.Move && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
-            {
-                if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
-                {
-                    Item item = itemColLinker.item;
+            //if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
+            //{
+            //    if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
+            //    {
+            //        ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
+            //        Item item = itemColLinker.item;
 
-                    cursor.Position = item.transform.position;
-                    cursor.Show();
-                }
-            }
-            else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
+            //        cursor.Position = item.transform.position + itemTypeData.cursorOffsetV3;
+            //        cursor.Hide();
+            //    }
+            //}
+            //else
+            if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
             {
                 if (CurrentItemType >= 0)
                 {

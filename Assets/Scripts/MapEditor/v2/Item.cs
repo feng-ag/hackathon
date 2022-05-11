@@ -33,10 +33,9 @@ namespace MapEditor
             if (isValid)
             {
                 root.Rotate(0, angle, 0);
+                data.itemRot = angle;
                 colRoot.rotation = root.rotation;
             }
-
-            // TODO
         }
 
 
@@ -90,7 +89,7 @@ namespace MapEditor
 
         public void UnEmbed()
         {
-            Data.UnEmbed();
+            ItemData.UnEmbed(Data);
         }
 
     }

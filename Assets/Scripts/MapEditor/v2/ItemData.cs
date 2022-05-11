@@ -10,19 +10,24 @@ namespace MapEditor
     [Serializable]
     public class ItemData
     {
+        public string id;
+
         public int type;
 
-        public float rot;
+        public float itemRot;
 
-        public Pos pos;
+        /// <summary>
+        /// Place Pos
+        /// </summary>
+        public Vector3 itemPos;
 
-        [SerializeField]
-        Item item;
+        public Item item;
+
 
         public ItemTypeData TypeData => MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
 
-        Vector3 CursorToOffsetCursorPos(Vector3 cursorPos, int type)
+        static Vector3 CursorToOffsetCursorPos(Vector3 cursorPos, int type)
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
@@ -36,15 +41,14 @@ namespace MapEditor
             return pos3;
         }
 
-        Vector3 OffsetCursorPosToPlacePos(Vector3 offsetCursorPos, int type)
+        static Vector3 OffsetCursorPosToPlacePos(Vector3 offsetCursorPos, int type)
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
             return offsetCursorPos + itemTypeData.placeOffsetV3;
         }
 
-
-        public Item Embed(Vector3 pos, int type, Transform root)
+        public static Item Embed(Vector3 pos, int type, Transform root)
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
@@ -58,25 +62,25 @@ namespace MapEditor
             Vector3 offsetCursroPos = CursorToOffsetCursorPos(pos, type);
             Vector3 placePos = OffsetCursorPosToPlacePos(offsetCursroPos, type);
 
-            item = GameObject.Instantiate(itemTypeData.prefab, placePos, Quaternion.identity, root).GetComponent<Item>();
-
-            //Vector2 pos2 = new Vector2(x, z);
+            Item item = GameObject.Instantiate(itemTypeData.prefab, placePos, Quaternion.identity, root).GetComponent<Item>();
 
             ItemData itemData = new ItemData
             {
+                id = Guid.NewGuid().ToString(),
                 type = type,
-                rot = 0,
-                //pos = pos2,
+                itemRot = 0,
+                itemPos = placePos,
                 item = item,
             };
 
             item.data = itemData;
 
+            MapStructManager.Instance.AddItem(itemData);
+
             return item;
         }
 
-
-        bool VaildEmbed(Vector3 pos, int type)
+        static bool VaildEmbed(Vector3 pos, int type)
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
@@ -109,10 +113,9 @@ namespace MapEditor
         }
 
 
-
-        public void UnEmbed()
+        public static void UnEmbed(ItemData itemData)
         {
-            // TODO
+            MapStructManager.Instance.RemoveItem(itemData);
         }
 
     }
