@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +6,8 @@ namespace ArcadeGalaxyKit
 {
     public class CubLoader : MonoBehaviour
     {
+
+        public Camera carPickUpCamera; //for snapshot
         public static CubLoader instance { get { return _instance; } }
         private static CubLoader _instance;
         public bool AutoLoadCub = true;
@@ -13,6 +15,31 @@ namespace ArcadeGalaxyKit
         public GameObject kartContainer;
         public GameObject kartBody;
         GameObject container = null;
+        [Header("Debug視窗")]
+        public bool isOpenMessagePanel = false;
+        float debugPanelWidth = 500;
+        float debugPanelheight = 90;
+        float messagePaddingLeft = 10;
+        float messageHeight = 60;
+        float messageWidth = 480;
+        string statusMessage = "";
+
+        void OnGUI()
+        {
+            if (isOpenMessagePanel)
+            {
+                string test_path = "Assets/Scripts/CubEditor/NFTGenerator/test.png";
+                Rect button = new Rect(0, 0, 50, 50);
+                if (GUI.Button(button, "snapshot"))
+                {
+                    ScreenCapture.CaptureScreenshot(test_path);
+                }
+                // Make a background box
+                GUI.Box(new Rect(Screen.width - debugPanelWidth, Screen.height - debugPanelheight, debugPanelWidth, debugPanelheight), "Message Panel");
+                GUI.TextArea(new Rect(Screen.width - debugPanelWidth + messagePaddingLeft, Screen.height - debugPanelheight + 20, messageWidth, messageHeight), statusMessage);
+            }
+        }
+
         void Awake()
         {
             if (!instance)
@@ -39,7 +66,7 @@ namespace ArcadeGalaxyKit
             {
                 if (kartContainer)
                 {
-                    container = Instantiate(kartContainer) ;
+                    container = Instantiate(kartContainer);
                     container.name = carTemplate.name + "_Kart";
                 }
                 else { return null; }
@@ -99,5 +126,65 @@ namespace ArcadeGalaxyKit
                 meshRenderer.material.SetTexture("_MainTex", eyeAddedTexture);
             }
         }
+        public enum CaptureSize
+        {
+            CameraSize,
+            ScreenResolution,
+            FixedSize
+        }
+        //Screenshot size
+        [Header("截圖設定")]
+        public CaptureSize captureSize = CaptureSize.CameraSize;
+
+        ///< summary > Save screenshot < / summary >
+        ///< param name = "camera" > target camera < / param >
+        public void saveCapture()
+        {
+            Vector2 pixelSize = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
+            Vector2 size = pixelSize;
+            if (captureSize == CaptureSize.CameraSize)
+            {
+                size = new Vector2(carPickUpCamera.pixelWidth, carPickUpCamera.pixelHeight);
+            }
+            else if (captureSize == CaptureSize.ScreenResolution)
+            {
+                size = new Vector2(Screen.currentResolution.width, Screen.currentResolution.height);
+            }
+            string fileName = "cameraCapture.png";
+            string k_Path = Application.persistentDataPath + "/" + fileName;
+            saveTexture(k_Path, capture(carPickUpCamera, (int)size.x, (int)size.y));
+        }
+
+        ///< summary > camera screenshot < / summary >
+        ///< param name = "camera" > target camera < / param >
+        ///< param name = "width" > width < / param >
+        ///< param name = "height" > height < / param >
+        public Texture2D capture(Camera camera, int width, int height)
+        {
+            RenderTexture rt = new RenderTexture(width, height, 0);
+            rt.depth = 24;
+            rt.antiAliasing = 8;
+            camera.targetTexture = rt;
+            camera.RenderDontRestore();
+            RenderTexture.active = rt;
+            Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false, true);
+            Rect rect = new Rect(0, 0, width, height);
+            texture.ReadPixels(rect, 0, 0);
+            texture.filterMode = FilterMode.Point;
+            texture.Apply();
+            camera.targetTexture = null;
+            RenderTexture.active = null;
+            Destroy(rt);
+            return texture;
+        }
+
+        ///< summary > Save map < / summary >
+        ///< param name = "path" > save path < / param >
+        /// <param name="texture">Texture2D</param>
+        public void saveTexture(string path, Texture2D texture)
+        {
+            System.IO.File.WriteAllBytes(path, texture.EncodeToPNG());
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace ArcadeGalaxyKit
@@ -11,5 +11,6 @@ namespace ArcadeGalaxyKit
     {
         public string styleName;
         public Sprite UIIcon;
+        public int rate;
     }
 }

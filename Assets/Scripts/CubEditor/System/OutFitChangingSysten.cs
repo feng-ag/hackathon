@@ -8,14 +8,14 @@ namespace ArcadeGalaxyKit
     /// </summary>
     public class OutFitChangingSysten : MonoBehaviour
     {
-        [Header("������ Renderer")]
+        [Header("Cub 車身 Renderer")]
         public MeshRenderer carBodyMRD;
+        [Header("部件錨點 PlaceHolder")]
         public GameObject CubPosAnchor;
-        [Header("������PlaceHolder")]
         public GameObject tirePlaceHolder;
         public GameObject glassesPlaceHolder;
         public GameObject animalTypePlaceHolder;
-        [Header("�Y����(���ե�)")]//Umimplement
+        [Header("Transform Setting(未實作)")]//Umimplement
         public float scaleXYZ = 0.01067533f;
         public float posYOffset = 9.66f;
         public static OutFitChangingSysten instance { get { return _instance; } }
@@ -38,15 +38,18 @@ namespace ArcadeGalaxyKit
         }
         private void Start()
         {
-            currentEditingCarTemplate = DataManager.instance.currentEditingCarTemplate;
-            lastEditingCarTemplate = ScriptableObject.CreateInstance("CarTemplate") as CarTemplate;
+            ChangeCarTemplate(DataManager.instance.currentEditingCarTemplate);
+        }
 
+        public void ChangeCarTemplate(CarTemplate carTemplate)
+        {
+            currentEditingCarTemplate = carTemplate;
+            lastEditingCarTemplate = ScriptableObject.CreateInstance("CarTemplate") as CarTemplate;
             if (currentEditingCarTemplate)
             {
                 OnChange();
             }
         }
-
 
         public void ShowCubsEditor()
         {
@@ -108,7 +111,7 @@ namespace ArcadeGalaxyKit
             {
                 Debug.LogError("Can't find animalTypePlaceHolder.");
             }
-            lastEditingCarTemplate.animalBodyTypeSetting= currentEditingCarTemplate.animalBodyTypeSetting;
+            lastEditingCarTemplate.animalBodyTypeSetting = currentEditingCarTemplate.animalBodyTypeSetting;
         }
         void ChangeSkinType(CarTemplate carTemplate)
         {
