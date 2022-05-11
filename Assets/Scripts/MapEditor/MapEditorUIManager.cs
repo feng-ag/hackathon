@@ -97,8 +97,16 @@ public class MapEditorUIManager : MonoBehaviour
 
 
 
-        editItemRotateLeft.onClick.AddListener(() => currentEditItem.Rotate(90));
-        editItemRotateRight.onClick.AddListener(() => currentEditItem.Rotate(-90));
+        editItemRotateLeft.onClick.AddListener(() =>
+        {
+            currentEditItem.Rotate(90);
+            MapEditorManager.Instance.targetCursor.Rotation = currentEditItem.Rotation;
+        });
+        editItemRotateRight.onClick.AddListener(() =>
+        {
+            currentEditItem.Rotate(-90);
+            MapEditorManager.Instance.targetCursor.Rotation = currentEditItem.Rotation;
+        });
         editItemDelete.onClick.AddListener(() => DeleteItem());
         editItemClear.onClick.AddListener(() => DeleteAllItem());
 
@@ -164,6 +172,7 @@ public class MapEditorUIManager : MonoBehaviour
         if (currentEditItem != null)
         {
             currentEditItem.Rotate(90);
+            MapEditorManager.Instance.targetCursor.Rotation = currentEditItem.Rotation;
         }
     }
 

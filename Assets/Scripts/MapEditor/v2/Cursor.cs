@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 
@@ -29,8 +30,51 @@ namespace MapEditor
             get => _Position;
         }
 
+        public float Rotation
+        {
+            set
+            {
+                root.eulerAngles = new Vector3(0, value, 0);
+            }
+            get => root.eulerAngles.y;
+        }
+
 
         List<GameObject> cursorGrids = new List<GameObject>();
+
+
+        Material[] cursorGridMats;
+
+        [SerializeField]
+        Color normalColor;
+
+        [SerializeField]
+        Color triggerColor;
+
+
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.layer == MapEditorManager.itemLayerIndex)
+            {
+                foreach(var mat in cursorGridMats)
+                {
+                    mat.color = triggerColor;
+                }
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.layer == MapEditorManager.itemLayerIndex)
+            {
+                foreach (var mat in cursorGridMats)
+                {
+                    mat.color = normalColor;
+                }
+            }
+        }
+
 
         public void BuildCursor(ItemTypeData itemTypeData)
         {
@@ -48,6 +92,16 @@ namespace MapEditor
                 GameObject g = Instantiate(temp, transform.localPosition + pos.GetVector3(), Quaternion.identity, root);
                 cursorGrids.Add(g);
                 g.SetActive(true);
+            }
+
+            cursorGridMats = root.GetComponentsInChildren<Renderer>()
+                .Select(r => r.material)
+                .ToArray();
+
+
+            foreach (var mat in cursorGridMats)
+            {
+                mat.color = normalColor;
             }
         }
 

@@ -23,6 +23,8 @@ namespace MapEditor
 
         public ItemTypeData TypeData => Data.TypeData;
 
+        public float Rotation => root.eulerAngles.y;
+
 
         public void Rotate(float angle)
         {

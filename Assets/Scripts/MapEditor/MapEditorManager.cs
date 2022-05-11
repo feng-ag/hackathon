@@ -32,6 +32,8 @@ public class MapEditorManager : MonoBehaviour
     [SerializeField]
     public LayerMask itemLayer;
 
+    public const int itemLayerIndex = 11;
+
     [SerializeField]
     public ItemTypeDataGroup itemTypeDataGroup;
 
@@ -42,7 +44,7 @@ public class MapEditorManager : MonoBehaviour
     public MapEditor.Cursor cursor;
 
     [SerializeField]
-    public Transform targetCursor;
+    public MapEditor.Cursor targetCursor;
 
     [SerializeField]
     Transform camRoot;
@@ -130,16 +132,17 @@ public class MapEditorManager : MonoBehaviour
 
     }
 
-    void ShowPeek(Item itemBase)
+    void ShowPeek(Item item)
     {
-        targetCursor.position = itemBase.transform.position;
-        targetCursor.gameObject.SetActive(true);
-        MapEditorUIManager.Instance.SetTarget(itemBase);
+        targetCursor.BuildCursor(item.TypeData);
+        targetCursor.Position = item.transform.position - item.TypeData.placeOffsetV3;
+        targetCursor.Show();
+        MapEditorUIManager.Instance.SetTarget(item);
     }
 
     void HidePeek()
     {
-        targetCursor.gameObject.SetActive(false);
+        targetCursor.Hide();
         MapEditorUIManager.Instance.SetTarget(null);
     }
 
@@ -219,7 +222,7 @@ public class MapEditorManager : MonoBehaviour
         itemData.UnEmbed();
 
         MapEditorUIManager.Instance.SetTarget(null);
-        targetCursor.gameObject.SetActive(false);
+        targetCursor.Hide();
     }
 
 
@@ -245,7 +248,8 @@ public class MapEditorManager : MonoBehaviour
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
                 {
-                    if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker)) {
+                    if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
+                    {
                         item = itemColLinker.item;
 
                         //初次選擇就顯示info，重複選擇就關閉
@@ -261,7 +265,8 @@ public class MapEditorManager : MonoBehaviour
                     }
 
                 }
-                else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
+                else
+                if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
                 {
                     if (CurrentControlState != ControlState.Place)
                     {
@@ -283,15 +288,16 @@ public class MapEditorManager : MonoBehaviour
 
                         if (item != null)
                         {
-                            targetCursor.gameObject.SetActive(true);
-                            targetCursor.transform.position = item.transform.position;
+                            targetCursor.BuildCursor(item.TypeData);
+                            targetCursor.Position = item.transform.position - item.TypeData.placeOffsetV3;
+                            targetCursor.Show();
                             MapEditorUIManager.Instance.SetTarget(item);
                         }
                     }
                 }
                 else
                 {
-                    targetCursor.gameObject.SetActive(false);
+                    targetCursor.Hide();
                     MapEditorUIManager.Instance.SetTarget(null);
                 }
             }
@@ -379,27 +385,23 @@ public class MapEditorManager : MonoBehaviour
         if (CurrentControlState != ControlState.Move && !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            //if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
-            //{
-            //    if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
-            //    {
-            //        Item item = itemColLinker.item;
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
+            {
+                if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
+                {
+                    Item item = itemColLinker.item;
 
-            //        cursor.Position = item.transform.position;
-            //        cursor.Show();
-            //    }
-            //}
-            //else 
-            if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
+                    cursor.Position = item.transform.position;
+                    cursor.Show();
+                }
+            }
+            else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
             {
                 if (CurrentItemType >= 0)
                 {
-
                     ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
-                    Vector3 cursorOffsetV3 = new Vector3(itemTypeData.cursorOffset.x, 0, itemTypeData.cursorOffset.y);
 
-                    Vector3 hitPos = hitInfo2.point + cursorOffsetV3;
-
+                    Vector3 hitPos = hitInfo2.point + itemTypeData.cursorOffsetV3;
 
                     float x = Mathf.Round(hitPos.x);
                     float z = Mathf.Round(hitPos.z);
@@ -409,11 +411,6 @@ public class MapEditorManager : MonoBehaviour
                     cursor.Show();
                 }
             }
-            //else
-            //{
-            //    cursor.gameObject.SetActive(false);
-            //    UIManager.Instance.SetTarget(null);
-            //}
 
         }
     }
