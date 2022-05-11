@@ -48,11 +48,11 @@ namespace MapEditor
             return offsetCursorPos + itemTypeData.placeOffsetV3;
         }
 
-        public static Item Embed(Vector3 pos, int type, Transform root)
+        public static Item Embed(Vector3 pos, int type, float rot, Transform root)
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
-            bool isValid = VaildEmbed(pos, type);
+            bool isValid = VaildEmbed(pos, type, rot);
 
             if (!isValid) 
             {
@@ -68,19 +68,21 @@ namespace MapEditor
             {
                 id = Guid.NewGuid().ToString(),
                 type = type,
-                itemRot = 0,
+                itemRot = rot,
                 itemPos = placePos,
                 item = item,
             };
 
             item.data = itemData;
 
+            item.SyncData();
+
             MapStructManager.Instance.AddItem(itemData);
 
             return item;
         }
 
-        static bool VaildEmbed(Vector3 pos, int type)
+        static bool VaildEmbed(Vector3 pos, int type, float rot)
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
@@ -93,9 +95,12 @@ namespace MapEditor
                 Vector3 pos3 = grid.GetVector3() + itemTypeData.placeOffsetV3;
 
                 Vector3 vaildPos = placePos + pos3 - placeOffsetV3;
+                Quaternion q = Quaternion.AngleAxis(rot, Vector3.up);
+                Vector3 vaildRotPos = q * vaildPos;
+
 
                 RaycastHit[] hits = Physics.BoxCastAll(
-                    vaildPos,
+                    vaildRotPos,
                     Vector3.one * 0.45F,    //比0.5略小，避免誤碰到其他格
                     Vector3.forward,
                     Quaternion.identity,

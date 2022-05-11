@@ -133,22 +133,29 @@ public class MapEditorUIManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+
+        if (MapEditorManager.Instance.CurrentControlState == MapEditorManager.ControlState.Peek)
         {
-            RotateItem();
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                RotateItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                DeleteItem();
+            }
+            else if (Input.GetKeyDown(KeyCode.Backspace))
+            {
+                DeleteItem();
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Delete))
-        {
-            DeleteItem();
-        }
-        else if (Input.GetKeyDown(KeyCode.Backspace))
-        {
-            DeleteItem();
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
+
+
+        if (Input.GetKeyDown(KeyCode.X))
         {
             DeleteAllItem();
         }
+
     }
 
 

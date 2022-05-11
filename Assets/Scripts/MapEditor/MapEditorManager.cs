@@ -280,12 +280,14 @@ public class MapEditorManager : MonoBehaviour
 
                     if (itemTypeData != null)
                     {
-                        item = ItemData.Embed(hitInfo2.point, CurrentItemType, itemRoot);
+
+                        item = ItemData.Embed(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
 
                         if (item != null)
                         {
                             targetCursor.BuildCursor(item.TypeData);
                             targetCursor.Position = item.transform.position - item.TypeData.placeOffsetV3;
+                            targetCursor.Rotation = cursor.Rotation;
                             targetCursor.Show();
                             MapEditorUIManager.Instance.SetTarget(item);
                         }
@@ -354,6 +356,13 @@ public class MapEditorManager : MonoBehaviour
         }
 
 
+        if (CurrentControlState == ControlState.Place)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                cursor.Rotate(90F);
+            }
+        }
 
     }
 

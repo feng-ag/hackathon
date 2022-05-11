@@ -26,6 +26,16 @@ namespace MapEditor
         public float Rotation => root.eulerAngles.y;
 
 
+        public void SyncData()
+        {
+            transform.position = data.itemPos;
+
+            Quaternion rot = Quaternion.Euler(0, data.itemRot, 0);
+            root.rotation = rot;
+            colRoot.rotation = rot;
+        }
+
+
         public void Rotate(float angle)
         {
             bool isValid = ValidRotate(angle);

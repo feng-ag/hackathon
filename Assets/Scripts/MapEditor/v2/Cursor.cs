@@ -16,7 +16,6 @@ namespace MapEditor
         Transform root;
 
 
-        float rotation = 0F;
 
 
         Vector3 _Position;
@@ -30,14 +29,19 @@ namespace MapEditor
             get => _Position;
         }
 
+
+
+        float _Rotation = 0F;
         public float Rotation
         {
             set
             {
                 root.eulerAngles = new Vector3(0, value, 0);
+                _Rotation = value;
             }
-            get => root.eulerAngles.y;
+            get => _Rotation;
         }
+
 
 
         List<GameObject> cursorGrids = new List<GameObject>();
@@ -78,6 +82,8 @@ namespace MapEditor
 
         public void BuildCursor(ItemTypeData itemTypeData)
         {
+            Rotation = 0F;
+
             Vector3 placeOffsetV3 = new Vector3(itemTypeData.placeOffset.x, 0, itemTypeData.placeOffset.y);
             root.localPosition = placeOffsetV3;
 
@@ -107,9 +113,7 @@ namespace MapEditor
 
         public void Rotate(float angle)
         {
-            root.Rotate(0, angle, 0);
-
-            rotation = angle;
+            Rotation += angle;
         }
 
 
