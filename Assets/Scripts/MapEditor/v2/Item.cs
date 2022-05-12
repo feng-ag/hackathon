@@ -18,6 +18,9 @@ namespace MapEditor
         [SerializeField]
         Transform rootGrid;
 
+        [SerializeField]
+        Transform cursorCenter;
+
 
         [SerializeField]
         public ItemData data;
