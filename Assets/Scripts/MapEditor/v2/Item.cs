@@ -42,6 +42,16 @@ namespace MapEditor
             return grids;
         }
 
+        public Vector2 GetRootGridPos()
+        {
+            return new Vector2(rootGrid.localPosition.x, rootGrid.localPosition.z);
+        }
+
+        public Vector2 GetCursorCenterPos()
+        {
+            return new Vector2(cursorCenter.localPosition.x, cursorCenter.localPosition.z);
+        }
+
         public void SyncData()
         {
             transform.position = data.itemPos;
