@@ -15,6 +15,9 @@ namespace MapEditor
         [SerializeField]
         Transform colRoot;
 
+        [SerializeField]
+        Transform rootGrid;
+
 
         [SerializeField]
         public ItemData data;
@@ -25,6 +28,16 @@ namespace MapEditor
 
         public float Rotation => root.eulerAngles.y;
 
+        public List<Vector3> GetGrids()
+        {
+            List<Vector3> grids = new List<Vector3>();
+            Vector3 o = TypeData.placeOffsetV3;
+            foreach (Transform col in colRoot)
+            {
+                grids.Add(o + col.localPosition);
+            }
+            return grids;
+        }
 
         public void SyncData()
         {

@@ -20,6 +20,6 @@ MonoBehaviour:
     y: 0
   name: T
   icon: {fileID: 21300000, guid: 6e87568631b4d934aa43d3e7ad71ae53, type: 3}
-  prefab: {fileID: 5178446957226932055, guid: aba7610b59721b74d8fb1c7f5f038014, type: 3}
+  item: {fileID: 4591358751879516367, guid: aba7610b59721b74d8fb1c7f5f038014, type: 3}
   placeOffset: {x: 0, y: 0}
   cursorOffset: {x: -0.5, y: 0}

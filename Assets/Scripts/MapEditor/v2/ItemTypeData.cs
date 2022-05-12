@@ -17,13 +17,13 @@ namespace MapEditor
 
         //public Pos center;
 
-        public Pos[] grids = new Pos[0];
+        public List<Vector3> Grids => item.GetGrids();
 
 
         public string name;
         public Sprite icon;
 
-        public GameObject prefab;
+        public Item item;
 
         public Vector2 placeOffset;
         public Vector3 placeOffsetV3 => new Vector3(placeOffset.x, 0, placeOffset.y);
@@ -43,7 +43,7 @@ namespace MapEditor
 
         public override string ToString()
         {
-            return $"{{ type: {type}, name:{name}, prefabs:{ prefab} }}";
+            return $"{{ type: {type}, name:{name}, item:{item} }}";
         }
 
 

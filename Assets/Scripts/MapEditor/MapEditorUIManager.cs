@@ -186,6 +186,7 @@ public class MapEditorUIManager : MonoBehaviour
         foreach(var itemData in MapStructManager.Instance.items.ToArray())
         {
             ItemData.UnEmbed(itemData);
+            MapEditorManager.Instance.targetCursor.Hide();
         }
     }
 

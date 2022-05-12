@@ -62,7 +62,7 @@ namespace MapEditor
             Vector3 offsetCursroPos = CursorToOffsetCursorPos(pos, type);
             Vector3 placePos = OffsetCursorPosToPlacePos(offsetCursroPos, type);
 
-            Item item = GameObject.Instantiate(itemTypeData.prefab, placePos, Quaternion.identity, root).GetComponent<Item>();
+            Item item = GameObject.Instantiate(itemTypeData.item.gameObject, placePos, Quaternion.identity, root).GetComponent<Item>();
 
             ItemData itemData = new ItemData
             {
@@ -94,9 +94,9 @@ namespace MapEditor
             //gd.transform.localPosition = placePos;
             //gd.transform.localScale = new Vector3(0.1F, 10F, 0.1F);
 
-            foreach (var grid in itemTypeData.grids)
+            foreach (var grid in itemTypeData.Grids)
             {
-                Vector3 pos3 = cursorPos + grid.GetVector3();
+                Vector3 pos3 = cursorPos + grid + itemTypeData.placeOffsetV3;
 
                 Vector3 vaildPos = pos3 - placePos;
                 Quaternion q = Quaternion.AngleAxis(rot, Vector3.up);
@@ -111,10 +111,10 @@ namespace MapEditor
                     0,
                     MapEditorManager.Instance.itemLayer.value);
 
-                ////Grid
-                //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                //g.transform.localPosition = vaildRotPos;
-                //g.transform.localScale = new Vector3(0.1F, 5F, 0.1F);
+                //Grid
+                GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                g.transform.localPosition = vaildRotPos;
+                g.transform.localScale = new Vector3(0.1F, 5F, 0.1F);
 
                 if (hits.Length > 0)
                 {

@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4205975897628741974}
   - component: {fileID: 2042375415473960203}
   m_Layer: 11
-  m_Name: '@ItemWrapper'
+  m_Name: '@Item'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,6 +61,7 @@ Transform:
   m_Children:
   - {fileID: 5158737938192380887}
   - {fileID: 6327138294674927734}
+  - {fileID: 2897896843114854878}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,12 +79,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 5158737938192380887}
   colRoot: {fileID: 6327138294674927734}
+  rootGrid: {fileID: 2897896843114854878}
   data:
+    id: 
     type: 0
-    rot: 0
-    pos:
-      x: 0
-      y: 0
+    itemRot: 0
+    itemPos: {x: 0, y: 0, z: 0}
     item: {fileID: 4205975897628741974}
 --- !u!114 &2042375415473960203
 MonoBehaviour:
@@ -127,4 +128,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5960701796494538654}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8726586385602145120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2897896843114854878}
+  m_Layer: 11
+  m_Name: RootGrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2897896843114854878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8726586385602145120}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5960701796494538654}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

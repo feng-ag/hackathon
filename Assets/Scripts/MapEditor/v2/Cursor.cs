@@ -84,8 +84,7 @@ namespace MapEditor
         {
             Rotation = 0F;
 
-            Vector3 placeOffsetV3 = new Vector3(itemTypeData.placeOffset.x, 0, itemTypeData.placeOffset.y);
-            root.localPosition = placeOffsetV3;
+            root.localPosition = itemTypeData.placeOffsetV3;
 
 
             foreach(var g in cursorGrids.ToArray())
@@ -93,9 +92,9 @@ namespace MapEditor
                 Destroy(g);
             }
 
-            foreach(var pos in itemTypeData.grids)
+            foreach(var grid in itemTypeData.Grids)
             {
-                GameObject g = Instantiate(temp, transform.localPosition + pos.GetVector3(), Quaternion.identity, root);
+                GameObject g = Instantiate(temp, transform.localPosition + grid + itemTypeData.placeOffsetV3, Quaternion.identity, root);
                 cursorGrids.Add(g);
                 g.SetActive(true);
             }
