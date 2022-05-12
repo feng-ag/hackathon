@@ -135,7 +135,7 @@ public class MapEditorManager : MonoBehaviour
     void ShowPeek(Item item)
     {
         targetCursor.BuildCursor(item.TypeData);
-        targetCursor.Position = item.transform.position - item.TypeData.placeOffsetV3;
+        targetCursor.Position = item.transform.position - item.TypeData.GridOffsetV3;
         targetCursor.Show();
         cursor.Hide();
         MapEditorUIManager.Instance.SetTarget(item);
@@ -286,7 +286,7 @@ public class MapEditorManager : MonoBehaviour
                         if (item != null)
                         {
                             targetCursor.BuildCursor(item.TypeData);
-                            targetCursor.Position = item.transform.position - item.TypeData.placeOffsetV3;
+                            targetCursor.Position = item.transform.position + itemTypeData.GridOffsetV3;
                             targetCursor.Rotation = cursor.Rotation;
                             targetCursor.Show();
                             MapEditorUIManager.Instance.SetTarget(item);
@@ -408,11 +408,14 @@ public class MapEditorManager : MonoBehaviour
                 {
                     ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
 
-                    Vector3 hitPos = hitInfo2.point + itemTypeData.cursorOffsetV3;
+
+                    Vector3 hitPos = hitInfo2.point;
+
+                    
 
                     float x = Mathf.Round(hitPos.x);
                     float z = Mathf.Round(hitPos.z);
-                    Vector3 pos = new Vector3(x, 0, z);
+                    Vector3 pos = ItemData.CursorPosToGridPos(hitPos, itemTypeData.type, cursor.Rotation); //new Vector3(x, 0, z);
 
                     cursor.Position = pos;
                     cursor.Show();

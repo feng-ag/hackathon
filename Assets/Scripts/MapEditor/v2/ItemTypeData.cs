@@ -25,11 +25,11 @@ namespace MapEditor
 
         public Item item;
 
-        public Vector2 placeOffset => item.GetRootGridPos();
-        public Vector3 placeOffsetV3 => new Vector3(placeOffset.x, 0, placeOffset.y);
+        public Vector2 GridOffset => item.GetRootGridPos();
+        public Vector3 GridOffsetV3 => new Vector3(GridOffset.x, 0, GridOffset.y);
 
-        public Vector2 cursorOffset => item.GetCursorCenterPos();
-        public Vector3 cursorOffsetV3 => new Vector3(cursorOffset.x, 0, cursorOffset.y);
+        public Vector2 CursorOffset => item.GetCursorCenterPos();
+        public Vector3 CursorOffsetV3 => new Vector3(CursorOffset.x, 0, CursorOffset.y);
 
 
 

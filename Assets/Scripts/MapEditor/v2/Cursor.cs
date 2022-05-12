@@ -15,7 +15,7 @@ namespace MapEditor
         [SerializeField]
         Transform root;
 
-
+        ItemTypeData itemTypeData;
 
 
         Vector3 _Position;
@@ -23,7 +23,7 @@ namespace MapEditor
         {
             set
             {
-                _Position = value;
+                _Position = value - itemTypeData.GridOffsetV3;
                 transform.position = _Position;
             }
             get => _Position;
@@ -80,21 +80,21 @@ namespace MapEditor
         }
 
 
-        public void BuildCursor(ItemTypeData itemTypeData)
+        public void BuildCursor(ItemTypeData _itemTypeData)
         {
+            itemTypeData = _itemTypeData;
             Rotation = 0F;
 
-            root.localPosition = itemTypeData.placeOffsetV3;
-
-
-            foreach(var g in cursorGrids.ToArray())
+            foreach (var g in cursorGrids.ToArray())
             {
                 Destroy(g);
             }
 
-            foreach(var grid in itemTypeData.Grids)
+            foreach (var grid in itemTypeData.Grids)
             {
-                GameObject g = Instantiate(temp, transform.localPosition + grid + itemTypeData.placeOffsetV3, Quaternion.identity, root);
+                Vector3 gridPos = root.transform.position + grid;
+
+                GameObject g = Instantiate(temp, gridPos, Quaternion.identity, root);
                 cursorGrids.Add(g);
                 g.SetActive(true);
             }

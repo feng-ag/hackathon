@@ -34,10 +34,10 @@ namespace MapEditor
         public List<Vector3> GetGrids()
         {
             List<Vector3> grids = new List<Vector3>();
-            Vector3 o = TypeData.placeOffsetV3;
+            Vector3 o = TypeData.GridOffsetV3;
             foreach (Transform col in colRoot)
             {
-                grids.Add(o + col.localPosition);
+                grids.Add(col.localPosition - o);
             }
             return grids;
         }
