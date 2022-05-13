@@ -163,6 +163,9 @@ public class MapEditorManager : MonoBehaviour
     {
         LoadMap(defaultMap);
 
+        //string mapJson = "{\"items\":[{\"id\":\"6196fbf5 - 7543 - 42ff - 862d - 6c375aafb846\",\"type\":2,\"rot\":0.0,\"pos\":{\"x\":1.5,\"y\":0.0,\"z\":-3.5}},{\"id\":\"99001c24 - 3e29 - 4088 - bb8d - 69ac4983e01c\",\"type\":2,\"rot\":90.0,\"pos\":{\"x\":6.5,\"y\":0.0,\"z\":-0.5}},{\"id\":\"4f764dbe - caf3 - 4872 - af1a - 167761964b06\",\"type\":2,\"rot\":180.0,\"pos\":{\"x\":4.5,\"y\":0.0,\"z\":-1.5}}]}";
+        //MapStructManager.Instance.ImportMap(mapJson);
+
 
     }
 
@@ -254,7 +257,6 @@ public class MapEditorManager : MonoBehaviour
                     {
                         item = itemColLinker.item;
 
-                        //初次選擇就顯示info，重複選擇就關閉
                         if (MapEditorUIManager.Instance.currentEditItem != item)
                         {
                             ChangeToPeek(item);
@@ -290,6 +292,7 @@ public class MapEditorManager : MonoBehaviour
                             targetCursor.Rotation = cursor.Rotation;
                             targetCursor.Show();
                             MapEditorUIManager.Instance.SetTarget(item);
+
                         }
                     }
                 }

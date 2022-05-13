@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+//using LitJson;
+using Newtonsoft.Json;
 
 
 namespace MapEditor
@@ -10,20 +11,25 @@ namespace MapEditor
     [Serializable]
     public class ItemData
     {
+        [JsonProperty("id")]
         public string id;
 
+        [JsonProperty("type")]
         public int type;
 
+        [JsonProperty("rot")]
         public float itemRot;
 
-        /// <summary>
-        /// Place Pos
-        /// </summary>
+        [JsonProperty("pos")]
+        /// <summary>Object Pos</summary>
         public Vector3 itemPos;
 
+
+        [JsonIgnore]
         public Item item;
 
 
+        [JsonIgnore]
         public ItemTypeData TypeData => MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
 
@@ -43,7 +49,7 @@ namespace MapEditor
             Quaternion q = Quaternion.AngleAxis(rot, Vector3.up);
 
             //Vector3 grid = cursorPos - q * itemTypeData.CursorOffsetV3;
-            Vector3 grid = cursorPos - itemTypeData.CursorOffsetV3;  //≥o√‰§£≥B≤z±€¬‡
+            Vector3 grid = cursorPos - itemTypeData.CursorOffsetV3;  //ÂÖà‰∏çÁÆóÊóãËΩâ
 
             float x = Mathf.Round(grid.x);
             float z = Mathf.Round(grid.z);
@@ -60,7 +66,7 @@ namespace MapEditor
             Quaternion q = Quaternion.AngleAxis(rot, Vector3.up);
 
             //Vector3 objectPos = gridPos - q * itemTypeData.GridOffsetV3;
-            Vector3 objectPos = gridPos - itemTypeData.GridOffsetV3;        //≥o√‰§£≥B≤z±€¬‡
+            Vector3 objectPos = gridPos - itemTypeData.GridOffsetV3;        //ÂÖà‰∏çÁÆóÊóãËΩâ
 
             return objectPos;
         }
@@ -98,32 +104,11 @@ namespace MapEditor
         //--
 
 
-        static Vector3 CursorToOffsetCursorPos(Vector3 cursorPos, int type)
-        {
-            ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
-
-            Vector3 cursorOffsetV3 = itemTypeData.CursorOffsetV3;
-            Vector3 hitPos = cursorPos + cursorOffsetV3;
-
-            float x = Mathf.Round(hitPos.x);
-            float z = Mathf.Round(hitPos.z);
-            Vector3 pos3 = new Vector3(x, 0, z);
-
-            return pos3;
-        }
-
-        static Vector3 OffsetCursorPosToPlacePos(Vector3 offsetCursorPos, int type)
-        {
-            ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
-
-            return offsetCursorPos + itemTypeData.GridOffsetV3;
-        }
-
-
 
 
         public static Item Embed(Vector3 cursorPos, int type, float rot, Transform root)
         {
+
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
             bool isValid = VaildEmbed(cursorPos, type, rot);
@@ -204,7 +189,7 @@ namespace MapEditor
 
                 RaycastHit[] hits = Physics.BoxCastAll(
                     vaildRotPos,
-                    Vector3.one * 0.45F,    //§Ò0.5≤§§p°A¡◊ßKª~∏I®Ï®‰•LÆÊ
+                    Vector3.one * 0.45F,    //ÔøΩÔøΩ0.5ÔøΩÔøΩÔøΩpÔøΩAÔøΩ◊ßKÔøΩ~ÔøΩIÔøΩÔøΩÔøΩLÔøΩÔøΩ
                     Vector3.forward,
                     Quaternion.identity,
                     0,
@@ -232,6 +217,34 @@ namespace MapEditor
 
             GameObject.Destroy(itemData.item.gameObject);
         }
+
+
+        //--
+
+        public static ItemData ImportFromJson(string json)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+
+            };
+
+            ItemData itemData = JsonConvert.DeserializeObject<ItemData>(json, settings);
+
+            return itemData;
+        }
+
+        public static string ExportToJson(ItemData itemData)
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings(){
+             
+            };
+
+            string json = JsonConvert.SerializeObject(itemData, settings);
+            
+            return json;
+        }
+
+
 
     }
 
