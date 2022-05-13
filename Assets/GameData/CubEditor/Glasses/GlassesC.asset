@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   styleName: GlassesA
   UIIcon: {fileID: 21300000, guid: 0cfff31864a7d2d4585e4cc9a98b01a9, type: 3}
+  rate: 0
+  series: {fileID: 11400000, guid: 899cfbeb239920d48a04796c89ea7fcd, type: 2}
   meshPrefab: {fileID: 9025780635776485259, guid: 038650ab6d92b6d4b99ee5047067c10c, type: 3}

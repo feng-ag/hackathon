@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af7b86e4497aa2546835b64fedbf547d, type: 3}
   m_Name: BearBody
   m_EditorClassIdentifier: 
-  styleName: Deer
+  styleName: BearBody
   UIIcon: {fileID: 21300000, guid: 6e87568631b4d934aa43d3e7ad71ae53, type: 3}
   rate: 10
+  series: {fileID: 11400000, guid: 20c4de9ecf39e1341941aa0f2b306059, type: 2}
   meshPrefab: {fileID: 8003485757666582824, guid: 8386f7f741f9557419c4a66ecc57cc86, type: 3}

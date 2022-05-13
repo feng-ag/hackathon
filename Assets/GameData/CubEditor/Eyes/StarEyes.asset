@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   styleName: StartEyes
   UIIcon: {fileID: 21300000, guid: 5a5f844119b2a464c8a0784772004746, type: 3}
+  rate: 0
+  series: {fileID: 11400000, guid: 899cfbeb239920d48a04796c89ea7fcd, type: 2}
   eyesTex: {fileID: 2800000, guid: ce1d99a39ec68b04c97afc6be3888fb1, type: 3}
   eyesMask: {fileID: 2800000, guid: 59864690cba0ae64e8faf12a6e63fc0e, type: 3}

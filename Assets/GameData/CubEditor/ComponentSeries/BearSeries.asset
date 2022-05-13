@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49fca2566d03fba4291dba88a985c668, type: 3}
   m_Name: BearSeries
   m_EditorClassIdentifier: 
-  seriesName: Tiger
+  seriesName: Bear

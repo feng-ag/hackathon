@@ -15,4 +15,5 @@ MonoBehaviour:
   styleName: Deer
   UIIcon: {fileID: 21300000, guid: 6e87568631b4d934aa43d3e7ad71ae53, type: 3}
   rate: 10
+  series: {fileID: 11400000, guid: 003a1ea7118776e4ab15481346784f05, type: 2}
   meshPrefab: {fileID: 8658382317039245371, guid: c99cb644fb69ca34b98b16e93f3d9004, type: 3}

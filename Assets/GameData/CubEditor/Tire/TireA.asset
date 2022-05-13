@@ -15,5 +15,6 @@ MonoBehaviour:
   styleName: TireA
   UIIcon: {fileID: 21300000, guid: 6e87568631b4d934aa43d3e7ad71ae53, type: 3}
   rate: 10
+  series: {fileID: 11400000, guid: 899cfbeb239920d48a04796c89ea7fcd, type: 2}
   meshPrefab: {fileID: 321990908717512004, guid: 8ad4ec985cfa665488f6442aca629c96, type: 3}
   colorOne: {r: 1, g: 0.051886797, b: 0.051886797, a: 0}
