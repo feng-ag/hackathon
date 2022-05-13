@@ -18,9 +18,15 @@ namespace ArcadeGalaxyKit
         }
         public override void init()
         {
-            SetUpDefaultConfig();
-            SetInstance();
-            base.init();
+            if (!isInit)
+            {
+                if (PreferenceTab.Instance.isInit)
+                {
+                    SetUpDefaultConfig();
+                    SetInstance();
+                    base.init();
+                }
+            }
         }
         public GeneratorConfig GetConfig()
         {
@@ -44,7 +50,11 @@ namespace ArcadeGalaxyKit
             {
                 _tmpEditor = Editor.CreateEditor(loadedConfig);
                 GeneratorConfig = loadedConfig;
-                PreferenceTab.Instance.GeneratorPreference.LastReadConfigPath = AssetDatabase.GetAssetPath(GeneratorConfig);
+                PreferenceTab.Instance.GetGeneratorPreference().LastReadConfigPath = AssetDatabase.GetAssetPath(GeneratorConfig);
+                EditorUtility.SetDirty(PreferenceTab.Instance.GetGeneratorPreference());
+                var path = AssetDatabase.GetAssetPath(PreferenceTab.Instance.GetGeneratorPreference());
+                var guid = AssetDatabase.GUIDFromAssetPath(path);
+                AssetDatabase.SaveAssetIfDirty(guid);
             }
             if (GeneratorConfig)
             {
@@ -71,19 +81,19 @@ namespace ArcadeGalaxyKit
                 config.namePrefix = "Arcade Galaxy Cub";
                 config.NFTDescription = "Default Description";
                 AssignDefaultAssetInFolder<AnimalBodyTypeSetting>(config,
-                    Application.dataPath + "/GameData/CubStyleCenterProfile/AnimalType/",
+                    GeneratorDefaultPath.DefaultCubDataFolder + "/AnimalType/",
                     "animalBodyTypeSettings");
                 AssignDefaultAssetInFolder<SkinSetting>(config,
-                    Application.dataPath + "/GameData/CubStyleCenterProfile/Skin/",
+                    GeneratorDefaultPath.DefaultCubDataFolder + "/Skin/",
                     "skinSettings");
                 AssignDefaultAssetInFolder<EyesSetting>(config,
-                    Application.dataPath + "/GameData/CubStyleCenterProfile/Eyes/",
+                    GeneratorDefaultPath.DefaultCubDataFolder + "/Eyes/",
                     "eyesSettings");
                 AssignDefaultAssetInFolder<GlassesSetting>(config,
-                    Application.dataPath + "/GameData/CubStyleCenterProfile/Glasses/",
+                    GeneratorDefaultPath.DefaultCubDataFolder + "/Glasses/",
                     "glassesSettings");
                 AssignDefaultAssetInFolder<TireSetting>(config,
-                    Application.dataPath + "/GameData/CubStyleCenterProfile/Tire/",
+                    GeneratorDefaultPath.DefaultCubDataFolder + "/Tire/",
                     "tireSettings");
                 EditorUtility.SetDirty(config);
 
@@ -120,7 +130,7 @@ namespace ArcadeGalaxyKit
             {
                 if (PreferenceTab.Instance != null)
                 {
-                    var lastReadConfigPath = PreferenceTab.Instance.GeneratorPreference.LastReadConfigPath;
+                    var lastReadConfigPath = PreferenceTab.Instance.GetGeneratorPreference().LastReadConfigPath;
                     if (lastReadConfigPath != null)
                     {
                         if (!lastReadConfigPath.Equals(""))
@@ -138,6 +148,10 @@ namespace ArcadeGalaxyKit
                     var configObj = ScriptableObject.CreateInstance(typeof(GeneratorConfig));
                     AssetDatabase.CreateAsset(configObj, GeneratorDefaultPath.DefaultConfigPath);
                     PreferenceTab.Instance.GeneratorPreference.LastReadConfigPath = GeneratorDefaultPath.DefaultConfigPath;
+                    EditorUtility.SetDirty(PreferenceTab.Instance.GetGeneratorPreference());
+                    var path = AssetDatabase.GetAssetPath(PreferenceTab.Instance.GetGeneratorPreference());
+                    var guid = AssetDatabase.GUIDFromAssetPath(path);
+                    AssetDatabase.SaveAssetIfDirty(guid);
                     GeneratorConfig = configObj as GeneratorConfig;
                     ResetConfig(GeneratorConfig);
                     isInit = true;

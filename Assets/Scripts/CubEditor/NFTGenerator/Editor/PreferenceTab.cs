@@ -13,15 +13,8 @@ namespace ArcadeGalaxyKit
         }
         public GeneratorPreference GetGeneratorPreference()
         {
-            if (isInit)
-            {
-                if (!GeneratorPreference) LoadPreference();
-                return GeneratorPreference;
-            }
-            else
-            {
-                return null;
-            }
+            if (!GeneratorPreference) GeneratorPreference = LoadPreference();
+            return GeneratorPreference;
         }
         void SetInstance()
         {
@@ -31,35 +24,35 @@ namespace ArcadeGalaxyKit
             }
         }
 
-        void LoadPreference(bool fourceReload = false)
+        GeneratorPreference LoadPreference(bool fourceReload = false)
         {
-            if (!tmpEditor || fourceReload)
+            if (!GeneratorPreference || fourceReload)
             {
-                if (!GeneratorPreference || fourceReload)
+                var tryLoad = AssetDatabase.LoadAssetAtPath(GeneratorDefaultPath.PreferencePath, typeof(GeneratorPreference));
+                Object preferencceObj;
+                if (tryLoad == null)
                 {
-                    var tryLoad = AssetDatabase.LoadAssetAtPath(GeneratorDefaultPath.PreferencePath, typeof(GeneratorPreference));
-                    Object preferencceObj;
-                    if (tryLoad == null)
-                    {
-                        preferencceObj = ScriptableObject.CreateInstance(typeof(GeneratorPreference));
-                        AssetDatabase.CreateAsset(preferencceObj, GeneratorDefaultPath.PreferencePath);
-                    }
-                    else
-                    {
-                        preferencceObj = tryLoad;
-                    }
-
-                    GeneratorPreference = preferencceObj as GeneratorPreference;
-                    isInit = true;
+                    Debug.Log("產生預設偏好設定");
+                    preferencceObj = ScriptableObject.CreateInstance(typeof(GeneratorPreference));
+                    AssetDatabase.CreateAsset(preferencceObj, GeneratorDefaultPath.PreferencePath);
                 }
-                tmpEditor = Editor.CreateEditor((Object)GeneratorPreference);
+                else
+                {
+                    preferencceObj = tryLoad;
+                }
+                GeneratorPreference = preferencceObj as GeneratorPreference;
+                isInit = true;
             }
+            return GeneratorPreference;
         }
         public override void init()
         {
-            LoadPreference();
-            SetInstance();
-            base.init();
+            if (!isInit)
+            {
+                LoadPreference();
+                SetInstance();
+                base.init();
+            }
         }
         Editor tmpEditor;
         public override void DrawTab()
@@ -70,6 +63,7 @@ namespace ArcadeGalaxyKit
             EditorGUILayout.EndToggleGroup();
             if (GeneratorPreference)
             {
+                if (!tmpEditor) tmpEditor = Editor.CreateEditor(GeneratorPreference);
                 tmpEditor.DrawDefaultInspector();
             }
 

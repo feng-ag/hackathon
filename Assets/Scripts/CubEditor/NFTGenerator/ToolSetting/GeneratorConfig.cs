@@ -19,6 +19,7 @@ namespace ArcadeGalaxyKit
     }
     public static class GeneratorDefaultPath
     {
+        static public string DefaultCubDataFolder = Application.dataPath + "/GameData/CubEditor";
         static public string DefaultDataFolder = Application.dataPath + "/GameData/NFTGenerator";
         static public string DefaultSystemFolder = Application.dataPath + "/GameData/NFTGenerator/System";
         public const string PreferencePath = "Assets/GameData/NFTGenerator/System/Preference.asset";
