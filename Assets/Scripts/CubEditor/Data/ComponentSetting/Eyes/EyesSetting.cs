@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace ArcadeGalaxyKit
@@ -7,7 +7,7 @@ namespace ArcadeGalaxyKit
     /// Store tire setting
     /// </summary>
     [CreateAssetMenu(
-    menuName = "ArcadeGalaxyKit/Cub/ComponentSetting/Eyes/BaseEyes",
+    menuName = "ArcadeGalaxyKit/CubEditor/ComponentSetting/Eyes/BaseEyes",
     fileName = "BaseEyesSetting")]
     [Serializable]
     public class EyesSetting : CubComponentSetting

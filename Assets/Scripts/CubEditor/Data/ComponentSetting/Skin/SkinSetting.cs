@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace ArcadeGalaxyKit
@@ -7,7 +7,7 @@ namespace ArcadeGalaxyKit
     /// Store base skin setting
     /// </summary>
     [CreateAssetMenu(
-    menuName = "ArcadeGalaxyKit/Cub/ComponentSetting/Skin/BaseSkin",
+    menuName = "ArcadeGalaxyKit/CubEditor/ComponentSetting/Skin/BaseSkin",
     fileName = "BaseSkinSetting")]
     [Serializable]
     public class SkinSetting : CubComponentSetting

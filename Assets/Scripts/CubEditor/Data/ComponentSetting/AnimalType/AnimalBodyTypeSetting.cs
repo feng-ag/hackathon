@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace ArcadeGalaxyKit
@@ -7,7 +7,7 @@ namespace ArcadeGalaxyKit
     /// Store base glasses setting
     /// </summary>
     [CreateAssetMenu(
-    menuName = "ArcadeGalaxyKit/Cub/ComponentSetting/AnimalType/BaseAnimalType",
+    menuName = "ArcadeGalaxyKit/CubEditor/ComponentSetting/AnimalType/BaseAnimalType",
     fileName = "BaseAnimalTypeSetting")]
     [Serializable]
     public class AnimalBodyTypeSetting : CubComponentSetting

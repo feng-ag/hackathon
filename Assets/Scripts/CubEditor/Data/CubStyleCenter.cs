@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 namespace ArcadeGalaxyKit
 {
@@ -6,7 +6,7 @@ namespace ArcadeGalaxyKit
     /// Store all component setting
     /// </summary>
     [CreateAssetMenu(
-    menuName = "ArcadeGalaxyKit/Profile/CubStyleCenter",
+    menuName = "ArcadeGalaxyKit/CubEditor/Profile/CubStyleCenter",
     fileName = "CubStyleCenter")]
     [Serializable]
     public class CubStyleCenter : ScriptableObject
