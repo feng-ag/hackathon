@@ -34,12 +34,11 @@ namespace ArcadeGalaxyKit
                 if (!EditorApplication.isPlaying)
                 {
                     Scene activeScene = SceneManager.GetActiveScene();
-                    var scenePath = GeneratorConfig.ToolScenePath;
+                    var scenePath = GeneratorDefaultPath.ToolScenePath;
                     var tokens = scenePath.Split('/');
                     if (!activeScene.name.Equals(tokens[tokens.Length - 1].Replace(".unity", "")))
                     {
-                        Debug.Log("open");
-                        EditorSceneManager.OpenScene(GeneratorConfig.ToolScenePath);
+                        EditorSceneManager.OpenScene(GeneratorDefaultPath.ToolScenePath);
                     }
                     EditorSceneManager.MarkSceneDirty(activeScene);
                     EditorApplication.EnterPlaymode();
@@ -64,7 +63,7 @@ namespace ArcadeGalaxyKit
                 EditorApplication.ExitPlaymode();
                 EditorApplication.playModeStateChanged += ((ExitingPlayMode) =>
                 {
-                    EditorSceneManager.OpenScene(GeneratorConfig.ToolScenePath);
+                    EditorSceneManager.OpenScene(GeneratorDefaultPath.ToolScenePath);
                 });
 
             };
@@ -135,7 +134,7 @@ namespace ArcadeGalaxyKit
             if (PreferenceTab.Instance.isInit)
             {
                 var preference = PreferenceTab.Instance.GeneratorPreference;
-                var tmpPath = GeneratorConfig.TempDataPath;
+                var tmpPath = GeneratorDefaultPath.TempDataPath;
                 if (Directory.Exists(tmpPath))
                 {
                     var dir = new DirectoryInfo(@tmpPath);
@@ -161,7 +160,8 @@ namespace ArcadeGalaxyKit
         void CheckTempData()
         {
             generatedCubDatas.Clear();
-            var tempDataPath = GeneratorConfig.TempDataPath;
+            var tempDataPath = GeneratorDefaultPath.TempDataPath;
+            if (!Directory.Exists(tempDataPath)) Directory.CreateDirectory(tempDataPath);
             var filesStrings = Directory.GetFiles(tempDataPath, "*.asset");
             List<GeneratedCubData> objects = new List<GeneratedCubData>();
             foreach (string fileString in filesStrings)

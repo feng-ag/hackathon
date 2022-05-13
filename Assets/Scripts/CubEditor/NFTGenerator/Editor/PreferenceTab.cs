@@ -6,7 +6,6 @@ namespace ArcadeGalaxyKit
     {
         public static PreferenceTab Instance;
         public GeneratorPreference GeneratorPreference;
-        const string _defaultPreferencePath = "Assets/Scripts/CubEditor/NFTGenerator/Preference.asset";
         public PreferenceTab()
         {
             tabName = "偏好設定";
@@ -38,12 +37,12 @@ namespace ArcadeGalaxyKit
             {
                 if (!GeneratorPreference || fourceReload)
                 {
-                    var tryLoad = AssetDatabase.LoadAssetAtPath(_defaultPreferencePath, typeof(GeneratorPreference));
+                    var tryLoad = AssetDatabase.LoadAssetAtPath(GeneratorDefaultPath.PreferencePath, typeof(GeneratorPreference));
                     Object preferencceObj;
                     if (tryLoad == null)
                     {
                         preferencceObj = ScriptableObject.CreateInstance(typeof(GeneratorPreference));
-                        AssetDatabase.CreateAsset(preferencceObj, _defaultPreferencePath);
+                        AssetDatabase.CreateAsset(preferencceObj, GeneratorDefaultPath.PreferencePath);
                     }
                     else
                     {

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO;
+
 namespace ArcadeGalaxyKit
 {
     public class ToolPage : EditorWindow
@@ -15,11 +17,6 @@ namespace ArcadeGalaxyKit
             // Get existing open window or if none, make a new one:
             ToolPage _instance = (ToolPage)GetWindow(typeof(ToolPage));
             _instance.Show();
-            ResetTabs();
-            foreach (var tab in _tabs)
-            {
-                tab.OnEnable();
-            }
         }
         static void ResetTabs()
         {
@@ -39,6 +36,8 @@ namespace ArcadeGalaxyKit
 
         void OnEnable()
         {
+            if (!Directory.Exists(GeneratorDefaultPath.DefaultDataFolder)) Directory.CreateDirectory(GeneratorDefaultPath.DefaultDataFolder);
+            if (!Directory.Exists(GeneratorDefaultPath.DefaultSystemFolder)) Directory.CreateDirectory(GeneratorDefaultPath.DefaultSystemFolder);
             ResetTabs();
             foreach (var tab in _tabs)
             {

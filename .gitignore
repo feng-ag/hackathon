@@ -74,4 +74,4 @@ crashlytics-build.properties
 .vsconfig
 
 # NFTGenerator Temp Folder
-/[Aa]ssets/Scripts/CubEditor/NFTGenerator/TempData/*
+/[Aa]ssets/GameData/NFTGenerator*

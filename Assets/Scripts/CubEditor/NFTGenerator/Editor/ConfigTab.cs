@@ -11,7 +11,6 @@ namespace ArcadeGalaxyKit
     {
         public static ConfigTab Instance;
         GeneratorConfig GeneratorConfig;
-        const string _defaultConfigPath = "Assets/Scripts/CubEditor/NFTGenerator/NFT Generator Config.asset";
         public ConfigTab()
         {
             tabName = "生成器設定";
@@ -25,6 +24,7 @@ namespace ArcadeGalaxyKit
         }
         public GeneratorConfig GetConfig()
         {
+            Debug.Log("GetConfig " + isInit);
             if (isInit)
             {
                 if (!GeneratorConfig) SetUpDefaultConfig();
@@ -99,7 +99,6 @@ namespace ArcadeGalaxyKit
             foreach (string fileString in filesStrings)
             {
                 string assetPath = "Assets" + fileString.Replace(Application.dataPath, "").Replace('\\', '/');
-                Debug.Log(assetPath);
                 var loadedObj = AssetDatabase.LoadAssetAtPath(assetPath, typeof(T));
                 var castedObj = (T)Convert.ChangeType(loadedObj, typeof(T));
                 objects.Add(castedObj);
@@ -122,21 +121,27 @@ namespace ArcadeGalaxyKit
                 if (PreferenceTab.Instance != null)
                 {
                     var lastReadConfigPath = PreferenceTab.Instance.GeneratorPreference.LastReadConfigPath;
-                    if (!lastReadConfigPath.Equals(""))
+                    if (lastReadConfigPath != null)
                     {
-                        GeneratorConfig = AssetDatabase.LoadAssetAtPath(lastReadConfigPath, typeof(GeneratorConfig)) as GeneratorConfig;
+                        if (!lastReadConfigPath.Equals(""))
+                        {
+                            GeneratorConfig = AssetDatabase.LoadAssetAtPath(lastReadConfigPath, typeof(GeneratorConfig)) as GeneratorConfig;
+                            isInit = true;
+                        }
                     }
-                    if (!GeneratorConfig)
-                    {
-                        Debug.LogError("找不到最後讀取設定檔");
-                        var configObj = ScriptableObject.CreateInstance(typeof(GeneratorConfig));
-                        AssetDatabase.CreateAsset(configObj, _defaultConfigPath);
-                        PreferenceTab.Instance.GeneratorPreference.LastReadConfigPath = _defaultConfigPath;
-                        GeneratorConfig = configObj as GeneratorConfig;
-                        Debug.Log("建立預設設定檔..");
-                        ResetConfig(GeneratorConfig);
-                    }
+                }
+
+                if (!GeneratorConfig)
+                {
+                    Debug.Log("找不到最後讀取設定檔");
+                    Debug.Log("建立預設設定檔..");
+                    var configObj = ScriptableObject.CreateInstance(typeof(GeneratorConfig));
+                    AssetDatabase.CreateAsset(configObj, GeneratorDefaultPath.DefaultConfigPath);
+                    PreferenceTab.Instance.GeneratorPreference.LastReadConfigPath = GeneratorDefaultPath.DefaultConfigPath;
+                    GeneratorConfig = configObj as GeneratorConfig;
+                    ResetConfig(GeneratorConfig);
                     isInit = true;
+                    SetUpDefaultConfig();
                 }
                 else
                 {
