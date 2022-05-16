@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using System.IO;
 using System.Linq;
 using MapEditor;
+
+#if(UNITY_EDITOR)
+using UnityEditor;
+#endif
 
 public class MapEditorManager : MonoBehaviour
 {
@@ -331,12 +336,26 @@ public class MapEditorManager : MonoBehaviour
         }
 
 
+#if(UNITY_EDITOR)
+
         if (Input.GetKeyDown(KeyCode.M))
         {
             string mapJson = MapDataManager.Instance.ExportMap();
 
             Debug.Log(mapJson);
+
+
+            string assetPath = AssetDatabase.GetAssetPath(defaultMapJson);
+
+            string filePath = $"{Application.dataPath}{assetPath.Substring(6)}";
+
+            File.WriteAllText(filePath, mapJson, System.Text.Encoding.UTF8);
+
+            EditorUtility.SetDirty(defaultMapJson);
         }
+
+#endif
+
 
     }
 

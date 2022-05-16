@@ -70,13 +70,18 @@ namespace MapEditor
             MapEditorManager.Instance.ChangeEnvTo(loadMap.env);
             newMap.env = loadMap.env;
 
+
+            MapEditorManager.Instance.itemRoot.gameObject.SetActive(false);
+
             // Items
-            foreach(var item in loadMap.items)
+            foreach (var item in loadMap.items)
             {
                 yield return new WaitForFixedUpdate();  // 因為EmbedValid會用到Physical.Cast，必須要等FixedUpdate更新才能做下個判斷
 
                 ItemData.Embed(item.itemPos, item.type, item.itemRot, MapEditorManager.Instance.itemRoot, item.id);
             }
+
+            MapEditorManager.Instance.itemRoot.gameObject.SetActive(true);
 
 
             //檢查
