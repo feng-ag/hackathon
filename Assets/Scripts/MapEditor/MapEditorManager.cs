@@ -352,6 +352,9 @@ public class MapEditorManager : MonoBehaviour
             File.WriteAllText(filePath, mapJson, System.Text.Encoding.UTF8);
 
             EditorUtility.SetDirty(defaultMapJson);
+
+            AssetDatabase.Refresh();
+
         }
 
 #endif

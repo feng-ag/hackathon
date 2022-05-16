@@ -69,8 +69,12 @@ namespace MapEditor
             if (isValid)
             {
                 root.Rotate(0, angle, 0);
-                data.itemRot = angle;
                 colRoot.rotation = root.rotation;
+                data.itemRot = root.eulerAngles.y;
+            }
+            else
+            {
+                Debug.LogError("Invaild rotate");
             }
         }
 
