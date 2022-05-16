@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using System.Linq;
 
 
@@ -131,6 +130,31 @@ namespace MapEditor
         {
             ItemData.UnEmbed(Data);
         }
+
+
+#if(UNITY_EDITOR)
+
+
+        [ContextMenu("Create Col")]
+        public void CreateCol()
+        {
+            GameObject prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/MapEditor/Items/@ColBase.prefab");
+
+            GameObject ins = UnityEditor.PrefabUtility.InstantiatePrefab(prefab, colRoot) as GameObject; ;
+
+            ins.GetComponent<ItemColLinker>().item = this;
+
+            UnityEditor.EditorUtility.SetDirty(gameObject);
+
+            UnityEditor.EditorGUIUtility.PingObject(ins);
+
+            Debug.Log("OK");
+
+
+        }
+
+
+#endif
 
     }
 }
