@@ -78,8 +78,14 @@ namespace MapEditor
                 ItemData.Embed(item.itemPos, item.type, item.itemRot, MapEditorManager.Instance.itemRoot, item.id);
             }
 
-            Debug.Log(mapJson);
-            Debug.Log(ExportMap());
+
+            //¿À¨d
+            string reExportMapJson = ExportMap();
+            if(mapJson != reExportMapJson)
+            {
+                Debug.LogError($"load/export json is different.\n\n{mapJson}\n\n{reExportMapJson}");
+            }
+
 
         }
 

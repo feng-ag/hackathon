@@ -110,6 +110,12 @@ namespace MapEditor
             }
         }
 
+        public void SetCursor(ItemData _itemData)
+        {
+            Position = _itemData.item.transform.position + _itemData.TypeData.GridOffsetV3;
+            Rotation = _itemData.itemRot;
+        }
+
         public void Rotate(float angle)
         {
             Rotation += angle;

@@ -138,7 +138,7 @@ public class MapEditorManager : MonoBehaviour
     void ShowPeek(Item item)
     {
         targetCursor.BuildCursor(item.TypeData);
-        targetCursor.Position = item.transform.position - item.TypeData.GridOffsetV3;
+        targetCursor.SetCursor(item.data);
         targetCursor.Show();
         cursor.Hide();
         MapEditorUIManager.Instance.SetTarget(item);
@@ -164,48 +164,11 @@ public class MapEditorManager : MonoBehaviour
 
     private void Start()
     {
-        //LoadMap(defaultMap);
-
 
         StartCoroutine(MapDataManager.Instance.LoadMap(defaultMapJson.text));
 
-
     }
 
-    [System.Obsolete]
-    void LoadMap(GameObject map)
-    {
-        if (map == null)
-        {
-            return;
-        }
-
-        GameObject mapIns = Instantiate(map, mapRoot);
-
-
-        //Item[] itemBaseList = mapIns.GetComponentsInChildren<Item>();
-
-
-        //foreach (var itemBase in itemBaseList)
-        //{
-
-
-        //    MapEditorItemData mapEditorItemData = new MapEditorItemData
-        //    {
-        //        item = itemBase,
-        //        pos = itemBase.pos,
-        //        rotate = itemBase.Rotate,
-        //        type = itemBase.itemType,
-        //    };
-
-        //    mapEditorItemDataQuery[itemBase.pos] = mapEditorItemData;
-
-        //}
-
-
-        currentEnvenmentObject = mapIns.transform.Find("EnvRoot").GetChild(0).gameObject;
-
-    }
 
     public void ChangeEnvTo(int index)
     {
@@ -217,16 +180,13 @@ public class MapEditorManager : MonoBehaviour
         currentEnvenmentObject = Instantiate(environmentData.GetEnvironmentAt(index).RandomPickPrefab(), envRoot);
     }
 
-
     public bool DeleteItemByUser(ItemData itemData)
     {
-
-        DeleteItem(itemData);
 
         return true;
     }
 
-    void DeleteItem(ItemData itemData)
+    public void DeleteItem(ItemData itemData)
     {
         ItemData.UnEmbed(itemData);
 
@@ -292,8 +252,7 @@ public class MapEditorManager : MonoBehaviour
                         if (item != null)
                         {
                             targetCursor.BuildCursor(item.TypeData);
-                            targetCursor.Position = item.transform.position + itemTypeData.GridOffsetV3;
-                            targetCursor.Rotation = cursor.Rotation;
+                            targetCursor.SetCursor(item.data);
                             targetCursor.Show();
                             MapEditorUIManager.Instance.SetTarget(item);
 

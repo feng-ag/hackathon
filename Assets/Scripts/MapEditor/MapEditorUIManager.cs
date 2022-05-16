@@ -163,11 +163,7 @@ public class MapEditorUIManager : MonoBehaviour
     {
         if (currentEditItem != null)
         {
-            if (MapEditorManager.Instance.DeleteItemByUser(currentEditItem.Data))
-            {
-                SetTarget(null);
-                MapEditorManager.Instance.targetCursor.Hide();
-            }
+            MapEditorManager.Instance.DeleteItem(currentEditItem.Data);
         }
     }
 
