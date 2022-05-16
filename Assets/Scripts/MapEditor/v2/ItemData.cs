@@ -80,7 +80,8 @@ namespace MapEditor
 
             Quaternion q = Quaternion.AngleAxis(rot, Vector3.up);
 
-            Vector3 gridPos = objectPos + q * itemTypeData.GridOffsetV3;
+            //Vector3 gridPos = objectPos + q * itemTypeData.GridOffsetV3;
+            Vector3 gridPos = objectPos + itemTypeData.GridOffsetV3;        //先不算旋轉
 
             return gridPos;
 
@@ -93,7 +94,8 @@ namespace MapEditor
 
             Quaternion q = Quaternion.AngleAxis(rot, Vector3.up);
 
-            Vector3 cursorPos = objectPos + q * itemTypeData.GridOffsetV3;
+            //Vector3 cursorPos = objectPos + q * itemTypeData.GridOffsetV3;
+            Vector3 cursorPos = objectPos + itemTypeData.GridOffsetV3;        //先不算旋轉
 
             return cursorPos;
 
@@ -104,19 +106,8 @@ namespace MapEditor
         //--
 
 
-
-
-        public static Item Embed(Vector3 cursorPos, int type, float rot, Transform root)
+        public static Item EmbedAtCursorPos(Vector3 cursorPos, int type, float rot, Transform root)
         {
-
-            ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
-
-            bool isValid = VaildEmbed(cursorPos, type, rot);
-
-            if (!isValid) 
-            {
-                return null;
-            }
 
             ////
             //GameObject g3 = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -134,7 +125,7 @@ namespace MapEditor
             //g2.name = "grid";
             ////
 
-            Vector3 objectPos = GridPosToObjectPos(gridPos, type, rot); 
+            Vector3 objectPos = GridPosToObjectPos(gridPos, type, rot);
 
             ////
             //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -143,11 +134,32 @@ namespace MapEditor
             //g.name = "obj";
             ////
 
+
+            Item result = Embed(objectPos, type, rot, root);
+            return result;
+
+        }
+
+        public static Item Embed(Vector3 objectPos, int type, float rot, Transform root, string id=null)
+        {
+            ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
+
+            bool isValid = VaildEmbed(objectPos, type, rot);
+
+            if (!isValid)
+            {
+                if (id != null)
+                {
+                    Debug.Log($"{id} embed failed at ObjectPos(${objectPos.x}, ${objectPos.z})/Rot(${rot})");
+                }
+                return null;
+            }
+
             Item item = GameObject.Instantiate(itemTypeData.item.gameObject, objectPos, Quaternion.identity, root).GetComponent<Item>();
 
             ItemData itemData = new ItemData
             {
-                id = Guid.NewGuid().ToString(),
+                id = id ?? Guid.NewGuid().ToString(),
                 type = type,
                 itemRot = rot,
                 itemPos = objectPos,
@@ -158,17 +170,16 @@ namespace MapEditor
 
             item.SyncData();
 
-            MapStructManager.Instance.AddItem(itemData);
+            MapDataManager.Instance.AddItem(itemData);
 
             return item;
         }
 
-        static bool VaildEmbed(Vector3 cursorPos, int type, float rot)
+        static bool VaildEmbed(Vector3 objectPos, int type, float rot)
         {
             ItemTypeData itemTypeData = MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
-            Vector3 gridPos = CursorPosToGridPos(cursorPos, type, rot);
-            Vector3 objectPos = GridPosToObjectPos(gridPos, type, rot);
+            Vector3 gridPos = ObjectPosToGridPos(objectPos, type, rot);
 
             //Vector3 cursorPos = CursorToOffsetCursorPos(pos, type);
             //Vector3 placePos = OffsetCursorPosToPlacePos(cursorPos, type);
@@ -189,23 +200,32 @@ namespace MapEditor
 
                 RaycastHit[] hits = Physics.BoxCastAll(
                     vaildRotPos,
-                    Vector3.one * 0.45F,    //��0.5���p�A�קK�~�I���L��
+                    Vector3.one * 0.45F,    //比0.5略小
                     Vector3.forward,
                     Quaternion.identity,
                     0,
                     MapEditorManager.Instance.itemLayer.value);
 
-                ////Grid
-                //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                //g.transform.localPosition = vaildRotPos;
-                //g.transform.localScale = new Vector3(0.1F, 5F, 0.1F);
-
                 if (hits.Length > 0)
                 {
+                    //Grid
+                    GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    g.transform.localPosition = vaildRotPos;
+                    g.transform.localScale = new Vector3(0.1F, 5F, 0.1F);
+                    g.name = $"WRONG";
+
+                    
+                    foreach(var hit in hits)
+                    {
+                        hit.collider.gameObject.name = "AAA";
+                    }
+
+
                     return false;
                 }
 
             }
+
 
             return true;
         }
@@ -213,7 +233,7 @@ namespace MapEditor
 
         public static void UnEmbed(ItemData itemData)
         {
-            MapStructManager.Instance.RemoveItem(itemData);
+            MapDataManager.Instance.RemoveItem(itemData);
 
             GameObject.Destroy(itemData.item.gameObject);
         }

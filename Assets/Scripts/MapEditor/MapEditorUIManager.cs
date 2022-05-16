@@ -183,11 +183,12 @@ public class MapEditorUIManager : MonoBehaviour
 
     void DeleteAllItem()
     {
-        foreach(var itemData in MapStructManager.Instance.items.ToArray())
+        foreach(var itemData in MapDataManager.Instance.GetAllItems().ToArray())
         {
             ItemData.UnEmbed(itemData);
-            MapEditorManager.Instance.targetCursor.Hide();
         }
+        
+        MapEditorManager.Instance.targetCursor.Hide();
     }
 
 

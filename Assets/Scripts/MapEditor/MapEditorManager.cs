@@ -52,6 +52,9 @@ public class MapEditorManager : MonoBehaviour
     [SerializeField]
     GameObject defaultMap;
 
+    [SerializeField]
+    TextAsset defaultMapJson;
+
 
 
     public enum ControlState
@@ -161,14 +164,15 @@ public class MapEditorManager : MonoBehaviour
 
     private void Start()
     {
-        LoadMap(defaultMap);
+        //LoadMap(defaultMap);
 
-        //string mapJson = "{\"items\":[{\"id\":\"6196fbf5 - 7543 - 42ff - 862d - 6c375aafb846\",\"type\":2,\"rot\":0.0,\"pos\":{\"x\":1.5,\"y\":0.0,\"z\":-3.5}},{\"id\":\"99001c24 - 3e29 - 4088 - bb8d - 69ac4983e01c\",\"type\":2,\"rot\":90.0,\"pos\":{\"x\":6.5,\"y\":0.0,\"z\":-0.5}},{\"id\":\"4f764dbe - caf3 - 4872 - af1a - 167761964b06\",\"type\":2,\"rot\":180.0,\"pos\":{\"x\":4.5,\"y\":0.0,\"z\":-1.5}}]}";
-        //MapStructManager.Instance.ImportMap(mapJson);
+
+        StartCoroutine(MapDataManager.Instance.LoadMap(defaultMapJson.text));
 
 
     }
 
+    [System.Obsolete]
     void LoadMap(GameObject map)
     {
         if (map == null)
@@ -179,7 +183,7 @@ public class MapEditorManager : MonoBehaviour
         GameObject mapIns = Instantiate(map, mapRoot);
 
 
-        Item[] itemBaseList = mapIns.GetComponentsInChildren<Item>();
+        //Item[] itemBaseList = mapIns.GetComponentsInChildren<Item>();
 
 
         //foreach (var itemBase in itemBaseList)
@@ -203,7 +207,7 @@ public class MapEditorManager : MonoBehaviour
 
     }
 
-    void ChangeEnvTo(int index)
+    public void ChangeEnvTo(int index)
     {
         if (currentEnvenmentObject != null)
         {
@@ -283,7 +287,7 @@ public class MapEditorManager : MonoBehaviour
                     if (itemTypeData != null)
                     {
 
-                        item = ItemData.Embed(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
+                        item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
 
                         if (item != null)
                         {
@@ -365,6 +369,14 @@ public class MapEditorManager : MonoBehaviour
             {
                 cursor.Rotate(90F);
             }
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            string mapJson = MapDataManager.Instance.ExportMap();
+
+            Debug.Log(mapJson);
         }
 
     }
