@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ee2cce2e1e01a6498f0e62bdf01c726, type: 3}
-  m_Name: ItemType_BoostTrack
+  m_Name: ItemType_Ramp
   m_EditorClassIdentifier: 
-  type: 6
-  name: BoostTrack
-  icon: {fileID: 21300000, guid: b914b2aaf108d0041af91e4f51907af3, type: 3}
-  item: {fileID: 2455370577868601943, guid: 70790932190ba594ea427307ee75594d, type: 3}
+  type: 10
+  name: Ramp
+  icon: {fileID: 21300000, guid: 4dce7f2d2ea91b14c97be5801784ac15, type: 3}
+  item: {fileID: 6647219678117363798, guid: b5054faa5fb2c6442b41cc9511ccb04e, type: 3}
