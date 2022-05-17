@@ -207,9 +207,23 @@ public class MapEditorManager : MonoBehaviour
     {
         if (EventSystem.current == null)
         {
+            Debug.LogError("EventSystem.Current is null");
             return;
         }
 
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            LastControlState = CurrentControlState;
+            CurrentControlState = ControlState.Move;
+            //Debug.Log(CurrentControlState);
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            CurrentControlState = LastControlState;
+        }
+
+        //
 
         if (CurrentControlState == ControlState.Peek || CurrentControlState == ControlState.Place)
         {
@@ -281,6 +295,9 @@ public class MapEditorManager : MonoBehaviour
             {
                 moveBeginMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                 camBeginPos = camRoot.localPosition;
+
+                //Debug.Log(moveBeginMousePos);
+
             }
             if (Input.GetMouseButton(0))
             {
@@ -303,16 +320,6 @@ public class MapEditorManager : MonoBehaviour
 
         //
 
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            LastControlState = CurrentControlState;
-            CurrentControlState = ControlState.Move;
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            CurrentControlState = LastControlState;
-        }
 
 
         if (Input.GetKey(KeyCode.Minus))

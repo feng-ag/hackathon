@@ -14,5 +14,6 @@
 - 該 Component 的 item 指向此 GameObject 的 Item
 
 ### Item 旋轉
-請確保 Item 旋轉 Root 後，每一塊仍然會在格子內
-意即：旋轉點只能在格子中心或格子四角
+- 確保 Item 旋轉 Root 後，每一塊仍然會在格子內(意即：旋轉點只能在格子中心或格子四角)
+- RootGrid 必須要在 ColRoot的其中一格的座標
+- CursorRoot 可以隨意放置，但以0.5單位為原則
