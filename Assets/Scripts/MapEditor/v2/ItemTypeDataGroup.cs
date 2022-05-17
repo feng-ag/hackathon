@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using OnionCollections.DataEditor;
 
 
@@ -32,5 +33,54 @@ namespace MapEditor {
         {
             return ((IEnumerable<ItemTypeData>)data).GetEnumerator();
         }
+
+
+#if (UNITY_EDITOR)
+
+        [NodeAction]
+        void CreateSelectionsAsNewTypeData()
+        {
+
+            Item[] items = UnityEditor.Selection.objects
+                .Where(o => o is GameObject)
+                .Where(o => (o as GameObject).GetComponent<Item>() != null)
+                .Select(o => (o as GameObject).GetComponent<Item>())
+                .ToArray();
+
+
+            int maxType = data.Select(d => d.type).Max();
+
+            string dataPath = $"Assets/Scriptable Objects/MapEditor/ItemTypeData";
+
+
+            var d = data.ToList();
+            foreach (Item item in items) {
+
+                ItemTypeData asset = CreateInstance<ItemTypeData>();
+
+                maxType++;
+
+                asset.type = maxType;
+                asset.item = item;
+                asset.name = $"{item.name}";
+
+                UnityEditor.AssetDatabase.CreateAsset(asset, $"{dataPath}/ItemType_{item.name}.asset");
+
+                d.Add(asset);
+            }
+
+            data = d.ToArray();
+
+            UnityEditor.EditorUtility.SetDirty(this);
+
+            UnityEditor.AssetDatabase.SaveAssets();
+
+
+        }
+
+
+#endif
+
+
     }
 }
