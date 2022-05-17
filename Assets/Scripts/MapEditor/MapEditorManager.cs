@@ -95,11 +95,6 @@ public class MapEditorManager : MonoBehaviour
         {
             onClickPlaceItem += (int index) =>
             {
-                if(CurrentControlState == ControlState.Move)
-                {
-                    return;
-                }
-
 
                 if(CurrentItemType == index)
                 {
@@ -155,7 +150,6 @@ public class MapEditorManager : MonoBehaviour
     void HidePeek()
     {
         targetCursor.Hide();
-        cursor.Show();
         MapEditorUIManager.Instance.SetTarget(null);
     }
 
@@ -252,23 +246,24 @@ public class MapEditorManager : MonoBehaviour
                     if (CurrentControlState != ControlState.Place)
                     {
                         ChangeToPeek(null);
-                        return;
                     }
-
-                    ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
-
-                    if (itemTypeData != null)
+                    else
                     {
+                        ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
 
-                        item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
+                        if (itemTypeData != null)
+                        {
 
-                        //if (item != null)
-                        //{
-                        //    targetCursor.BuildCursor(item.TypeData);
-                        //    targetCursor.SetCursor(item.data);
-                        //    targetCursor.Show();
-                        //    MapEditorUIManager.Instance.SetTarget(item);
-                        //}
+                            item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
+
+                            //if (item != null)
+                            //{
+                            //    targetCursor.BuildCursor(item.TypeData);
+                            //    targetCursor.SetCursor(item.data);
+                            //    targetCursor.Show();
+                            //    MapEditorUIManager.Instance.SetTarget(item);
+                            //}
+                        }
                     }
                 }
                 else

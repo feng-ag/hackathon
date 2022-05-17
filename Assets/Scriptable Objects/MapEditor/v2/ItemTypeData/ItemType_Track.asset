@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ee2cce2e1e01a6498f0e62bdf01c726, type: 3}
-  m_Name: ItemType_Trail
+  m_Name: ItemType_Track
   m_EditorClassIdentifier: 
   type: 3
-  name: Trail
-  icon: {fileID: 21300000, guid: 4867897e30154f540a66113379458b0e, type: 3}
+  name: Track
+  icon: {fileID: 21300000, guid: 80f627aa0d7fcfb48a9fa6197ae7b4ee, type: 3}
   item: {fileID: 6096569187844248648, guid: 0618b947576b11b4f9e055ffbd79c45a, type: 3}

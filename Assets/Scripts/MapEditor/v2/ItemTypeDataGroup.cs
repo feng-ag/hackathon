@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using OnionCollections.DataEditor;
 
 
 namespace MapEditor {
 
     public class ItemTypeDataGroup : ScriptableObject, IEnumerable, IEnumerable<ItemTypeData>
     {
-
+        [NodeElement]
         [SerializeField]
         ItemTypeData[] data = new ItemTypeData[0];
 

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ee2cce2e1e01a6498f0e62bdf01c726, type: 3}
+  m_Name: ItemType_BoostTrack
+  m_EditorClassIdentifier: 
+  type: 6
+  name: BoostTrack
+  icon: {fileID: 21300000, guid: b914b2aaf108d0041af91e4f51907af3, type: 3}
+  item: {fileID: 2455370577868601943, guid: 70790932190ba594ea427307ee75594d, type: 3}

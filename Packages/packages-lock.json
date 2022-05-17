@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.macacagames.oniondataeditor": {
+      "version": "https://github.com/MacacaGames/OnionDataEditor.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "db7605a7ee193f669cee3f2f69b4b8a27506b47c"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

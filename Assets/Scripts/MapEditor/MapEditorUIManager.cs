@@ -190,6 +190,15 @@ public class MapEditorUIManager : MonoBehaviour
 
     public void SetSelectedItem(int selectIndex)
     {
+        if (selectIndex > 0)
+        {
+            MapEditorManager.Instance.cursor.Show();
+        }
+        else
+        {
+            MapEditorManager.Instance.cursor.Hide();
+        }
+
         foreach (var (el, index) in uiItemList.Select((item, index) => (item, index)))
         {
             el.SetSelect(selectIndex == index);

@@ -9,10 +9,12 @@ namespace MapEditor
 {
 
     [Serializable]
-    public class ItemTypeData: ScriptableObject, ITitleAndIconReadable
+    public class ItemTypeData: ScriptableObject, ITitleAndIconReadable, IQueryableData
     {
 
         public int type;
+
+        public string GetID() => type.ToString();
 
 
         //public Pos center;
