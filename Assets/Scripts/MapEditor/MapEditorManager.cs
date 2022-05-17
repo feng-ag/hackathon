@@ -55,9 +55,6 @@ public class MapEditorManager : MonoBehaviour
     Transform camRoot;
 
     [SerializeField]
-    GameObject defaultMap;
-
-    [SerializeField]
     TextAsset defaultMapJson;
 
 
@@ -70,6 +67,7 @@ public class MapEditorManager : MonoBehaviour
         Move = 3,
     }
 
+    ControlState LastControlState = ControlState.Peek;
     public ControlState CurrentControlState = ControlState.Peek;
 
 
@@ -97,6 +95,11 @@ public class MapEditorManager : MonoBehaviour
         {
             onClickPlaceItem += (int index) =>
             {
+                if(CurrentControlState == ControlState.Move)
+                {
+                    return;
+                }
+
 
                 if(CurrentItemType == index)
                 {
@@ -161,6 +164,7 @@ public class MapEditorManager : MonoBehaviour
     {
         CurrentControlState = ControlState.Place;
         MapEditorUIManager.Instance.SetSelectedItem(index);
+        cursor.Show();
         CurrentItemType = index;
 
         cursor.BuildCursor(itemTypeDataGroup.GetTypeData(index));
@@ -217,11 +221,13 @@ public class MapEditorManager : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-
                 Item item = null;
+
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
                 {
+                    // Peek
+
                     if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
                     {
                         item = itemColLinker.item;
@@ -234,13 +240,15 @@ public class MapEditorManager : MonoBehaviour
                         {
                             ChangeToPeek(null);
                             MapEditorUIManager.Instance.currentEditItem = null;
+                            cursor.Hide();
                         }
                     }
 
                 }
-                else
-                if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
+                else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
                 {
+                    // Place
+
                     if (CurrentControlState != ControlState.Place)
                     {
                         ChangeToPeek(null);
@@ -254,14 +262,13 @@ public class MapEditorManager : MonoBehaviour
 
                         item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
 
-                        if (item != null)
-                        {
-                            targetCursor.BuildCursor(item.TypeData);
-                            targetCursor.SetCursor(item.data);
-                            targetCursor.Show();
-                            MapEditorUIManager.Instance.SetTarget(item);
-
-                        }
+                        //if (item != null)
+                        //{
+                        //    targetCursor.BuildCursor(item.TypeData);
+                        //    targetCursor.SetCursor(item.data);
+                        //    targetCursor.Show();
+                        //    MapEditorUIManager.Instance.SetTarget(item);
+                        //}
                     }
                 }
                 else
@@ -304,11 +311,12 @@ public class MapEditorManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            LastControlState = CurrentControlState;
             CurrentControlState = ControlState.Move;
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
-            CurrentControlState = ControlState.Place;
+            CurrentControlState = LastControlState;
         }
 
 

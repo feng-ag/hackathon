@@ -132,6 +132,12 @@ namespace MapEditor
         }
 
 
+        public void HideColRoot()
+        {
+            colRoot.gameObject.SetActive(false);
+        }
+
+
 #if(UNITY_EDITOR)
 
 

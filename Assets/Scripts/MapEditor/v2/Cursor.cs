@@ -15,6 +15,9 @@ namespace MapEditor
         [SerializeField]
         Transform root;
 
+        [SerializeField]
+        Transform shadowRoot;
+
         ItemTypeData itemTypeData;
 
 
@@ -36,7 +39,12 @@ namespace MapEditor
         {
             set
             {
-                root.eulerAngles = new Vector3(0, value, 0);
+                Vector3 eulerAngles = new Vector3(0, value, 0);
+                root.eulerAngles = eulerAngles;
+                if (shadowRoot != null)
+                {
+                    shadowRoot.eulerAngles = eulerAngles;
+                }
                 _Rotation = value;
             }
             get => _Rotation;
@@ -61,10 +69,7 @@ namespace MapEditor
         {
             if (other.gameObject.layer == MapEditorManager.itemLayerIndex)
             {
-                foreach(var mat in cursorGridMats)
-                {
-                    mat.color = triggerColor;
-                }
+                OnTriggerInvaild();
             }
         }
 
@@ -72,12 +77,32 @@ namespace MapEditor
         {
             if (other.gameObject.layer == MapEditorManager.itemLayerIndex)
             {
-                foreach (var mat in cursorGridMats)
-                {
-                    mat.color = normalColor;
-                }
+                OnTriggerVaild();
             }
         }
+
+
+        void OnTriggerVaild()
+        {
+            foreach (var mat in cursorGridMats)
+            {
+                mat.color = normalColor;
+            }
+
+            shadowRoot.gameObject.SetActive(true);
+        }
+
+
+        void OnTriggerInvaild()
+        {
+            foreach (var mat in cursorGridMats)
+            {
+                mat.color = triggerColor;
+            }
+
+            shadowRoot.gameObject.SetActive(false);
+        }
+
 
 
         public void BuildCursor(ItemTypeData _itemTypeData)
@@ -89,6 +114,13 @@ namespace MapEditor
             {
                 Destroy(g);
             }
+
+
+            if (shadowRoot != null && shadowRoot.childCount > 0)
+            {
+                Destroy(shadowRoot.GetChild(0).gameObject);
+            }
+
 
             foreach (var grid in itemTypeData.Grids)
             {
@@ -108,6 +140,13 @@ namespace MapEditor
             {
                 mat.color = normalColor;
             }
+
+            if (shadowRoot != null)
+            {
+                Item item = Instantiate(_itemTypeData.item.gameObject, shadowRoot).GetComponent<Item>();
+                item.HideColRoot();
+            }
+
         }
 
         public void SetCursor(ItemData _itemData)
