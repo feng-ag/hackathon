@@ -17,13 +17,15 @@ namespace MapEditor
         public string GetID() => type.ToString();
 
 
-        //public Pos center;
-
         public List<Vector3> Grids => item.GetGrids();
 
 
         [SerializeField]
         public string name;
+
+
+        [SerializeField]
+        public bool isUnique;
 
 
         public Item item;

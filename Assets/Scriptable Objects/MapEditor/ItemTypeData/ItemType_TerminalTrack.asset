@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 18
   name: TerminalTrack
-  icon: {fileID: 21300000, guid: c3437d1df8a54cc4a8bcc9df7742a6f8, type: 3}
+  isUnique: 1
   item: {fileID: 3538156555142934862, guid: eeb98b69a5519b746a02bc170dd45066, type: 3}

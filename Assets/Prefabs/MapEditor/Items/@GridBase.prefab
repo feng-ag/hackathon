@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7659612330245243767}
   - component: {fileID: 5122913303967933667}
   m_Layer: 11
-  m_Name: '@ColBase'
+  m_Name: '@GridBase'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

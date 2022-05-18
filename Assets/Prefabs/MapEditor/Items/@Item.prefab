@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1292198519539314832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3165399424237305424}
+  m_Layer: 11
+  m_Name: ColRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3165399424237305424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292198519539314832}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5960701796494538654}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3359497002877466097
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,6 +93,7 @@ Transform:
   - {fileID: 3858748094036953892}
   - {fileID: 5158737938192380887}
   - {fileID: 6327138294674927734}
+  - {fileID: 3165399424237305424}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -79,8 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   root: {fileID: 5158737938192380887}
-  colRoot: {fileID: 6327138294674927734}
-  rootGrid: {fileID: 2897896843114854878}
+  gridRoot: {fileID: 6327138294674927734}
+  colRoot: {fileID: 3165399424237305424}
+  mainGrid: {fileID: 2897896843114854878}
   cursorCenter: {fileID: 3858748094036953892}
   data:
     id: 
@@ -111,7 +143,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6327138294674927734}
   m_Layer: 11
-  m_Name: ColRoot
+  m_Name: GridRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -171,7 +203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2897896843114854878}
   m_Layer: 11
-  m_Name: RootGrid
+  m_Name: MainGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

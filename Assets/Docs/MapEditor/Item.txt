@@ -8,10 +8,10 @@
 
 
 ### Collider 設定
-確保以下事項
-- ColRoot 子物件都有 Collider
+- 確保 ColRoot 子物件都有 Collider
 - 子物件掛上 ItemColLinker Component
 - 該 Component 的 item 指向此 GameObject 的 Item
+- 所有 Item 自己的 Collider 須放在 ColRoot 底下，例如：起終點/加速道/香蕉的TriggerCollider、
 
 ### Item 旋轉
 - 確保 Item 旋轉 Root 後，每一塊仍然會在格子內(意即：旋轉點只能在格子中心或格子四角)

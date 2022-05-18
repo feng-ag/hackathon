@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 17
   name: CheckPoint
-  icon: {fileID: 21300000, guid: e82659491ace96449bc3250def0e08f7, type: 3}
+  isUnique: 1
   item: {fileID: 6039500236539193611, guid: ffe643a5d13daf64b961e9a0a4056d3a, type: 3}

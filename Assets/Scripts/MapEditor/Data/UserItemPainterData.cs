@@ -17,7 +17,8 @@ namespace MapEditor
         Sprite icon;
 
         [SerializeField]
-        public bool randomRot;
+        public bool isRandomRot;
+
 
         [NodeElement]
         [SerializeField]

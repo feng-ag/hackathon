@@ -175,12 +175,11 @@ public class MapEditorManager : MonoBehaviour
         }
         else
         {
-            //同種要替換的部分寫這邊
-            if (userItemPainterData.randomRot == true)
+            // OnAfterPaint
+            if (userItemPainterData.isRandomRot == true)
             {
                 cursor.Rotation = UnityEngine.Random.Range(0, 4) * 90F;
             }
-
         }
 
         cursor.BuildCursor(typeData);
@@ -210,11 +209,6 @@ public class MapEditorManager : MonoBehaviour
         currentEnvenmentObject = Instantiate(environmentData.GetEnvironmentAt(index).RandomPickPrefab(), envRoot);
     }
 
-    public bool DeleteItemByUser(ItemData itemData)
-    {
-
-        return true;
-    }
 
     public void DeleteItem(ItemData itemData)
     {
@@ -297,16 +291,32 @@ public class MapEditorManager : MonoBehaviour
 
                             item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
 
-                            //重新設定一次，讓N取1可以再取一次
-                            ChangeItemPainter(MapEditorUIManager.Instance.CurrentItemPainterIndex);
+                            int itemPainterIndex = MapEditorUIManager.Instance.CurrentItemPainterIndex;
+                            UserItemPainterData itemPainter = userItemPainterDataGroup.GetUserItemPainterData(itemPainterIndex);
 
-                            //if (item != null)
-                            //{
-                            //    targetCursor.BuildCursor(item.TypeData);
-                            //    targetCursor.SetCursor(item.data);
-                            //    targetCursor.Show();
-                            //    MapEditorUIManager.Instance.SetTarget(item);
-                            //}
+
+                            if (item != null)
+                            {
+                                //IsUnique 功能
+                                if(itemTypeData.isUnique == true)
+                                {
+                                    ItemData[] sameTypeItemData = MapDataManager.Instance.GetAllItems()
+                                        .Where(itemData => itemData.type == itemTypeData.type)  //篩選同類型的 Item
+                                        .Where(itemData => itemData.item != item)               //略過剛剛才新增的的 Item
+                                        .ToArray();
+
+                                    foreach(var itemData in sameTypeItemData)
+                                    {
+                                        ItemData.UnEmbed(itemData);
+                                    }
+                                }
+
+                                if (itemPainter.isRandomRot == true)
+                                {
+                                    //重新設定一次，讓N取1可以再取一次
+                                    ChangeItemPainter(itemPainterIndex);
+                                }
+                            }
                         }
                     }
                 }
@@ -317,7 +327,8 @@ public class MapEditorManager : MonoBehaviour
                 }
             }
         }
-        else if (CurrentControlState == ControlState.Move)
+        
+        if (CurrentControlState == ControlState.Move)
         {
             //
 

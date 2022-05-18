@@ -167,6 +167,11 @@ public class MapEditorUIManager : MonoBehaviour
     {
         if (currentEditItem != null)
         {
+            if (currentEditItem.TypeData.isUnique == true)
+            {
+                return;
+            }
+
             MapEditorManager.Instance.DeleteItem(currentEditItem.Data);
         }
     }
@@ -185,6 +190,11 @@ public class MapEditorUIManager : MonoBehaviour
     {
         foreach(var itemData in MapDataManager.Instance.GetAllItems().ToArray())
         {
+            if(itemData.TypeData.isUnique == true)
+            {
+                continue;
+            }
+
             ItemData.UnEmbed(itemData);
         }
         

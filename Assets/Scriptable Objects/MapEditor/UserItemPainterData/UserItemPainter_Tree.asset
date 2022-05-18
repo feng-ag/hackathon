@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 159f39beaa0b90a449935bb08cc651c7, type: 3}
-  m_Name: UserItemPainter_Tree01
+  m_Name: UserItemPainter_Tree
   m_EditorClassIdentifier: 
-  name: Tree01
+  name: Tree
   icon: {fileID: 21300000, guid: 2b53d96750e0a2943a1ba49735196cc5, type: 3}
-  randomRot: 1
+  isRandomRot: 1
+  isUnique: 0
   typeDataList:
   - {fileID: 11400000, guid: 254888974e562f042887b14739720b9c, type: 2}
   - {fileID: 11400000, guid: 00c7354ed949038409e65187147e6368, type: 2}

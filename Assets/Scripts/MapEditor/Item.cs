@@ -12,13 +12,17 @@ namespace MapEditor
         Transform root;
 
         [SerializeField]
+        Transform gridRoot;
+
+        [SerializeField]
         Transform colRoot;
 
         [SerializeField]
-        Transform rootGrid;
+        Transform mainGrid;
 
         [SerializeField]
         Transform cursorCenter;
+
 
 
         [SerializeField]
@@ -34,7 +38,7 @@ namespace MapEditor
         {
             List<Vector3> grids = new List<Vector3>();
             Vector3 o = TypeData.GridOffsetV3;
-            foreach (Transform col in colRoot)
+            foreach (Transform col in gridRoot)
             {
                 grids.Add(col.localPosition - o);
             }
@@ -43,7 +47,7 @@ namespace MapEditor
 
         public Vector2 GetRootGridPos()
         {
-            return new Vector2(rootGrid.localPosition.x, rootGrid.localPosition.z);
+            return new Vector2(mainGrid.localPosition.x, mainGrid.localPosition.z);
         }
 
         public Vector2 GetCursorCenterPos()
@@ -57,7 +61,7 @@ namespace MapEditor
 
             Quaternion rot = Quaternion.Euler(0, data.itemRot, 0);
             root.rotation = rot;
-            colRoot.rotation = rot;
+            gridRoot.rotation = rot;
         }
 
 
@@ -68,7 +72,7 @@ namespace MapEditor
             if (isValid)
             {
                 root.Rotate(0, angle, 0);
-                colRoot.rotation = root.rotation;
+                gridRoot.rotation = root.rotation;
                 data.itemRot = root.eulerAngles.y;
             }
             else
@@ -83,11 +87,11 @@ namespace MapEditor
         {
             Quaternion originRotation = root.localRotation;
 
-            colRoot.Rotate(0, angle, 0);
+            gridRoot.Rotate(0, angle, 0);
 
             HashSet<Transform> cols = new HashSet<Transform>();
 
-            foreach(Transform child in colRoot)
+            foreach(Transform child in gridRoot)
             {
                 cols.Add(child);
             }
@@ -115,13 +119,13 @@ namespace MapEditor
                         Debug.Log(hit.collider.name);
                     }
 
-                    colRoot.localRotation = originRotation;
+                    gridRoot.localRotation = originRotation;
                     return false;
                 }
 
             }
 
-            colRoot.localRotation = originRotation;
+            gridRoot.localRotation = originRotation;
             return true;
         }
 
@@ -134,6 +138,7 @@ namespace MapEditor
 
         public void HideColRoot()
         {
+            gridRoot.gameObject.SetActive(false);
             colRoot.gameObject.SetActive(false);
         }
 
@@ -146,7 +151,7 @@ namespace MapEditor
         {
             GameObject prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/MapEditor/Items/@ColBase.prefab");
 
-            GameObject ins = UnityEditor.PrefabUtility.InstantiatePrefab(prefab, colRoot) as GameObject; ;
+            GameObject ins = UnityEditor.PrefabUtility.InstantiatePrefab(prefab, gridRoot) as GameObject; ;
 
             ins.GetComponent<ItemColLinker>().item = this;
 
