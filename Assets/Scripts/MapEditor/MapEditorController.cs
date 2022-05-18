@@ -40,6 +40,13 @@ public class MapEditorController : IMapEditorController
         return new GameObject("¼È¥N°_ÂI").transform;
     }
 
+
+    public IEnumerator LoadMapEditor()
+    {
+        return MapEditorManager.Instance.LoadDefaultMap();
+    }
+
+
     public void ShowMapEditor()
     {
         MapEditorManager.Instance.editorRoot.SetActive(true);

@@ -190,9 +190,13 @@ public class MapEditorManager : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(LoadDefaultMap());
+    }
 
-        StartCoroutine(MapDataManager.Instance.LoadMap(defaultMapJson.text));
 
+    public IEnumerator LoadDefaultMap() 
+    {
+        return MapDataManager.Instance.LoadMap(defaultMapJson.text);
     }
 
 

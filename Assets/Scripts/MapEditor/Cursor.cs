@@ -105,11 +105,14 @@ namespace MapEditor
 
         public void ResetCursor()
         {
-            Rotation = 0;
+            Rotation = 0F;
         }
 
         public void BuildCursor(ItemTypeData _itemTypeData)
         {
+            float originRot = Rotation;
+            Rotation = 0F;
+
             itemTypeData = _itemTypeData;
 
             foreach (var g in cursorGrids.ToArray())
@@ -149,6 +152,7 @@ namespace MapEditor
                 item.HideColRoot();
             }
 
+            Rotation = originRot;
         }
 
         public void SetCursor(ItemData _itemData)
