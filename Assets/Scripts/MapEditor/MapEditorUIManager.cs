@@ -44,6 +44,9 @@ public class MapEditorUIManager : MonoBehaviour
     [SerializeField]
     Button editItemClear;
 
+    [SerializeField]
+    RectTransform targetInfoContainer;
+
 
     List<UI_PlaceItemElement> uiItemList = new List<UI_PlaceItemElement>();
     List<UI_PlaceItemElement> uiEnvList = new List<UI_PlaceItemElement>();
@@ -208,10 +211,12 @@ public class MapEditorUIManager : MonoBehaviour
 
         if (selectItemPainterIndex > 0)
         {
+            MapEditorManager.Instance.CurrentControlState = MapEditorManager.ControlState.Place;
             MapEditorManager.Instance.cursor.Show();
         }
         else
         {
+            MapEditorManager.Instance.CurrentControlState = MapEditorManager.ControlState.Peek;
             MapEditorManager.Instance.cursor.Hide();
         }
 
@@ -232,9 +237,26 @@ public class MapEditorUIManager : MonoBehaviour
     public void SetTarget(Item item)
     {
         currentEditItem = item;
-        editItemName.text = item == null ? "None" : item.TypeData.name;
 
         editItemContainer.gameObject.SetActive(item != null);
+
+        editItemName.text = item == null ? "None" : item.TypeData.name;
+
+
+        SetTargetInfo();
+    }
+
+    public void SetTargetInfo()
+    {
+        if (currentEditItem == null)
+        {
+            return;
+        }
+
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(currentEditItem.transform.position);
+
+        targetInfoContainer.position = screenPos;
+        targetInfoContainer.localScale = Vector3.one * (1F / MapEditorManager.Instance.ZoomRatio);
     }
 
 

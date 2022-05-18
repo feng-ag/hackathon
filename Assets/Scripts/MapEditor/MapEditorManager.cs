@@ -246,12 +246,10 @@ public class MapEditorManager : MonoBehaviour
 
         //
 
-        if (CurrentControlState == ControlState.Peek || CurrentControlState == ControlState.Place)
+        if (EventSystem.current.IsPointerOverGameObject() == false)
         {
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (CurrentControlState == ControlState.Peek && Input.GetMouseButtonDown(0))
             {
-                Item item = null;
-
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
                 {
@@ -259,7 +257,7 @@ public class MapEditorManager : MonoBehaviour
 
                     if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
                     {
-                        item = itemColLinker.item;
+                        Item item = itemColLinker.item;
 
                         if (MapEditorUIManager.Instance.currentEditItem != item)
                         {
@@ -267,20 +265,27 @@ public class MapEditorManager : MonoBehaviour
                         }
                         else
                         {
-                            ChangeToPeek(null);
+                            HidePeek();
                             MapEditorUIManager.Instance.currentEditItem = null;
                             cursor.Hide();
                         }
                     }
-
+                }                
+                else
+                {
+                    HidePeek();
                 }
-                else if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
+            }
+            else if (CurrentControlState == ControlState.Place && Input.GetMouseButtonDown(0))
+            {
+                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
                 {
                     // Place
 
                     if (CurrentControlState != ControlState.Place)
                     {
-                        ChangeToPeek(null);
+                        HidePeek();
                     }
                     else
                     {
@@ -289,7 +294,7 @@ public class MapEditorManager : MonoBehaviour
                         if (itemTypeData != null)
                         {
 
-                            item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
+                            Item item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
 
                             int itemPainterIndex = MapEditorUIManager.Instance.CurrentItemPainterIndex;
                             UserItemPainterData itemPainter = userItemPainterDataGroup.GetUserItemPainterData(itemPainterIndex);
@@ -298,14 +303,14 @@ public class MapEditorManager : MonoBehaviour
                             if (item != null)
                             {
                                 //IsUnique 功能
-                                if(itemTypeData.isUnique == true)
+                                if (itemTypeData.isUnique == true)
                                 {
                                     ItemData[] sameTypeItemData = MapDataManager.Instance.GetAllItems()
                                         .Where(itemData => itemData.type == itemTypeData.type)  //篩選同類型的 Item
                                         .Where(itemData => itemData.item != item)               //略過剛剛才新增的的 Item
                                         .ToArray();
 
-                                    foreach(var itemData in sameTypeItemData)
+                                    foreach (var itemData in sameTypeItemData)
                                     {
                                         ItemData.UnEmbed(itemData);
                                     }
@@ -319,11 +324,6 @@ public class MapEditorManager : MonoBehaviour
                             }
                         }
                     }
-                }
-                else
-                {
-                    targetCursor.Hide();
-                    MapEditorUIManager.Instance.SetTarget(null);
                 }
             }
         }
@@ -354,6 +354,9 @@ public class MapEditorManager : MonoBehaviour
                 //Debug.Log($"{(v3 * moveSpeed * -1)} -> {moveValue3}");
 
                 camRoot.localPosition = camBeginPos + moveValue3;
+
+
+                MapEditorUIManager.Instance.SetTargetInfo();
             }
 
         }
@@ -365,16 +368,16 @@ public class MapEditorManager : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Minus))
         {
-            Zoom(zoomRatio + 1F * Time.deltaTime);
+            Zoom(ZoomRatio + 1F * Time.deltaTime);
         }
         else if (Input.GetKey(KeyCode.Equals))
         {
-            Zoom(zoomRatio - 1F * Time.deltaTime);
+            Zoom(ZoomRatio - 1F * Time.deltaTime);
         }
         else if (!EventSystem.current.IsPointerOverGameObject() &&
             (Input.mouseScrollDelta.y > 0F || Input.mouseScrollDelta.y < 0F))
         {
-            Zoom(zoomRatio - 0.1F * Input.mouseScrollDelta.y);
+            Zoom(ZoomRatio - 0.1F * Input.mouseScrollDelta.y);
         }
 
 
@@ -414,14 +417,17 @@ public class MapEditorManager : MonoBehaviour
     }
 
 
-    float zoomRatio = 1F;
+    public float ZoomRatio { get; private set; } = 1F;
     void Zoom(float ratio)
     {
         ratio = Mathf.Clamp(ratio, 0.5F, 1.5F);
-        zoomRatio = ratio;
+        ZoomRatio = ratio;
 
         float z = -25F * ratio;
         cam.transform.localPosition = new Vector3(0, 0, z);
+
+
+        MapEditorUIManager.Instance.SetTargetInfo();
     }
 
 
@@ -467,6 +473,7 @@ public class MapEditorManager : MonoBehaviour
                     cursor.Position = pos;
                     cursor.Show();
                 }
+
             }
 
         }

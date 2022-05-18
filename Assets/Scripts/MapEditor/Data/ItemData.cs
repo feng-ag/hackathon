@@ -208,11 +208,11 @@ namespace MapEditor
 
                 if (hits.Length > 0)
                 {
-                    //Grid
-                    GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    g.transform.localPosition = vaildRotPos;
-                    g.transform.localScale = new Vector3(0.1F, 5F, 0.1F);
-                    g.name = $"WRONG";
+                    ////Grid
+                    //GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    //g.transform.localPosition = vaildRotPos;
+                    //g.transform.localScale = new Vector3(0.1F, 5F, 0.1F);
+                    //g.name = $"WRONG";
 
                     
                     foreach(var hit in hits)
