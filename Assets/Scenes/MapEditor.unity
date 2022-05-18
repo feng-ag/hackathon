@@ -1296,6 +1296,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   itemTypeDataGroup: {fileID: 11400000, guid: 59612534eb6de314082d760153e1e79b, type: 2}
+  userItemPainterDataGroup: {fileID: 11400000, guid: d1248832c8da328489cd794ca414e3ae, type: 2}
   environmentData: {fileID: 11400000, guid: 2d6fc0431843d6942adeb25ae19d881b, type: 2}
   cursor: {fileID: 1669510854}
   targetCursor: {fileID: 28155459}

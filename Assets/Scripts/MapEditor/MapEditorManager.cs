@@ -43,6 +43,9 @@ public class MapEditorManager : MonoBehaviour
     public ItemTypeDataGroup itemTypeDataGroup;
 
     [SerializeField]
+    public UserItemPainterDataGroup userItemPainterDataGroup;
+
+    [SerializeField]
     public EnvironmentData environmentData;
 
     [SerializeField]
@@ -93,17 +96,17 @@ public class MapEditorManager : MonoBehaviour
 
         void ConstructUIEvents()
         {
-            onClickPlaceItem += (int index) =>
+            onClickPlaceItem += (int itemPainterIndex) =>
             {
 
-                if(CurrentItemType == index)
+                if(MapEditorUIManager.Instance.CurrentItemPainterIndex == itemPainterIndex)
                 {
                     ChangeToPeek(null);
                 }
                 else
                 {
                     HidePeek();
-                    ChangeToPlace(index);
+                    ChangeItemPainter(itemPainterIndex);
                 }
 
 
@@ -123,7 +126,7 @@ public class MapEditorManager : MonoBehaviour
     void ChangeToPeek(Item itemBase)
     {
         CurrentControlState = ControlState.Peek;
-        MapEditorUIManager.Instance.SetSelectedItem(-1);
+        MapEditorUIManager.Instance.SetSelectedItemPainter(-1);
         CurrentItemType = -1;
 
         if (itemBase != null)
@@ -140,6 +143,7 @@ public class MapEditorManager : MonoBehaviour
 
     void ShowPeek(Item item)
     {
+        targetCursor.ResetCursor();
         targetCursor.BuildCursor(item.TypeData);
         targetCursor.SetCursor(item.data);
         targetCursor.Show();
@@ -154,14 +158,33 @@ public class MapEditorManager : MonoBehaviour
     }
 
 
-    void ChangeToPlace(int index)
+    void ChangeItemPainter(int itemPainterIndex)
     {
-        CurrentControlState = ControlState.Place;
-        MapEditorUIManager.Instance.SetSelectedItem(index);
-        cursor.Show();
-        CurrentItemType = index;
+        UserItemPainterData userItemPainterData = userItemPainterDataGroup.GetUserItemPainterData(itemPainterIndex);
 
-        cursor.BuildCursor(itemTypeDataGroup.GetTypeData(index));
+        ItemTypeData typeData = userItemPainterData.GetTypeData();
+
+        CurrentControlState = ControlState.Place;
+        MapEditorUIManager.Instance.SetSelectedItemPainter(itemPainterIndex);
+
+        CurrentItemType = typeData.type;
+
+        if(MapEditorUIManager.Instance.CurrentItemPainterIndex != itemPainterIndex)
+        {
+            cursor.ResetCursor();
+        }
+        else
+        {
+            //同種要替換的部分寫這邊
+            if (userItemPainterData.randomRot == true)
+            {
+                cursor.Rotation = UnityEngine.Random.Range(0, 4) * 90F;
+            }
+
+        }
+
+        cursor.BuildCursor(typeData);
+        cursor.Show();
     }
 
 
@@ -269,6 +292,9 @@ public class MapEditorManager : MonoBehaviour
                         {
 
                             item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
+
+                            //重新設定一次，讓N取1可以再取一次
+                            ChangeItemPainter(MapEditorUIManager.Instance.CurrentItemPainterIndex);
 
                             //if (item != null)
                             //{

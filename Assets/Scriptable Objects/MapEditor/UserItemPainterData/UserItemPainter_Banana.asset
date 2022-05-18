@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ee2cce2e1e01a6498f0e62bdf01c726, type: 3}
-  m_Name: ItemType_Track
+  m_Script: {fileID: 11500000, guid: 159f39beaa0b90a449935bb08cc651c7, type: 3}
+  m_Name: UserItemPainter_Banana
   m_EditorClassIdentifier: 
-  type: 3
-  name: Track
-  icon: {fileID: 21300000, guid: 80f627aa0d7fcfb48a9fa6197ae7b4ee, type: 3}
-  item: {fileID: 6096569187844248648, guid: 0618b947576b11b4f9e055ffbd79c45a, type: 3}
+  name: Banana
+  icon: {fileID: 21300000, guid: a91be06aef49c054aaa475f0bfeeb6e5, type: 3}
+  typeDataList:
+  - {fileID: 11400000, guid: 778a011661793864fbb00ddd69a90936, type: 2}

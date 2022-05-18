@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ee2cce2e1e01a6498f0e62bdf01c726, type: 3}
-  m_Name: ItemType_Tree02
+  m_Script: {fileID: 11500000, guid: 159f39beaa0b90a449935bb08cc651c7, type: 3}
+  m_Name: UserItemPainter_Ramp
   m_EditorClassIdentifier: 
-  type: 15
-  name: Tree02
-  icon: {fileID: 21300000, guid: 2b53d96750e0a2943a1ba49735196cc5, type: 3}
-  item: {fileID: 4591358751879516367, guid: 4ac4ea8a76b480947bdd15dab9e4eb57, type: 3}
+  name: Ramp
+  icon: {fileID: 21300000, guid: 4dce7f2d2ea91b14c97be5801784ac15, type: 3}
+  typeDataList:
+  - {fileID: 11400000, guid: 73fc0c4968d72ee49beda346d6bcbe98, type: 2}

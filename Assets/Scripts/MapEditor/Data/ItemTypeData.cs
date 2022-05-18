@@ -9,7 +9,7 @@ namespace MapEditor
 {
 
     [Serializable]
-    public class ItemTypeData: ScriptableObject, ITitleAndIconReadable, IQueryableData
+    public class ItemTypeData: ScriptableObject, IQueryableData
     {
 
         public int type;
@@ -22,8 +22,9 @@ namespace MapEditor
         public List<Vector3> Grids => item.GetGrids();
 
 
+        [SerializeField]
         public string name;
-        public Sprite icon;
+
 
         public Item item;
 
@@ -36,10 +37,6 @@ namespace MapEditor
 
 
 
-
-        public string Title => name;
-
-        public Sprite Icon => icon;
 
 
 

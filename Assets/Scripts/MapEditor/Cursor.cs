@@ -103,12 +103,14 @@ namespace MapEditor
             shadowRoot.gameObject.SetActive(false);
         }
 
-
+        public void ResetCursor()
+        {
+            Rotation = 0;
+        }
 
         public void BuildCursor(ItemTypeData _itemTypeData)
         {
             itemTypeData = _itemTypeData;
-            Rotation = 0F;
 
             foreach (var g in cursorGrids.ToArray())
             {

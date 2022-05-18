@@ -60,6 +60,10 @@ public class MapEditorUIManager : MonoBehaviour
 
     public static MapEditorUIManager Instance;
 
+
+    public int CurrentItemPainterIndex { get; set; } = -1;
+
+
     private void Awake()
     {
         Instance = this;
@@ -73,8 +77,8 @@ public class MapEditorUIManager : MonoBehaviour
 
 
         // Item
-        ItemTypeDataGroup itemData = gm.itemTypeDataGroup;        
-        foreach (var (item, index) in itemData.Select((item, index) => (item, index)))
+        UserItemPainterDataGroup userItemPainterDataGroup = gm.userItemPainterDataGroup;        
+        foreach (var (item, index) in userItemPainterDataGroup.Select((item, index) => (item, index)))
         {
             UI_PlaceItemElement itemEl = Instantiate(placeItemElement, placeItemContainer).GetComponent<UI_PlaceItemElement>();
             itemEl.SetItem(item);
@@ -126,7 +130,7 @@ public class MapEditorUIManager : MonoBehaviour
 
 
         SetTarget(null);
-        SetSelectedItem(gm.CurrentItemType);
+        SetSelectedItemPainter(gm.CurrentItemType);
         SetSelectedEnv(gm.CurrentEnvIndex);
 
     }
@@ -188,9 +192,11 @@ public class MapEditorUIManager : MonoBehaviour
     }
 
 
-    public void SetSelectedItem(int selectIndex)
+    public void SetSelectedItemPainter(int selectItemPainterIndex)
     {
-        if (selectIndex > 0)
+        CurrentItemPainterIndex = selectItemPainterIndex;
+
+        if (selectItemPainterIndex > 0)
         {
             MapEditorManager.Instance.cursor.Show();
         }
@@ -201,7 +207,7 @@ public class MapEditorUIManager : MonoBehaviour
 
         foreach (var (el, index) in uiItemList.Select((item, index) => (item, index)))
         {
-            el.SetSelect(selectIndex == index);
+            el.SetSelect(selectItemPainterIndex == index);
         }
     }
 
