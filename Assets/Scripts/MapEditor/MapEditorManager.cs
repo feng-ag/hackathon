@@ -137,8 +137,6 @@ public class MapEditorManager : MonoBehaviour
         {
             HidePeek();
         }
-
-
     }
 
     void ShowPeek(Item item)
@@ -237,7 +235,6 @@ public class MapEditorManager : MonoBehaviour
         {
             LastControlState = CurrentControlState;
             CurrentControlState = ControlState.Move;
-            //Debug.Log(CurrentControlState);
         }
         else if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -250,81 +247,11 @@ public class MapEditorManager : MonoBehaviour
         {
             if (CurrentControlState == ControlState.Peek && Input.GetMouseButtonDown(0))
             {
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
-                {
-                    // Peek
-
-                    if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
-                    {
-                        Item item = itemColLinker.item;
-
-                        if (MapEditorUIManager.Instance.currentEditItem != item)
-                        {
-                            ChangeToPeek(item);
-                        }
-                        else
-                        {
-                            HidePeek();
-                            MapEditorUIManager.Instance.currentEditItem = null;
-                            cursor.Hide();
-                        }
-                    }
-                }                
-                else
-                {
-                    HidePeek();
-                }
+                TriggerPeekAt(Input.mousePosition);
             }
             else if (CurrentControlState == ControlState.Place && Input.GetMouseButtonDown(0))
             {
-                Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
-                {
-                    // Place
-
-                    if (CurrentControlState != ControlState.Place)
-                    {
-                        HidePeek();
-                    }
-                    else
-                    {
-                        ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
-
-                        if (itemTypeData != null)
-                        {
-
-                            Item item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
-
-                            int itemPainterIndex = MapEditorUIManager.Instance.CurrentItemPainterIndex;
-                            UserItemPainterData itemPainter = userItemPainterDataGroup.GetUserItemPainterData(itemPainterIndex);
-
-
-                            if (item != null)
-                            {
-                                //IsUnique 功能
-                                if (itemTypeData.isUnique == true)
-                                {
-                                    ItemData[] sameTypeItemData = MapDataManager.Instance.GetAllItems()
-                                        .Where(itemData => itemData.type == itemTypeData.type)  //篩選同類型的 Item
-                                        .Where(itemData => itemData.item != item)               //略過剛剛才新增的的 Item
-                                        .ToArray();
-
-                                    foreach (var itemData in sameTypeItemData)
-                                    {
-                                        ItemData.UnEmbed(itemData);
-                                    }
-                                }
-
-                                if (itemPainter.isRandomRot == true)
-                                {
-                                    //重新設定一次，讓N取1可以再取一次
-                                    ChangeItemPainter(itemPainterIndex);
-                                }
-                            }
-                        }
-                    }
-                }
+                TriggerPlaceAt(Input.mousePosition);
             }
         }
         
@@ -334,29 +261,12 @@ public class MapEditorManager : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                moveBeginMousePos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                camBeginPos = camRoot.localPosition;
-
-                //Debug.Log(moveBeginMousePos);
+                TriggerMoveStart(Input.mousePosition);
 
             }
             if (Input.GetMouseButton(0))
             {
-                Vector2 v = new Vector2(Input.mousePosition.x, Input.mousePosition.y) - moveBeginMousePos;
-
-                //Debug.Log($"Move {v}");
-
-                const float moveSpeed = 0.015F;
-
-                Vector3 v3 = new Vector3(v.x, 0, v.y);
-                Vector3 moveValue3 = Quaternion.Euler(0, -45, 0) * (v3 * moveSpeed * -1);
-
-                //Debug.Log($"{(v3 * moveSpeed * -1)} -> {moveValue3}");
-
-                camRoot.localPosition = camBeginPos + moveValue3;
-
-
-                MapEditorUIManager.Instance.SetTargetInfo();
+                TriggerMoving(Input.mousePosition);
             }
 
         }
@@ -417,6 +327,116 @@ public class MapEditorManager : MonoBehaviour
     }
 
 
+    void TriggerPeekAt(Vector3 mousePosition)
+    {
+        Ray ray = cam.ScreenPointToRay(mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
+        {
+            // Peek
+
+            if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
+            {
+                Item item = itemColLinker.item;
+
+                if (MapEditorUIManager.Instance.currentEditItem != item)
+                {
+                    ChangeToPeek(item);
+                }
+                else
+                {
+                    HidePeek();
+                    MapEditorUIManager.Instance.currentEditItem = null;
+                    cursor.Hide();
+                }
+            }
+        }
+        else
+        {
+            HidePeek();
+        }
+    }
+
+    void TriggerPlaceAt(Vector3 mousePosition)
+    {
+        Ray ray = cam.ScreenPointToRay(mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
+        {
+            // Place
+
+            if (CurrentControlState != ControlState.Place)
+            {
+                HidePeek();
+            }
+            else
+            {
+                ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
+
+                if (itemTypeData != null)
+                {
+
+                    Item item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
+
+                    int itemPainterIndex = MapEditorUIManager.Instance.CurrentItemPainterIndex;
+                    UserItemPainterData itemPainter = userItemPainterDataGroup.GetUserItemPainterData(itemPainterIndex);
+
+
+                    if (item != null)
+                    {
+                        //IsUnique 功能
+                        if (itemTypeData.isUnique == true)
+                        {
+                            ItemData[] sameTypeItemData = MapDataManager.Instance.GetAllItems()
+                                .Where(itemData => itemData.type == itemTypeData.type)  //篩選同類型的 Item
+                                .Where(itemData => itemData.item != item)               //略過剛剛才新增的的 Item
+                                .ToArray();
+
+                            foreach (var itemData in sameTypeItemData)
+                            {
+                                ItemData.UnEmbed(itemData);
+                            }
+                        }
+
+                        if (itemPainter.isRandomRot == true)
+                        {
+                            //重新設定一次，讓N取1可以再取一次
+                            ChangeItemPainter(itemPainterIndex);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void TriggerMoveStart(Vector3 mousePosition)
+    {
+        moveBeginMousePos = new Vector2(mousePosition.x, mousePosition.y);
+        camBeginPos = camRoot.localPosition;
+
+        //Debug.Log(moveBeginMousePos);
+    }
+
+    void TriggerMoving(Vector3 mousePosition)
+    {
+        Vector2 v = new Vector2(mousePosition.x, mousePosition.y) - moveBeginMousePos;
+
+        //Debug.Log($"Move {v}");
+
+        const float moveSpeed = 0.015F;
+
+        Vector3 v3 = new Vector3(v.x, 0, v.y);
+        Vector3 moveValue3 = Quaternion.Euler(0, -45, 0) * (v3 * moveSpeed * -1);
+
+        //Debug.Log($"{(v3 * moveSpeed * -1)} -> {moveValue3}");
+
+        camRoot.localPosition = camBeginPos + moveValue3;
+
+
+        MapEditorUIManager.Instance.SetTargetInfo();
+    }
+
+
+
+
     public float ZoomRatio { get; private set; } = 1F;
     void Zoom(float ratio)
     {
@@ -439,46 +459,39 @@ public class MapEditorManager : MonoBehaviour
         }
 
 
+
+        //拖曳擺放
+        if (CurrentControlState == ControlState.Place)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                // TODOOOOOOOOOOOOOOOOOOO
+                // 避免同一格重複運算
+                TriggerPlaceAt(Input.mousePosition);
+            }
+        }
+
+
+
         //Cursor
-        if (CurrentControlState != ControlState.Move && !EventSystem.current.IsPointerOverGameObject())
+        if (CurrentControlState == ControlState.Place &&
+            CurrentItemType >= 0 &&
+            !EventSystem.current.IsPointerOverGameObject())
         {
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            //if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, itemLayer.value))
-            //{
-            //    if (hitInfo.collider.TryGetComponent(out ItemColLinker itemColLinker))
-            //    {
-            //        ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
-            //        Item item = itemColLinker.item;
-
-            //        cursor.Position = item.transform.position + itemTypeData.cursorOffsetV3;
-            //        cursor.Hide();
-            //    }
-            //}
-            //else
             if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
             {
-                if (CurrentItemType >= 0)
-                {
-                    ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
+                ItemTypeData itemTypeData = itemTypeDataGroup.GetTypeData(CurrentItemType);
 
+                Vector3 hitPos = hitInfo2.point;
+                Vector3 pos = ItemData.CursorPosToGridPos(hitPos, itemTypeData.type, cursor.Rotation);
 
-                    Vector3 hitPos = hitInfo2.point;
-
-                    
-
-                    float x = Mathf.Round(hitPos.x);
-                    float z = Mathf.Round(hitPos.z);
-                    Vector3 pos = ItemData.CursorPosToGridPos(hitPos, itemTypeData.type, cursor.Rotation); //new Vector3(x, 0, z);
-
-                    cursor.Position = pos;
-                    cursor.Show();
-                }
-
+                cursor.Position = pos;
             }
-
         }
-    }
 
+
+    }
 
 
 

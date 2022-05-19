@@ -209,7 +209,7 @@ public class MapEditorUIManager : MonoBehaviour
     {
         CurrentItemPainterIndex = selectItemPainterIndex;
 
-        if (selectItemPainterIndex > 0)
+        if (selectItemPainterIndex >= 0)
         {
             MapEditorManager.Instance.CurrentControlState = MapEditorManager.ControlState.Place;
             MapEditorManager.Instance.cursor.Show();
