@@ -58,7 +58,7 @@ public class MapEditorManager : MonoBehaviour
     Transform camRoot;
 
     [SerializeField]
-    TextAsset defaultMapJson;
+    public TextAsset defaultMapJson;
 
 
 
@@ -194,14 +194,9 @@ public class MapEditorManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(LoadDefaultMap());
+
     }
 
-
-    public IEnumerator LoadDefaultMap() 
-    {
-        return MapDataManager.Instance.LoadMap(defaultMapJson.text, itemRoot);
-    }
 
 
     public void EmbedEnv(int envIndex, Transform root)
@@ -470,7 +465,7 @@ public class MapEditorManager : MonoBehaviour
 
 
         //©ì¦²Â\©ñ
-        if (CurrentControlState == ControlState.Place)
+        if (CurrentControlState == ControlState.Place && !EventSystem.current.IsPointerOverGameObject())
         {
             if (Input.GetMouseButton(0))
             {

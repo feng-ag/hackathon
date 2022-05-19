@@ -21,11 +21,46 @@ public class MapEditorController : IMapEditorController
         }
     }
 
+    string mapJsonCache = null;
+
+
+
+    public IEnumerator LoadMap(string mapJson = null)
+    {
+        if (mapJson == null)
+        {
+            mapJson = mapJsonCache ?? MapEditorManager.Instance.defaultMapJson.text;
+        }
+
+        Debug.Log(mapJson);
+
+        yield return MapDataManager.Instance.LoadMap(mapJson, MapEditorManager.Instance.itemRoot);
+    }
+
+    public void ShowMapEditor()
+    {
+        MapEditorManager.Instance.StartCoroutine(LoadAndShowMap());
+
+        IEnumerator LoadAndShowMap()
+        {
+            yield return LoadMap();
+            MapEditorManager.Instance.editorRoot.SetActive(true);
+        }
+    }
+
+    public void HideMapEditor()
+    {
+        MapEditorManager.Instance.editorRoot.SetActive(false);
+    }
+
+
+
 
 
     public IEnumerator CreateMapObject(Transform root)
     {
         string mapJson = MapDataManager.Instance.ExportMap();
+        mapJsonCache = mapJson;
 
         yield return MapDataManager.Instance.LoadMap(mapJson, root);
     }
@@ -38,20 +73,6 @@ public class MapEditorController : IMapEditorController
 
         return startingPointItemData.item.transform;
     }
-
-
-    public void ShowMapEditor()
-    {
-        MapEditorManager.Instance.editorRoot.SetActive(true);
-    }
-
-
-    public void HideMapEditor()
-    {
-        MapEditorManager.Instance.editorRoot.SetActive(false);
-    }
-
-
 
 
 }

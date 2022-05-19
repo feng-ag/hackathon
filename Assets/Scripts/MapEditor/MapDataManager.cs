@@ -53,11 +53,6 @@ namespace MapEditor
             //UnEmbed All Item
             foreach (var itemData in GetAllItems().ToArray())
             {
-                if (itemData.TypeData.isUnique == true)
-                {
-                    continue;
-                }
-
                 ItemData.UnEmbed(itemData);
             }
 

@@ -235,7 +235,10 @@ namespace MapEditor
         {
             MapDataManager.Instance.RemoveItem(itemData);
 
-            GameObject.Destroy(itemData.item.gameObject);
+            if (itemData.item != null)
+            {
+                GameObject.Destroy(itemData.item.gameObject);
+            }
         }
 
 
