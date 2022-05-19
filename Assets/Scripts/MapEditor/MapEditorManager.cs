@@ -222,10 +222,8 @@ public class MapEditorManager : MonoBehaviour
     void Update()
     {
 
-
         if (EventSystem.current == null)
         {
-            Debug.LogError("EventSystem.Current is null");
             return;
         }
 
