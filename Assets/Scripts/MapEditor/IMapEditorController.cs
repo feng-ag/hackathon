@@ -5,10 +5,10 @@ using UnityEngine;
 public interface IMapEditorController 
 {
 
-    public GameObject CreacteMapObject();
+    public IEnumerator CreateMapObject(Transform root);
 
 
-    public Transform GetStartingPoint(GameObject map);
+    public Transform GetStartingPoint();
 
 
     public void ShowMapEditor();

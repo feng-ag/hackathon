@@ -48,10 +48,27 @@ namespace MapEditor
 
 
 
-
-
-        public IEnumerator LoadMap(string mapJson)
+        public IEnumerator LoadMap(string mapJson, Transform root)
         {
+            //UnEmbed All Item
+            foreach (var itemData in GetAllItems().ToArray())
+            {
+                if (itemData.TypeData.isUnique == true)
+                {
+                    continue;
+                }
+
+                ItemData.UnEmbed(itemData);
+            }
+
+            //UnEmbed All Env
+            if (MapEditorManager.Instance.CurrentEnvenmentObject != null)
+            {
+                GameObject.Destroy(MapEditorManager.Instance.CurrentEnvenmentObject);
+            }
+
+
+
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
 
@@ -67,18 +84,19 @@ namespace MapEditor
             newMap.title = loadMap.title;
 
             // Env
-            MapEditorManager.Instance.ChangeEnvTo(loadMap.env);
+            MapEditorManager.Instance.EmbedEnv(loadMap.env, root);
             newMap.env = loadMap.env;
 
 
             MapEditorManager.Instance.itemRoot.gameObject.SetActive(false);
+
 
             // Items
             foreach (var item in loadMap.items)
             {
                 yield return new WaitForFixedUpdate();  // 因為EmbedValid會用到Physical.Cast，必須要等FixedUpdate更新才能做下個判斷
 
-                ItemData.Embed(item.itemPos, item.type, item.itemRot, MapEditorManager.Instance.itemRoot, item.id);
+                ItemData.Embed(item.itemPos, item.type, item.itemRot, root, item.id);
             }
 
             MapEditorManager.Instance.itemRoot.gameObject.SetActive(true);

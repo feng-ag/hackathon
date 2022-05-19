@@ -164,20 +164,23 @@
         }
 
 
-        var map = MapEditorController.Instance.CreacteMapObject();
-        var spawnPos = MapEditorController.Instance.GetStartingPoint(map);
+        Transform mapRoot = new GameObject("MapRoot").transform;
+        mapRoot.SetParent(GameSceneManager.instance.gameRoot.transform);
+        mapRoot.transform.position = Vector3.zero;
+
+
+        yield return MapEditorController.Instance.CreateMapObject(mapRoot);
+        var spawnPos = MapEditorController.Instance.GetStartingPoint();
 
         HideMapEditor();
 
 
-        map.transform.SetParent(GameSceneManager.instance.gameRoot.transform);
-        map.transform.position = Vector3.zero;
-        map.transform.localScale = new Vector3(5, 5, 5);
+        mapRoot.transform.localScale = new Vector3(5, 5, 5);
 
         var cub = CubLoader.instance.LoadCub();
 
         cub.transform.SetParent(GameSceneManager.instance.gameRoot.transform);
-        cub.transform.position = new Vector3(spawnPos.position.x * 5, 0.3f, (spawnPos.position.z - 0.5f) * 5);
+        cub.transform.position = new Vector3(spawnPos.position.x, 0.3f, (spawnPos.position.z - 0.5f));
 
         var arcadeKartComp = cub.GetComponentInChildren<ArcadeKart>();
         arcadeKartComp.KartAudio.gameObject.SetActive(true);

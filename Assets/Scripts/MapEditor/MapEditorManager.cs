@@ -84,7 +84,7 @@ public class MapEditorManager : MonoBehaviour
     public int CurrentItemType { get; set; } = -1;
     public int CurrentEnvIndex { get; set; } = 0;
 
-    GameObject currentEnvenmentObject;
+    public GameObject CurrentEnvenmentObject { get; private set; }
 
     void Awake()
     {
@@ -92,7 +92,14 @@ public class MapEditorManager : MonoBehaviour
 
         ConstructUIEvents();
 
-        //MapEditorController.Instance.HideMapEditor();
+        MapEditorController.Instance.HideMapEditor();
+
+#if (UNITY_EDITOR)
+        if (UnityEngine.SceneManagement.SceneManager.sceneCount == 1)
+        {
+            MapEditorController.Instance.ShowMapEditor();
+        }
+#endif
 
         void ConstructUIEvents()
         {
@@ -116,7 +123,7 @@ public class MapEditorManager : MonoBehaviour
             {
                 CurrentEnvIndex = index;
                 MapEditorUIManager.Instance.SetSelectedEnv(index);
-                ChangeEnvTo(index);
+                EmbedEnv(index, itemRoot);
                 //Debug.Log($"Set ENV Index = {index}");
             };
         }
@@ -193,18 +200,13 @@ public class MapEditorManager : MonoBehaviour
 
     public IEnumerator LoadDefaultMap() 
     {
-        return MapDataManager.Instance.LoadMap(defaultMapJson.text);
+        return MapDataManager.Instance.LoadMap(defaultMapJson.text, itemRoot);
     }
 
 
-    public void ChangeEnvTo(int index)
+    public void EmbedEnv(int envIndex, Transform root)
     {
-        if (currentEnvenmentObject != null)
-        {
-            Destroy(currentEnvenmentObject);
-        }
-
-        currentEnvenmentObject = Instantiate(environmentData.GetEnvironmentAt(index).RandomPickPrefab(), envRoot);
+        CurrentEnvenmentObject = Instantiate(environmentData.GetEnvironmentAt(envIndex).RandomPickPrefab(), root);
     }
 
 
@@ -224,21 +226,12 @@ public class MapEditorManager : MonoBehaviour
 
     void Update()
     {
+
+
         if (EventSystem.current == null)
         {
             Debug.LogError("EventSystem.Current is null");
             return;
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            LastControlState = CurrentControlState;
-            CurrentControlState = ControlState.Move;
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            CurrentControlState = LastControlState;
         }
 
         //
@@ -254,28 +247,42 @@ public class MapEditorManager : MonoBehaviour
                 TriggerPlaceAt(Input.mousePosition);
             }
         }
+
+        //
+
+        // 開啟/關閉移動狀態
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(2))
+        {
+            if (CurrentControlState != ControlState.Move)
+            {
+                LastControlState = CurrentControlState;
+            }
+            CurrentControlState = ControlState.Move;
+        }
+        else if (Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(2))
+        {
+            CurrentControlState = LastControlState;
+        }
         
+        // 移動
         if (CurrentControlState == ControlState.Move)
         {
-            //
-
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(2))
             {
                 TriggerMoveStart(Input.mousePosition);
 
             }
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) || Input.GetMouseButton(2))
             {
                 TriggerMoving(Input.mousePosition);
             }
-
         }
 
 
         //
 
 
-
+        // Zoom
         if (Input.GetKey(KeyCode.Minus))
         {
             Zoom(ZoomRatio + 1F * Time.deltaTime);
@@ -290,7 +297,9 @@ public class MapEditorManager : MonoBehaviour
             Zoom(ZoomRatio - 0.1F * Input.mouseScrollDelta.y);
         }
 
+        //
 
+        // Rotate Cursor
         if (CurrentControlState == ControlState.Place)
         {
             if (Input.GetKeyDown(KeyCode.R))
