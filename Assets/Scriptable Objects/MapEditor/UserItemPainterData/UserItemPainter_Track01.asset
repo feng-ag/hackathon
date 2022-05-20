@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Track
   icon: {fileID: 21300000, guid: 80f627aa0d7fcfb48a9fa6197ae7b4ee, type: 3}
+  isRandomRot: 0
+  isConnectable: 1
   typeDataList:
   - {fileID: 11400000, guid: 59bbe1fde09adaf459ac8d0a3dbb1368, type: 2}

@@ -375,7 +375,6 @@ public class MapEditorManager : MonoBehaviour
 
                 if (itemTypeData != null)
                 {
-
                     Item item = ItemData.EmbedAtCursorPos(hitInfo2.point, CurrentItemType, cursor.Rotation, itemRoot);
 
                     int itemPainterIndex = MapEditorUIManager.Instance.CurrentItemPainterIndex;
@@ -384,6 +383,12 @@ public class MapEditorManager : MonoBehaviour
 
                     if (item != null)
                     {
+                        // IsConnectable 功能
+                        if (itemPainter.isConnectable == true)
+                        {
+                            TriggerConnect(itemPainter, item.Data);
+                        }
+
                         //IsUnique 功能
                         if (itemTypeData.isUnique == true)
                         {
@@ -406,6 +411,73 @@ public class MapEditorManager : MonoBehaviour
                     }
                 }
             }
+        }
+
+
+
+        void TriggerConnect(UserItemPainterData itemPainter, ItemData itemData)
+        {
+            var connects = ItemData.GetConnectItems(itemData);
+
+            if (connects.Count == 0)
+            {
+                //周邊沒有任何東西
+                return;
+            }
+            else if (connects.Count == 1)
+            {
+
+                var v1 = connects.First();
+
+                // O指向鄰邊的向量
+                Vector3 vec1 = v1.Key;
+
+                float rot = ((itemData.itemRot % 360) + 360) % 360;
+
+                Vector3[] dirs = new Vector3[] {
+                    new Vector3(0, 0, 1),
+                    new Vector3(0, 0, -1),
+                };
+
+                // O指向連接方向的向量
+                var rotDirs = dirs.Select(dir => Quaternion.AngleAxis(rot, Vector3.up) * dir);
+
+
+
+
+
+                //
+                //????????????
+                bool needFix = rotDirs.Any(rotDir => rotDir != vec1);
+
+                if (needFix)
+                {
+                    Debug.Log($"FIX ({rot}) {rotDirs} / {vec1}");
+                }
+                //
+
+
+
+
+
+            }
+            else if (connects.Count == 2)
+            {
+                Vector3 v1 = connects.Keys.First();
+                Vector3 v2 = connects.Keys.Skip(1).First();
+
+                Debug.Log($"{v1} - {v2}");
+            }
+            else if (connects.Count == 3)
+            {
+                Vector3 v1 = connects.Keys.First();
+                Vector3 v2 = connects.Keys.Skip(1).First();
+                Vector3 v3 = connects.Keys.Skip(2).First();
+
+                Debug.Log($"{v1} - {v2} - {v3}");
+            }
+
+
         }
     }
 

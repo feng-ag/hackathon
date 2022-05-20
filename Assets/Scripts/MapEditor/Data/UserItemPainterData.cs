@@ -19,6 +19,9 @@ namespace MapEditor
         [SerializeField]
         public bool isRandomRot;
 
+        [SerializeField]
+        public bool isConnectable;
+
 
         [NodeElement]
         [SerializeField]
@@ -35,7 +38,14 @@ namespace MapEditor
 
         public ItemTypeData GetTypeData()
         {
-            return typeDataList[Random.Range(0, typeDataList.Length)];
+            if(isConnectable == true)
+            {
+                return typeDataList[0];     //可連接物件預設先使用[0]
+            }
+            else
+            {
+                return typeDataList[Random.Range(0, typeDataList.Length)];
+            }
         }
 
 

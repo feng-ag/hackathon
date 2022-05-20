@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-//using LitJson;
+using System.Linq;
 using Newtonsoft.Json;
 
 
@@ -240,6 +240,58 @@ namespace MapEditor
                 GameObject.Destroy(itemData.item.gameObject);
             }
         }
+
+        //--
+
+
+
+        static Vector3[] neighborItemPosList = new Vector3[]
+        {
+                new Vector3(1, 0, 0),
+                new Vector3(-1, 0, 0),
+                new Vector3(0, 0, 1),
+                new Vector3(0, 0, -1),
+        };
+
+
+        public static Dictionary<Vector3, ItemData> GetConnectItems(ItemData itemData)
+        {
+            // NOTICE:
+            // 只適用 1x1 物件
+
+
+            int targetItemType = itemData.type;
+            Dictionary<Vector3, ItemData> result = new Dictionary<Vector3, ItemData>();
+
+            foreach (Vector3 pos in neighborItemPosList)
+            {
+                RaycastHit[] hits = Physics.BoxCastAll(
+                    itemData.itemPos + pos,
+                    Vector3.one * 0.45F,    //比0.5略小
+                    Vector3.forward,
+                    Quaternion.identity,
+                    0,
+                    MapEditorManager.Instance.itemLayer.value);
+
+                if(hits.Length == 0)
+                {
+                    continue;
+                }
+
+                Item item = hits
+                    .Select(hit => hit.collider.GetComponent<ItemColLinker>())
+                    .Where(linker => linker != null)
+                    .Select(linker => linker.item)
+                    .First(item => item.Data.type == targetItemType);
+
+                result.Add(pos, item.Data);
+            }
+
+
+            return result;
+
+        }
+
 
 
         //--

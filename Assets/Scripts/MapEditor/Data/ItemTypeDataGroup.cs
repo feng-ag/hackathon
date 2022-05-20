@@ -21,7 +21,7 @@ namespace MapEditor {
                 return null;
             }
 
-            return data[type];
+            return data.First(d => d.type == type);
         }
 
         public IEnumerator GetEnumerator()
