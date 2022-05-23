@@ -441,6 +441,7 @@ public class MapEditorManager : MonoBehaviour
 
                 FixItem(itemData, v1.Value);
                 FixItem(itemData, v2.Value);
+                ConnectItem(itemData, new[] { v1.Key, v2.Key });
             }
             else if (connects.Count == 3)
             {
@@ -502,43 +503,7 @@ public class MapEditorManager : MonoBehaviour
                             g.transform.localScale = new Vector3(0.1F, 3F, 0.1F);
                         }
 
-                        Vector3 zeroVec = new Vector3(0, 0, 1);
-                        float absAngle = (Vector3.SignedAngle(zeroVec, v1AbsConnect, Vector3.up) + 360) % 360;      //0 ~ 360
-                        float otherAngle = (Vector3.SignedAngle(zeroVec, v1OtherConnect, Vector3.up) + 360) % 360;  //0 ~ 360
-                        float deltaAngle = Mathf.Abs(absAngle - otherAngle);
-
-                        //Debug.Log($"abs:{absAngle}, other:{otherAngle}, delta:{deltaAngle}");
-
-                        if (deltaAngle % 180 == 0F)     //ª½
-                        {
-                            ChangeItem(itemData, 3, absAngle);
-                        }
-                        else if (deltaAngle % 180 == 90) //Ås
-                        {
-                            if (deltaAngle == 270)
-                            {
-                                if (absAngle < otherAngle)
-                                {
-                                    absAngle += 360;
-                                }
-                                else
-                                {
-                                    otherAngle += 360;
-                                }
-                            }
-
-                            // 360 / 270 = 0
-                            // 90 / 0 = 90
-                            // 180 / 90  = 180
-                            // 270 / 180 = 270
-                            // 180 / 270 = 270
-                            // 360 / 270 = 0
-
-                            float resultAngle = (absAngle > otherAngle ? absAngle : otherAngle);
-                            //Debug.Log($"rAng:{resultAngle}");
-
-                            ChangeItem(itemData, 4, resultAngle);
-                        }
+                        ConnectItem(itemData, new[] { v1AbsConnect, v1OtherConnect });
                     }
                 }
             }
@@ -546,7 +511,43 @@ public class MapEditorManager : MonoBehaviour
 
             void ConnectItem(ItemData itemData, Vector3[] dirs)
             {
+                Vector3 zeroVec = new Vector3(0, 0, 1);
+                float absAngle = (Vector3.SignedAngle(zeroVec, dirs[0], Vector3.up) + 360) % 360;       //0 ~ 360
+                float otherAngle = (Vector3.SignedAngle(zeroVec, dirs[1], Vector3.up) + 360) % 360;     //0 ~ 360
+                float deltaAngle = Mathf.Abs(absAngle - otherAngle);
 
+                //Debug.Log($"abs:{absAngle}, other:{otherAngle}, delta:{deltaAngle}");
+
+                if (deltaAngle % 180 == 0F)     //ª½
+                {
+                    ChangeItem(itemData, 3, absAngle);
+                }
+                else if (deltaAngle % 180 == 90) //Ås
+                {
+                    if (deltaAngle == 270)
+                    {
+                        if (absAngle < otherAngle)
+                        {
+                            absAngle += 360;
+                        }
+                        else
+                        {
+                            otherAngle += 360;
+                        }
+                    }
+
+                    // 360 / 270 = 0
+                    // 90 / 0 = 90
+                    // 180 / 90  = 180
+                    // 270 / 180 = 270
+                    // 180 / 270 = 270
+                    // 360 / 270 = 0
+
+                    float resultAngle = (absAngle > otherAngle ? absAngle : otherAngle);
+                    //Debug.Log($"rAng:{resultAngle}");
+
+                    ChangeItem(itemData, 4, resultAngle);
+                }
             }
         }
     }
