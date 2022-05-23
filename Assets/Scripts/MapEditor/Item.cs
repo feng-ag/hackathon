@@ -80,6 +80,28 @@ namespace MapEditor
                 Debug.LogError("Invaild rotate");
             }
         }
+        public void SetRotation(float angle)
+        {
+            float deltaRot = angle - Rotation;
+
+            if (deltaRot == 0F)
+            {
+                return;
+            }
+
+            bool isValid = ValidRotate(deltaRot);
+
+            if (isValid)
+            {
+                root.Rotate(0, deltaRot, 0);
+                gridRoot.rotation = root.rotation;
+                data.itemRot = root.eulerAngles.y;
+            }
+            else
+            {
+                Debug.LogError("Invaild rotate");
+            }
+        }
 
 
 

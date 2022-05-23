@@ -418,6 +418,8 @@ public class MapEditorManager : MonoBehaviour
         void TriggerConnect(UserItemPainterData itemPainter, ItemData itemData)
         {
             var connects = ItemData.GetConnectItems(itemData);
+            var connectPorts = ItemData.GetConnectPorts(itemData).Select(port => port + itemData.itemPos);
+
 
             if (connects.Count == 0)
             {
@@ -426,58 +428,126 @@ public class MapEditorManager : MonoBehaviour
             }
             else if (connects.Count == 1)
             {
-
+                //週邊一格有東西
                 var v1 = connects.First();
 
-                // O指向鄰邊的向量
-                Vector3 vec1 = v1.Key;
-
-                float rot = ((itemData.itemRot % 360) + 360) % 360;
-
-                Vector3[] dirs = new Vector3[] {
-                    new Vector3(0, 0, 1),
-                    new Vector3(0, 0, -1),
-                };
-
-                // O指向連接方向的向量
-                var rotDirs = dirs.Select(dir => Quaternion.AngleAxis(rot, Vector3.up) * dir);
-
-
-
-
-
-                //
-                //????????????
-                bool needFix = rotDirs.Any(rotDir => rotDir != vec1);
-
-                if (needFix)
-                {
-                    Debug.Log($"FIX ({rot}) {rotDirs} / {vec1}");
-                }
-                //
-
-
-
-
+                FixItem(itemData, v1.Value);
 
             }
             else if (connects.Count == 2)
             {
-                Vector3 v1 = connects.Keys.First();
-                Vector3 v2 = connects.Keys.Skip(1).First();
+                var v1 = connects.First();
+                var v2 = connects.Skip(1).First();
 
-                Debug.Log($"{v1} - {v2}");
+                FixItem(itemData, v1.Value);
+                FixItem(itemData, v2.Value);
             }
             else if (connects.Count == 3)
             {
-                Vector3 v1 = connects.Keys.First();
-                Vector3 v2 = connects.Keys.Skip(1).First();
-                Vector3 v3 = connects.Keys.Skip(2).First();
+                var v1 = connects.First();
+                var v2 = connects.Skip(1).First();
+                var v3 = connects.Skip(2).First();
 
-                Debug.Log($"{v1} - {v2} - {v3}");
+                FixItem(itemData, v1.Value);
+                FixItem(itemData, v2.Value);
+                FixItem(itemData, v3.Value);
             }
 
 
+            void ChangeItem(ItemData itemData, int newType, float rot)
+            {
+                if(itemData.type != newType && itemData.itemRot != rot)
+                {
+                    StartCoroutine(EmbedNew(itemData, newType, rot));
+                }
+                else if(itemData.itemRot != rot)
+                {
+                    itemData.item.SetRotation(rot);
+                }
+
+
+                IEnumerator EmbedNew(ItemData itemData, int newType, float rot)
+                {
+                    ItemData.UnEmbed(itemData);
+
+                    yield return new WaitForFixedUpdate();
+
+                    ItemData.Embed(itemData.itemPos, newType, rot, itemRoot, itemData.id);
+                }
+            }
+
+
+
+            void FixItem(ItemData rootItemData, ItemData itemData)
+            {
+                //Debug.Log($"{itemData.id} ----------");
+
+                var v1ConnectPorts = ItemData.GetConnectPorts(itemData).Select(port => port + itemData.itemPos);
+                var v1ConnectItems = ItemData.GetConnectItems(itemData);
+
+
+                var v1OtherConnectSet = v1ConnectItems.Where(m => m.Value != rootItemData).Select(m => m.Key);
+                if (v1OtherConnectSet.Any())
+                {
+                    var v1OtherConnect = v1OtherConnectSet.First();
+                    var v1AbsConnect = v1ConnectItems.First(m => m.Value == rootItemData).Key;
+
+
+                    if (itemData.type == 3 || itemData.type == 4)
+                    {
+                        foreach (Vector3 connectPort in new[] { v1AbsConnect, v1OtherConnect })
+                        {
+                            var g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                            g.transform.position = itemData.itemPos + connectPort;
+                            g.transform.localScale = new Vector3(0.1F, 3F, 0.1F);
+                        }
+
+                        Vector3 zeroVec = new Vector3(0, 0, 1);
+                        float absAngle = (Vector3.SignedAngle(zeroVec, v1AbsConnect, Vector3.up) + 360) % 360;      //0 ~ 360
+                        float otherAngle = (Vector3.SignedAngle(zeroVec, v1OtherConnect, Vector3.up) + 360) % 360;  //0 ~ 360
+                        float deltaAngle = Mathf.Abs(absAngle - otherAngle);
+
+                        //Debug.Log($"abs:{absAngle}, other:{otherAngle}, delta:{deltaAngle}");
+
+                        if (deltaAngle % 180 == 0F)     //直
+                        {
+                            ChangeItem(itemData, 3, absAngle);
+                        }
+                        else if (deltaAngle % 180 == 90) //彎
+                        {
+                            if (deltaAngle == 270)
+                            {
+                                if (absAngle < otherAngle)
+                                {
+                                    absAngle += 360;
+                                }
+                                else
+                                {
+                                    otherAngle += 360;
+                                }
+                            }
+
+                            // 360 / 270 = 0
+                            // 90 / 0 = 90
+                            // 180 / 90  = 180
+                            // 270 / 180 = 270
+                            // 180 / 270 = 270
+                            // 360 / 270 = 0
+
+                            float resultAngle = (absAngle > otherAngle ? absAngle : otherAngle);
+                            //Debug.Log($"rAng:{resultAngle}");
+
+                            ChangeItem(itemData, 4, resultAngle);
+                        }
+                    }
+                }
+            }
+
+
+            void ConnectItem(ItemData itemData, Vector3[] dirs)
+            {
+
+            }
         }
     }
 

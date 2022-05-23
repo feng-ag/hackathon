@@ -260,7 +260,6 @@ namespace MapEditor
             // 只適用 1x1 物件
 
 
-            int targetItemType = itemData.type;
             Dictionary<Vector3, ItemData> result = new Dictionary<Vector3, ItemData>();
 
             foreach (Vector3 pos in neighborItemPosList)
@@ -282,9 +281,12 @@ namespace MapEditor
                     .Select(hit => hit.collider.GetComponent<ItemColLinker>())
                     .Where(linker => linker != null)
                     .Select(linker => linker.item)
-                    .First(item => item.Data.type == targetItemType);
+                    .FirstOrDefault(item => item.Data.type == 3 || item.Data.type == 4);     //篩選直路彎路
 
-                result.Add(pos, item.Data);
+                if (item != null)
+                {
+                    result.Add(pos * 0.5F, item.Data);
+                }
             }
 
 
@@ -292,6 +294,34 @@ namespace MapEditor
 
         }
 
+
+        public static List<Vector3> GetConnectPorts(ItemData itemData)
+        {
+            List<Vector3> result = new List<Vector3>();
+
+            //這裡先寫死Rot=0時，ConnectPorts的定義
+            if (itemData.type == 3)         //直路
+            {
+                result.Add(new Vector3(0, 0, 0.5F));
+                result.Add(new Vector3(0, 0, -0.5F));
+            }
+            else if (itemData.type == 4)    //彎路
+            {
+                result.Add(new Vector3(0, 0, 0.5F));
+                result.Add(new Vector3(-0.5F, 0, 0));
+            }
+
+            //
+
+            //根據該 Item 角度，轉換 Port 的對應位置
+            float itemRot = itemData.itemRot;
+            Quaternion q = Quaternion.AngleAxis(itemRot, Vector3.up);
+
+            result = result.Select(port => q * port).ToList();
+
+            return result;
+
+        }
 
 
         //--
