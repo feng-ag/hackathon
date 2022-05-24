@@ -418,7 +418,7 @@ public class MapEditorManager : MonoBehaviour
         void TriggerConnect(UserItemPainterData itemPainter, ItemData itemData)
         {
             var connects = ItemData.GetConnectItems(itemData);
-            var connectPorts = ItemData.GetConnectPorts(itemData).Select(port => port + itemData.itemPos);
+
 
 
             if (connects.Count == 0)
@@ -455,6 +455,21 @@ public class MapEditorManager : MonoBehaviour
             }
 
 
+            bool IsConnectFull(ItemData itemData)
+            {
+                var ports = ItemData.GetConnectPorts(itemData);
+                var connects = ItemData.GetConnectItems(itemData).Keys;
+
+                // is connects including ports
+                bool result = ports.All(p =>  connects.Any(c => c == p));
+
+                //Debug.Log($"{string.Join(",", connects)}\n{string.Join(",", ports)}\n{result}");
+
+
+                return result;
+            }
+
+
             void ChangeItem(ItemData itemData, int newType, float rot)
             {
                 if(itemData.type != newType && itemData.itemRot != rot)
@@ -478,9 +493,15 @@ public class MapEditorManager : MonoBehaviour
             }
 
 
-
             void FixItem(ItemData rootItemData, ItemData itemData)
             {
+
+                if (IsConnectFull(itemData))
+                {
+                    //Debug.Log($"{itemData.id} is connect full!");
+                    return;
+                }
+
                 //Debug.Log($"{itemData.id} ----------");
 
                 var v1ConnectPorts = ItemData.GetConnectPorts(itemData).Select(port => port + itemData.itemPos);
