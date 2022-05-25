@@ -417,16 +417,18 @@ public class MapEditorManager : MonoBehaviour
 
         void TriggerConnect(UserItemPainterData itemPainter, ItemData itemData)
         {
-            var connects = ItemData.GetConnectItems(itemData);
+            var connects = ItemData.GetConnectItems(itemData).Where(i => IsConnectFull(i.Value) == false);
 
+            Debug.Log($"?? {string.Join(",", ItemData.GetConnectItems(itemData).Select(n => n.Value.id))}");
 
+            int connectCount = connects.Count();
 
-            if (connects.Count == 0)
+            if (connectCount == 0)
             {
                 //周邊沒有任何東西
                 return;
             }
-            else if (connects.Count == 1)
+            else if (connectCount == 1)
             {
                 //週邊一格有東西
                 var v1 = connects.First();
@@ -434,7 +436,7 @@ public class MapEditorManager : MonoBehaviour
                 FixItem(itemData, v1.Value);
 
             }
-            else if (connects.Count == 2)
+            else if (connectCount == 2)
             {
                 var v1 = connects.First();
                 var v2 = connects.Skip(1).First();
@@ -443,7 +445,7 @@ public class MapEditorManager : MonoBehaviour
                 FixItem(itemData, v2.Value);
                 ConnectItem(itemData, new[] { v1.Key, v2.Key });
             }
-            else if (connects.Count == 3)
+            else if (connectCount == 3)
             {
                 var v1 = connects.First();
                 var v2 = connects.Skip(1).First();
@@ -458,17 +460,102 @@ public class MapEditorManager : MonoBehaviour
             bool IsConnectFull(ItemData itemData)
             {
                 var ports = ItemData.GetConnectPorts(itemData);
-                var connects = ItemData.GetConnectItems(itemData).Keys;
+                var connects = ItemData.GetConnectItems(itemData);
 
                 // is connects including ports
-                bool result = ports.All(p =>  connects.Any(c => c == p));
+                //bool result = ports.All(p =>  connects.Any(c => c.Key == p));
 
-                //Debug.Log($"{string.Join(",", connects)}\n{string.Join(",", ports)}\n{result}");
+
+
+
+
+
+                //Debug.Log($"Is {itemData.id} connect full: ({string.Join(",", ports)} / {string.Join(",", connects.Keys)})");
+                int count = connects
+                    .Where(c =>
+                    {
+                        var r = ports.Any(p => p == c.Key);
+
+                        //Debug.Log($"{c.Key} => {r}");
+
+                        return r;
+                    })      // 取得與 itemData port 連接的鄰格
+                    .Where(o =>
+                    {
+                        var dirPort = o.Key;
+                        var neighbor = o.Value;
+
+                        var neighborPorts = ItemData.GetConnectPorts(neighbor);
+
+                        //Debug.Log($"  {dirPort} ~~ {string.Join(",", neighborPorts)}");
+
+                        return neighborPorts.Any(v =>
+                        {
+                            //Debug.Log($"    COUNT {v * -1} == {dirPort} -> {v * -1 == dirPort}");
+                            return v * -1 == dirPort;
+                        });
+                    })                           // 列出與鄰格 ports 與 dir 相反 (即對接)
+                    .Count();
+
+
+                foreach (var port in ports)
+                {
+                    GameObject g = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    g.transform.position = itemData.itemPos + port;
+                    g.transform.localScale = Vector3.one * 0.1F;
+                }
+
+                //Debug.Log($"result ({count} == {ports.Count})");
+                //Debug.Log($"---------------");
+
+                bool result = count == ports.Count;
+
+
+
+                //Debug.Log($"{string.Join(",", ports)}\n{string.Join(",", connects.Keys)}");
+
+                //bool result = ports
+                //    .Where(p => connects.ContainsKey(p))
+                //    .All(p => isConnected(itemData, p, connects[p]));
+
+
+                if (result)
+                {
+                    GameObject g = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    g.transform.position = itemData.itemPos;
+                    g.transform.localScale = Vector3.one * 0.5F;
+                }
+                else
+                {
+                    GameObject g = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    g.transform.position = itemData.itemPos;
+                    g.transform.localScale = Vector3.one * 0.25F;
+                }
+
 
 
                 return result;
             }
 
+
+            //bool isConnected(ItemData itemData, Vector3 port, ItemData otherItemData)
+            //{
+            //    var ports = ItemData.GetConnectPorts(otherItemData);
+            //    var connects = ItemData.GetConnectItems(otherItemData);
+
+
+            //    Debug.Log($"{itemData.id} - {otherItemData.id} : \n{string.Join(",", connects.Keys)}\n");
+
+            //    bool result = ports.All(p =>
+            //    {
+            //        var checkConnects = connects.Where(c => c.Key == p);
+
+            //        return checkConnects.Any(c => p * -1 == port);
+
+            //    });
+
+            //    return result;
+            //}
 
             void ChangeItem(ItemData itemData, int newType, float rot)
             {
