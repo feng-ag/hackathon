@@ -417,50 +417,63 @@ public class MapEditorManager : MonoBehaviour
 
         void TriggerConnect(UserItemPainterData itemPainter, ItemData itemData)
         {
-            var connects = ItemData.GetConnectItems(itemData).Where(i => IsConnectFull(i.Value) == false);
+            var connects = ItemData.GetNeighborItems(itemData);
+            var connecteds = connects.Where(i => IsConnectFull(i.Value) == false);
 
-            Debug.Log($"?? {string.Join(",", ItemData.GetConnectItems(itemData).Select(n => n.Value.id))}");
+            int connectedCount = connecteds.Count();
 
-            int connectCount = connects.Count();
+            Debug.Log($"${itemData.GetShortId()}({connectedCount}) : {string.Join(" | ", connects.Select(n => n.Value.GetShortId()))}");
 
-            if (connectCount == 0)
+
+            if (connectedCount == 0)
             {
                 //周邊沒有任何東西
+
+
+                ////尋找未連接鄰格
+                //var v1 = connecteds.First();
+
+
                 return;
             }
-            else if (connectCount == 1)
+            else if (connectedCount == 1)
             {
                 //週邊一格有東西
-                var v1 = connects.First();
+                var v1 = connecteds.First();
 
                 FixItem(itemData, v1.Value);
+                FixItem(v1.Value, itemData);
+
+                //ConnectItem(itemData, new[] { v1.Key, v1.Key * -1 });   //給一個直線路
 
             }
-            else if (connectCount == 2)
+            else if (connectedCount == 2)
             {
-                var v1 = connects.First();
-                var v2 = connects.Skip(1).First();
+                var v1 = connecteds.First();
+                var v2 = connecteds.Skip(1).First();
 
                 FixItem(itemData, v1.Value);
                 FixItem(itemData, v2.Value);
+
                 ConnectItem(itemData, new[] { v1.Key, v2.Key });
             }
-            else if (connectCount == 3)
+            else if (connectedCount == 3)
             {
-                var v1 = connects.First();
-                var v2 = connects.Skip(1).First();
-                var v3 = connects.Skip(2).First();
+                var v1 = connecteds.First();
+                var v2 = connecteds.Skip(1).First();
+                var v3 = connecteds.Skip(2).First();
 
                 FixItem(itemData, v1.Value);
                 FixItem(itemData, v2.Value);
                 FixItem(itemData, v3.Value);
+                //ConnectItem(itemData, new[] { v1.Key, v2.Key });   //連接 v1 和 v2
             }
 
 
             bool IsConnectFull(ItemData itemData)
             {
                 var ports = ItemData.GetConnectPorts(itemData);
-                var connects = ItemData.GetConnectItems(itemData);
+                var connects = ItemData.GetNeighborItems(itemData);
 
                 // is connects including ports
                 //bool result = ports.All(p =>  connects.Any(c => c.Key == p));
@@ -537,7 +550,6 @@ public class MapEditorManager : MonoBehaviour
                 return result;
             }
 
-
             //bool isConnected(ItemData itemData, Vector3 port, ItemData otherItemData)
             //{
             //    var ports = ItemData.GetConnectPorts(otherItemData);
@@ -559,7 +571,7 @@ public class MapEditorManager : MonoBehaviour
 
             void ChangeItem(ItemData itemData, int newType, float rot)
             {
-                if(itemData.type != newType && itemData.itemRot != rot)
+                if(itemData.type != newType)
                 {
                     StartCoroutine(EmbedNew(itemData, newType, rot));
                 }
@@ -567,6 +579,7 @@ public class MapEditorManager : MonoBehaviour
                 {
                     itemData.item.SetRotation(rot);
                 }
+
 
 
                 IEnumerator EmbedNew(ItemData itemData, int newType, float rot)
@@ -585,21 +598,35 @@ public class MapEditorManager : MonoBehaviour
 
                 if (IsConnectFull(itemData))
                 {
-                    //Debug.Log($"{itemData.id} is connect full!");
+                    Debug.Log($"{itemData.GetShortId()} is connect full!");
                     return;
                 }
 
-                //Debug.Log($"{itemData.id} ----------");
+                Debug.Log($"Fix {itemData.GetShortId()} (Root: {rootItemData.GetShortId()} ) ----------");
 
                 var v1ConnectPorts = ItemData.GetConnectPorts(itemData).Select(port => port + itemData.itemPos);
-                var v1ConnectItems = ItemData.GetConnectItems(itemData);
+                var v1ConnectItems = ItemData.GetNeighborItems(itemData);
 
 
-                var v1OtherConnectSet = v1ConnectItems.Where(m => m.Value != rootItemData).Select(m => m.Key);
-                if (v1OtherConnectSet.Any())
+                var v1OtherConnectSet = v1ConnectItems.Where(m => m.Value != rootItemData).Select(m => m);
+                if (v1OtherConnectSet.Any())    //有連接任意格
                 {
-                    var v1OtherConnect = v1OtherConnectSet.First();
                     var v1AbsConnect = v1ConnectItems.First(m => m.Value == rootItemData).Key;
+
+                    Debug.Log($"{itemData.GetShortId()} ==> {string.Join(",", v1OtherConnectSet.Select(v => v.Key))}");
+
+                    //優先選擇沒有 ConnectFull的連接
+                    Vector3 v1OtherConnect = v1OtherConnectSet.First().Key;
+                    var o = v1ConnectItems.Where(item => {
+                        var c = ItemData.GetConnectItems(item.Value);
+                        bool otherIsConnect = c.Any(oo => oo.Value == itemData);
+                        return otherIsConnect;
+                    });
+                    if (o.Any())
+                    {
+                        v1OtherConnect = o.First().Key;
+                    }
+
 
 
                     if (itemData.type == 3 || itemData.type == 4)
@@ -614,6 +641,13 @@ public class MapEditorManager : MonoBehaviour
                         ConnectItem(itemData, new[] { v1AbsConnect, v1OtherConnect });
                     }
                 }
+                else    //完全無連接
+                {
+                    var rootDir = v1ConnectItems.First(m => m.Value == rootItemData).Key;
+
+
+                    ConnectItem(itemData, new[] { rootDir, rootDir * -1 });
+                }
             }
 
 
@@ -624,7 +658,7 @@ public class MapEditorManager : MonoBehaviour
                 float otherAngle = (Vector3.SignedAngle(zeroVec, dirs[1], Vector3.up) + 360) % 360;     //0 ~ 360
                 float deltaAngle = Mathf.Abs(absAngle - otherAngle);
 
-                //Debug.Log($"abs:{absAngle}, other:{otherAngle}, delta:{deltaAngle}");
+                Debug.Log($"Connect {itemData.GetShortId()} | abs:{absAngle}, other:{otherAngle}, delta:{deltaAngle}");
 
                 if (deltaAngle % 180 == 0F)     //直
                 {
@@ -657,6 +691,17 @@ public class MapEditorManager : MonoBehaviour
                     ChangeItem(itemData, 4, resultAngle);
                 }
             }
+
+            //void ConnectItemNextFixedUpdate(ItemData itemData, Vector3[] dirs)
+            //{
+            //    StartCoroutine(Task());
+
+            //    IEnumerator Task()
+            //    {
+            //        yield return new WaitForFixedUpdate();
+            //        ConnectItem(itemData, dirs);
+            //    }
+            //}
         }
     }
 

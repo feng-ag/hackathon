@@ -32,6 +32,10 @@ namespace MapEditor
         [JsonIgnore]
         public ItemTypeData TypeData => MapEditorManager.Instance.itemTypeDataGroup.GetTypeData(type);
 
+        public string GetShortId()
+        {
+            return id.Substring(0, 8);
+        }
 
         /*
          
@@ -254,7 +258,7 @@ namespace MapEditor
         };
 
 
-        public static Dictionary<Vector3, ItemData> GetConnectItems(ItemData itemData)
+        public static Dictionary<Vector3, ItemData> GetNeighborItems(ItemData itemData)
         {
             // NOTICE:
             // 只適用 1x1 物件
@@ -291,6 +295,18 @@ namespace MapEditor
 
 
             return result;
+
+        }
+
+
+        public static Dictionary<Vector3, ItemData> GetConnectItems(ItemData itemData)
+        {
+            var neighbors = GetNeighborItems(itemData);
+            var ports = GetConnectPorts(itemData);
+
+            var result = neighbors.Where(n => ports.Any(p => p == n.Key));
+
+            return result.ToDictionary(d => d.Key, d => d.Value);
 
         }
 

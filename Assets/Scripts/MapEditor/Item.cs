@@ -62,6 +62,8 @@ namespace MapEditor
             Quaternion rot = Quaternion.Euler(0, data.itemRot, 0);
             root.rotation = rot;
             gridRoot.rotation = rot;
+
+            gameObject.name = $"{TypeData.name} | {Data.id.Substring(0, 8)}";
         }
 
 
