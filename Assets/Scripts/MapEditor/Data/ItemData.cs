@@ -37,6 +37,29 @@ namespace MapEditor
             return id.Substring(0, 8);
         }
 
+        public class EmbedRequest
+        {
+            public enum RequestType
+            {
+                Embed,
+                UnEmbed,
+            }
+
+            public RequestType requestType;
+
+            // Embed
+            public Vector3 objectPos;
+            public int type;
+            public float rot;
+            public Transform root;
+            public string id = null;
+
+            // UnEmbed
+            public ItemData itemData;
+        }
+
+
+
         /*
          
         ObjectPos

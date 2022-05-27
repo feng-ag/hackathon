@@ -37,15 +37,18 @@ namespace MapEditor
         public void AddItem(ItemData itemData)
         {
             currentMap.items.Add(itemData);
+            IsDirty = true;
         }
 
 
         public void RemoveItem(ItemData itemData)
         {
             currentMap.items.Remove(itemData);
+            IsDirty = true;
         }
 
 
+        public bool IsDirty { get; set; } = false;  //Reset to false every fixed update.
 
 
         public IEnumerator LoadMap(string mapJson, Transform root)

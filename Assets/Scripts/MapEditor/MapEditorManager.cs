@@ -360,6 +360,21 @@ public class MapEditorManager : MonoBehaviour
 
     void TriggerPlaceAt(Vector3 mousePosition)
     {
+        if (MapDataManager.Instance.IsDirty)
+        {
+            //Debug.Log("Wait for not dirty");
+            return;
+        }
+
+
+        if (embedRequestList.Count > 0)
+        {
+            //Debug.Log("Wait for embed queue clear.");
+            return;
+        }
+
+
+
         Ray ray = cam.ScreenPointToRay(mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hitInfo2, 1000, groundLayer.value))
         {
@@ -455,7 +470,7 @@ public class MapEditorManager : MonoBehaviour
                 FixItem(itemData, v1.Value);
                 FixItem(itemData, v2.Value);
 
-                ConnectItem(itemData, new[] { v1.Key, v2.Key });
+                ConnectItemNFixedUpdate(itemData, new[] { v1.Key, v2.Key }, 1);
             }
             else if (connectedCount == 3)
             {
@@ -573,7 +588,22 @@ public class MapEditorManager : MonoBehaviour
             {
                 if(itemData.type != newType)
                 {
-                    StartCoroutine(EmbedNew(itemData, newType, rot));
+                    //StartCoroutine(EmbedNew(itemData, newType, rot));
+                    embedRequestList.Enqueue(new ItemData.EmbedRequest
+                    {
+                        requestType = ItemData.EmbedRequest.RequestType.UnEmbed,
+                        itemData = itemData,
+                    });
+
+                    embedRequestList.Enqueue(new ItemData.EmbedRequest
+                    {
+                        requestType = ItemData.EmbedRequest.RequestType.Embed,
+                        objectPos = itemData.itemPos,
+                        type = newType,
+                        rot = rot,
+                        root = itemRoot,
+                        id = itemData.id,
+                    });
                 }
                 else if(itemData.itemRot != rot)
                 {
@@ -614,14 +644,17 @@ public class MapEditorManager : MonoBehaviour
                     var v1AbsConnect = v1ConnectItems.First(m => m.Value == rootItemData).Key;
 
                     Debug.Log($"{itemData.GetShortId()} ==> {string.Join(",", v1OtherConnectSet.Select(v => v.Key))}");
+                    Debug.Log($"{itemData.GetShortId()} >> {string.Join(",", v1ConnectItems.Select(v => v.Key))}");
 
-                    //優先選擇沒有 ConnectFull的連接
+                    //優先選擇已指向 itemData 的對象來連接
                     Vector3 v1OtherConnect = v1OtherConnectSet.First().Key;
-                    var o = v1ConnectItems.Where(item => {
-                        var c = ItemData.GetConnectItems(item.Value);
-                        bool otherIsConnect = c.Any(oo => oo.Value == itemData);
-                        return otherIsConnect;
-                    });
+                    var o = v1OtherConnectSet
+                        .Where(item =>
+                        {
+                            var c = ItemData.GetConnectItems(item.Value);
+                            bool otherIsConnect = c.Any(oo => oo.Value == itemData);
+                            return otherIsConnect;
+                        });
                     if (o.Any())
                     {
                         v1OtherConnect = o.First().Key;
@@ -692,16 +725,25 @@ public class MapEditorManager : MonoBehaviour
                 }
             }
 
-            //void ConnectItemNextFixedUpdate(ItemData itemData, Vector3[] dirs)
-            //{
-            //    StartCoroutine(Task());
+            void ConnectItemNFixedUpdate(ItemData itemData, Vector3[] dirs, int times)
+            {
+                StartCoroutine(Task());
 
-            //    IEnumerator Task()
-            //    {
-            //        yield return new WaitForFixedUpdate();
-            //        ConnectItem(itemData, dirs);
-            //    }
-            //}
+                IEnumerator Task()
+                {
+                    while (embedRequestList.Count > 0)
+                    {
+                        yield return null;
+                    }
+
+                    for (int i = 0; i < times; i++)
+                    {
+                        yield return new WaitForFixedUpdate();
+                    }
+
+                    ConnectItem(itemData, dirs);
+                }
+            }
         }
     }
 
@@ -749,8 +791,27 @@ public class MapEditorManager : MonoBehaviour
     }
 
 
+    readonly Queue<ItemData.EmbedRequest> embedRequestList = new Queue<ItemData.EmbedRequest>();
+
     void FixedUpdate()
     {
+
+        MapDataManager.Instance.IsDirty = false;
+
+        if (embedRequestList.Count > 0)
+        {
+            ItemData.EmbedRequest request = embedRequestList.Dequeue();
+            if (request.requestType == ItemData.EmbedRequest.RequestType.Embed)
+            {
+                ItemData.Embed(request.objectPos, request.type, request.rot, request.root, request.id);
+            }
+            else if (request.requestType == ItemData.EmbedRequest.RequestType.UnEmbed)
+            {
+                ItemData.UnEmbed(request.itemData);
+            }
+        }
+
+
         if (EventSystem.current == null)
         {
             return;
