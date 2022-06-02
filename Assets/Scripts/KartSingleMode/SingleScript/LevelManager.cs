@@ -4,6 +4,7 @@
     using UnityEngine.SceneManagement;
     using ArcadeGalaxyKit;
     using KartGame.KartSystems;
+    using MapEditor;
 
     public class LevelManager : MonoBehaviour
     {
